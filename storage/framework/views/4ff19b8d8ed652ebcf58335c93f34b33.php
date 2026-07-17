@@ -34,7 +34,7 @@
 
     <h2 class="mb-3 font-semibold"><?php echo e(__('Reserva tu turno')); ?></h2>
 
-    <?php if($services->isEmpty()): ?>
+    <?php if(empty($services)): ?>
         <p class="rounded-2xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">
             <?php echo e(__('Este negocio todavía no tiene servicios disponibles para reservar.')); ?>
 
@@ -46,21 +46,21 @@
                     <div class="flex items-center justify-between gap-3">
                         <div>
                             <p class="font-semibold">
-                                <?php echo e($service->name); ?>
+                                <?php echo e($service['name']); ?>
 
-                                <?php if($service->mode === \App\Enums\ServiceMode::Virtual): ?>
+                                <?php if($service['mode'] === \App\Enums\ServiceMode::Virtual->value): ?>
                                     <span class="ml-1 rounded bg-brand-100 px-2 py-0.5 text-xs text-brand-900 dark:bg-brand-900 dark:text-brand-100"><?php echo e(__('Virtual')); ?></span>
                                 <?php endif; ?>
                             </p>
                             <p class="text-sm text-slate-600 dark:text-slate-400">
-                                <?php echo e($service->duration_minutes); ?> min
-                                <?php if($service->price !== null): ?>
-                                    · $<?php echo e(number_format((float) $service->price, 0, ',', '.')); ?>
+                                <?php echo e($service['duration_minutes']); ?> min
+                                <?php if($service['price'] !== null): ?>
+                                    · $<?php echo e(number_format((float) $service['price'], 0, ',', '.')); ?>
 
                                 <?php endif; ?>
                             </p>
                         </div>
-                        <a href="<?php echo e(route('public.professional', [$business, $service])); ?>"
+                        <a href="<?php echo e(route('public.professional', [$business, $service['id']])); ?>"
                            class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">
                             <?php echo e(__('Reservar')); ?>
 
@@ -71,18 +71,18 @@
         </ul>
     <?php endif; ?>
 
-    <?php if($reviews->isNotEmpty()): ?>
+    <?php if(! empty($reviews)): ?>
         <section class="mt-8">
             <h2 class="mb-3 font-semibold"><?php echo e(__('Reseñas')); ?></h2>
             <ul class="space-y-3">
                 <?php $__currentLoopData = $reviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $review): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="rounded-2xl bg-white p-4 text-sm shadow-sm dark:bg-slate-800">
                         <p>
-                            <span aria-hidden="true" class="text-amber-500"><?php echo e(str_repeat('★', $review->rating)); ?></span>
-                            <span class="sr-only"><?php echo e(trans_choice(':count estrella|:count estrellas', $review->rating)); ?></span>
-                            <span class="ml-1 font-medium"><?php echo e($review->client_name); ?></span>
+                            <span aria-hidden="true" class="text-amber-500"><?php echo e(str_repeat('★', $review['rating'])); ?></span>
+                            <span class="sr-only"><?php echo e(trans_choice(':count estrella|:count estrellas', $review['rating'])); ?></span>
+                            <span class="ml-1 font-medium"><?php echo e($review['client_name']); ?></span>
                         </p>
-                        <p class="mt-1 text-slate-600 dark:text-slate-400"><?php echo e($review->comment); ?></p>
+                        <p class="mt-1 text-slate-600 dark:text-slate-400"><?php echo e($review['comment']); ?></p>
                     </li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
