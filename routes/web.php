@@ -18,6 +18,7 @@ use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\PublicBookingController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\WaitlistController;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,9 @@ Route::middleware('guest')->group(function () {
 
 Route::get('explorar', [DirectoryController::class, 'index'])->name('directory');
 Route::get('explorar/rubro/{category}', [DirectoryController::class, 'index'])->name('directory.category');
+
+Route::get('sitemap.xml', [SitemapController::class, 'sitemap'])->name('sitemap');
+Route::get('robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 Route::get('feeds/{token}.ics', [FeedController::class, 'professional'])
     ->middleware('throttle:60,1')->name('feeds.professional');
