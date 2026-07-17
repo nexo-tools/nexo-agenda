@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $business_id
+ * @property string $name
+ * @property int $duration_minutes
+ * @property string|null $price
  * @property ServiceMode $mode
  * @property bool $is_active
  */
