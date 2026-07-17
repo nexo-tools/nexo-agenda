@@ -31,6 +31,11 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::get('t/{token}', [BookingManagementController::class, 'show'])->name('booking.manage');
+Route::post('t/{token}/cancelar', [BookingManagementController::class, 'cancel'])
+    ->middleware('throttle:10,1')->name('booking.cancel');
+Route::get('t/{token}/reprogramar', [BookingManagementController::class, 'reschedule'])->name('booking.reschedule');
+Route::post('t/{token}/reprogramar', [BookingManagementController::class, 'update'])
+    ->middleware('throttle:10,1')->name('booking.reschedule.update');
 
 Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

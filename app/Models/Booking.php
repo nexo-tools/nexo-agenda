@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
  * @property CarbonImmutable $ends_at
  * @property CarbonImmutable|null $reminded_at
  * @property CarbonImmutable|null $cancelled_at
+ * @property BookingStatus $status
  */
 #[Fillable([
     'professional_id', 'service_id', 'client_name', 'client_email', 'client_phone',
@@ -74,5 +75,24 @@ class Booking extends Model
     public static function findByManagementToken(string $token): ?self
     {
         return static::where('management_token', hash('sha256', $token))->first();
+    }
+
+    public function managementDeadline(): CarbonImmutable
+    {
+        return $this->starts_at->subHours($this->service->cancellation_hours);
+    }
+
+    public function clientCanManage(): bool
+    {
+        return $this->status === BookingStatus::Confirmed
+            && CarbonImmutable::now()->lt($this->managementDeadline());
+    }
+
+    public function cancel(): void
+    {
+        $this->forceFill([
+            'status' => BookingStatus::Cancelled,
+            'cancelled_at' => CarbonImmutable::now(),
+        ])->save();
     }
 }

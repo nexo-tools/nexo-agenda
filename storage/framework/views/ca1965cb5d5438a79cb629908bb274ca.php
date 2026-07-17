@@ -60,6 +60,33 @@
         <?php endif; ?>
     </div>
 
+    <?php if($booking->clientCanManage()): ?>
+        <div class="mt-4 flex gap-3">
+            <a href="<?php echo e(route('booking.reschedule', $token)); ?>"
+               class="flex-1 rounded-lg border border-brand-700 px-4 py-2 text-center text-sm font-semibold text-brand-700 hover:bg-brand-50 dark:border-brand-400 dark:text-brand-400 dark:hover:bg-slate-800">
+                <?php echo e(__('Reprogramar')); ?>
+
+            </a>
+            <form method="POST" action="<?php echo e(route('booking.cancel', $token)); ?>" class="flex-1"
+                  onsubmit="return confirm(<?php echo \Illuminate\Support\Js::from(__('¿Cancelar tu turno?'))->toHtml() ?>)">
+                <?php echo csrf_field(); ?>
+                <button class="w-full rounded-lg border border-red-600 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 dark:border-red-400 dark:text-red-400 dark:hover:bg-slate-800">
+                    <?php echo e(__('Cancelar turno')); ?>
+
+                </button>
+            </form>
+        </div>
+        <p class="mt-2 text-center text-xs text-slate-500">
+            <?php echo e(__('Puedes cancelar o reprogramar hasta :hours h antes.', ['hours' => $booking->service->cancellation_hours])); ?>
+
+        </p>
+    <?php elseif($booking->status === \App\Enums\BookingStatus::Confirmed): ?>
+        <p class="mt-4 text-center text-xs text-slate-500">
+            <?php echo e(__('El plazo para cancelar o reprogramar en línea ya pasó. Contacta al negocio.')); ?>
+
+        </p>
+    <?php endif; ?>
+
     <p class="mt-4 text-center text-xs text-slate-500">
         <?php echo e(__('Guarda este enlace: es tu comprobante y desde aquí gestionas tu turno.')); ?>
 

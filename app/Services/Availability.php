@@ -17,7 +17,7 @@ class Availability
      *
      * @return Collection<int, CarbonImmutable>
      */
-    public function slots(Service $service, Professional $professional, CarbonImmutable $day): Collection
+    public function slots(Service $service, Professional $professional, CarbonImmutable $day, ?Booking $ignore = null): Collection
     {
         $business = $service->business;
         $tz = $business->timezone;
@@ -50,7 +50,7 @@ class Availability
             return collect();
         }
 
-        $occupied = $this->occupiedIntervals($professional, $day);
+        $occupied = $this->occupiedIntervals($professional, $day, $ignore);
 
         $slotLength = $service->duration_minutes + $service->buffer_minutes;
         $minStart = $now->addHours($service->min_notice_hours);
@@ -130,10 +130,11 @@ class Availability
      *
      * @return Collection<int, array{0: CarbonImmutable, 1: CarbonImmutable}>
      */
-    private function occupiedIntervals(Professional $professional, CarbonImmutable $day): Collection
+    private function occupiedIntervals(Professional $professional, CarbonImmutable $day, ?Booking $ignore = null): Collection
     {
         return $professional->bookings()
             ->occupying()
+            ->when($ignore !== null, fn ($query) => $query->whereKeyNot($ignore->getKey()))
             ->with('service:id,buffer_minutes')
             ->where('starts_at', '<', $day->addDay()->utc())
             ->where('ends_at', '>', $day->subDay()->utc())
