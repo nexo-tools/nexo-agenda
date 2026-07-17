@@ -46,12 +46,14 @@ Route::get('explorar/rubro/{category}', [DirectoryController::class, 'index'])->
 Route::get('feeds/{token}.ics', [FeedController::class, 'professional'])
     ->middleware('throttle:60,1')->name('feeds.professional');
 
-Route::get('t/{token}', [BookingManagementController::class, 'show'])->name('booking.manage');
+Route::middleware('throttle:30,1')->group(function () {
+    Route::get('t/{token}', [BookingManagementController::class, 'show'])->name('booking.manage');
+    Route::get('t/{token}/reprogramar', [BookingManagementController::class, 'reschedule'])->name('booking.reschedule');
+});
 Route::post('t/{token}/resena', [ReviewController::class, 'store'])
     ->middleware('throttle:10,1')->name('booking.review');
 Route::post('t/{token}/cancelar', [BookingManagementController::class, 'cancel'])
     ->middleware('throttle:10,1')->name('booking.cancel');
-Route::get('t/{token}/reprogramar', [BookingManagementController::class, 'reschedule'])->name('booking.reschedule');
 Route::post('t/{token}/reprogramar', [BookingManagementController::class, 'update'])
     ->middleware('throttle:10,1')->name('booking.reschedule.update');
 

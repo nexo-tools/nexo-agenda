@@ -28,7 +28,41 @@
                 <?php echo e(__('Reservas online para tu negocio. Open source, sin comisiones.')); ?>
 
             </p>
-            <p class="text-sm text-slate-500 dark:text-slate-500"><?php echo e(__('Muy pronto.')); ?></p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="<?php echo e(route('register')); ?>"
+                   class="rounded-lg bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-800">
+                    <?php echo e(__('Crear cuenta gratis')); ?>
+
+                </a>
+                <a href="<?php echo e(route('directory')); ?>"
+                   class="rounded-lg border border-brand-700 px-5 py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50 dark:border-brand-400 dark:text-brand-400 dark:hover:bg-slate-800">
+                    <?php echo e(__('Explorar negocios')); ?>
+
+                </a>
+            </div>
+            <?php if(auth()->guard()->check()): ?>
+                <a href="<?php echo e(route('dashboard')); ?>" class="text-sm text-brand-700 hover:underline dark:text-brand-400"><?php echo e(__('Ir a mi agenda')); ?></a>
+            <?php endif; ?>
+            <?php if (isset($component)) { $__componentOriginal7b69d71eac2771bb6249ff4d7cc262ee = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal7b69d71eac2771bb6249ff4d7cc262ee = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.locale-switcher','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('locale-switcher'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal7b69d71eac2771bb6249ff4d7cc262ee)): ?>
+<?php $attributes = $__attributesOriginal7b69d71eac2771bb6249ff4d7cc262ee; ?>
+<?php unset($__attributesOriginal7b69d71eac2771bb6249ff4d7cc262ee); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal7b69d71eac2771bb6249ff4d7cc262ee)): ?>
+<?php $component = $__componentOriginal7b69d71eac2771bb6249ff4d7cc262ee; ?>
+<?php unset($__componentOriginal7b69d71eac2771bb6249ff4d7cc262ee); ?>
+<?php endif; ?>
         </main>
     </body>
 </html>
