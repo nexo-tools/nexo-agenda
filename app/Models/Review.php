@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @property int $business_id
  * @property bool $is_hidden
  */
 #[Fillable(['booking_id', 'rating', 'comment', 'client_name', 'is_hidden'])]

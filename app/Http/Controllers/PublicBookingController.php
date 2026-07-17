@@ -11,6 +11,7 @@ use App\Models\Professional;
 use App\Models\Service;
 use App\Services\Availability;
 use App\Services\BusinessStats;
+use App\Services\PublicPageCache;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
@@ -23,16 +24,15 @@ class PublicBookingController extends Controller
 {
     public function __construct(private readonly Availability $availability) {}
 
-    public function business(Request $request, Business $business): View
+    public function business(Request $request, Business $business, PublicPageCache $cache): View
     {
+        // Visit recording stays live per request; the page data itself is cached
+        // and invalidated by model events (services, reviews, business settings).
         app(BusinessStats::class)->recordVisit($business, $request);
 
         return view('public.business', [
             'business' => $business,
-            'services' => $business->services()->where('is_active', true)->orderBy('name')->get(),
-            'ratingAverage' => round((float) $business->visibleReviews()->avg('rating'), 1),
-            'ratingCount' => $business->visibleReviews()->count(),
-            'reviews' => $business->visibleReviews()->latest()->whereNotNull('comment')->take(3)->get(),
+            ...$cache->businessPage($business),
         ]);
     }
 
