@@ -35,10 +35,13 @@ jobs:
           node-version: 22
           cache: npm
 
+      - run: npm ci
+
+      - name: Translations (check in sync)
+        run: node scripts/generate-translations.mjs --check
+
       - name: Build assets
-        run: |
-          npm ci
-          npm run build
+        run: npm run build
 
       - name: Pest (tests)
         run: |
