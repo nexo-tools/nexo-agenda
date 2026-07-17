@@ -92,9 +92,9 @@ MAIL_MAILER=smtp
 MAIL_HOST=smtp.hostinger.com
 MAIL_PORT=465
 MAIL_ENCRYPTION=ssl
-MAIL_USERNAME=hola@nexoagenda.alvarocdev.com
+MAIL_USERNAME=nexoagenda@alvarocdev.com
 MAIL_PASSWORD=your_mailbox_password
-MAIL_FROM_ADDRESS="hola@nexoagenda.alvarocdev.com"
+MAIL_FROM_ADDRESS="nexoagenda@alvarocdev.com"
 MAIL_FROM_NAME="${APP_NAME}"
 
 # Optional "powered by" attribution footer

@@ -13,7 +13,7 @@ Report privately through one of these channels:
 
 - **GitHub** — use [Security Advisories](https://github.com/alvarocdev-git/nexo-agenda/security/advisories/new)
   ("Report a vulnerability") on this repository.
-- **Email** — hola@alvarocdev.com
+- **Email** — nexoagenda@alvarocdev.com
 
 Please include:
 
