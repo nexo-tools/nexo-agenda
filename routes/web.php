@@ -5,8 +5,10 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\BookingManagementController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfessionalController;
+use App\Http\Controllers\PublicBookingController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +30,8 @@ Route::middleware('guest')->group(function () {
         ->middleware('throttle:5,1')->name('password.store');
 });
 
+Route::get('t/{token}', [BookingManagementController::class, 'show'])->name('booking.manage');
+
 Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
@@ -40,3 +44,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('absences/{absence}', [AbsenceController::class, 'destroy'])->name('absences.destroy');
     });
 });
+
+// Public booking pages — the slug catch-all must stay at the very end.
+Route::scopeBindings()->group(function () {
+    Route::get('{business:slug}/reservar/{service}', [PublicBookingController::class, 'professional'])->name('public.professional');
+    Route::get('{business:slug}/reservar/{service}/horarios', [PublicBookingController::class, 'times'])->name('public.times');
+    Route::get('{business:slug}/reservar/{service}/datos', [PublicBookingController::class, 'form'])->name('public.form');
+    Route::post('{business:slug}/reservar/{service}', [PublicBookingController::class, 'store'])
+        ->middleware('throttle:15,1')->name('public.store');
+});
+Route::get('{business:slug}', [PublicBookingController::class, 'business'])->name('public.business');
