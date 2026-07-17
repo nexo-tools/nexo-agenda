@@ -23,3 +23,14 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# Content-Security-Policy at the web-server level. The app already sets this same
+# policy in the SecurityHeaders middleware, but some hosts (e.g. Hostinger's
+# LiteSpeed "Force HTTPS") inject their own `Content-Security-Policy:
+# upgrade-insecure-requests` and replace the PHP-set header. Re-asserting it here
+# (with `always`) wins over that override. Keep this in sync with
+# app/Http/Middleware/SecurityHeaders.php.
+<IfModule mod_headers.c>
+    Header always unset Content-Security-Policy
+    Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' data:; font-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'"
+</IfModule>
