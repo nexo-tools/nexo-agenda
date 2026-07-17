@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: mbstring, intl, pdo_sqlite
+          coverage: none
+
+      - uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Pint (code style)
+        run: vendor/bin/pint --test
+
+      - name: Larastan (static analysis)
+        run: vendor/bin/phpstan analyse --no-progress
+
+      - name: Pest (tests)
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          vendor/bin/pest
