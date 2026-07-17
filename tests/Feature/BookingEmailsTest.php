@@ -17,7 +17,7 @@ beforeEach(function () {
     CarbonImmutable::setTestNow('2026-07-20 12:00:00'); // Monday 09:00 in Buenos Aires
     Mail::fake();
 
-    $this->business = Business::factory()->create(['slug' => 'mail-test']);
+    $this->business = Business::factory()->create(['slug' => 'mail-test', 'name' => 'Estudio Prueba']);
     $this->service = Service::factory()->for($this->business)->create(['duration_minutes' => 30]);
     $this->professional = Professional::factory()->for($this->business)->create();
     $this->professional->scheduleBlocks()->create(['weekday' => 1, 'start_time' => '09:00', 'end_time' => '13:00']);
