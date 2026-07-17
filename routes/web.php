@@ -12,8 +12,10 @@ use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectoryController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FrontDeskController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\PublicBookingController;
 use App\Http\Controllers\ReviewController;
@@ -46,6 +48,11 @@ Route::get('explorar/rubro/{category}', [DirectoryController::class, 'index'])->
 
 Route::get('sitemap.xml', [SitemapController::class, 'sitemap'])->name('sitemap');
 Route::get('robots.txt', [SitemapController::class, 'robots'])->name('robots');
+
+Route::get('ayuda', HelpController::class)->name('help');
+Route::get('contacto', [FeedbackController::class, 'create'])->name('contact');
+Route::post('contacto', [FeedbackController::class, 'store'])
+    ->middleware('throttle:5,1')->name('contact.store');
 
 Route::get('feeds/{token}.ics', [FeedController::class, 'professional'])
     ->middleware('throttle:60,1')->name('feeds.professional');

@@ -26,6 +26,10 @@
 
         <footer class="mx-auto max-w-xl px-4 pb-8 text-center text-xs text-slate-500 dark:text-slate-400">
             <x-locale-switcher class="mb-3 justify-center" />
+            <nav class="mb-3 flex justify-center gap-4" aria-label="{{ __('Ayuda') }}">
+                <a href="{{ route('help') }}" class="hover:underline">{{ __('Ayuda') }}</a>
+                <a href="{{ route('contact') }}" class="hover:underline">{{ __('Contacto') }}</a>
+            </nav>
             @if (config('nexo.attribution_text'))
                 <a href="{{ config('nexo.attribution_url') ?: url('/') }}" class="hover:underline" rel="noopener">
                     {{ config('nexo.attribution_text') }}

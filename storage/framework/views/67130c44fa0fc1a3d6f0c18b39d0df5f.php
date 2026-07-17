@@ -75,6 +75,10 @@ unset($__defined_vars, $__key, $__value); ?>
 <?php $component = $__componentOriginal7b69d71eac2771bb6249ff4d7cc262ee; ?>
 <?php unset($__componentOriginal7b69d71eac2771bb6249ff4d7cc262ee); ?>
 <?php endif; ?>
+            <nav class="mb-3 flex justify-center gap-4" aria-label="<?php echo e(__('Ayuda')); ?>">
+                <a href="<?php echo e(route('help')); ?>" class="hover:underline"><?php echo e(__('Ayuda')); ?></a>
+                <a href="<?php echo e(route('contact')); ?>" class="hover:underline"><?php echo e(__('Contacto')); ?></a>
+            </nav>
             <?php if(config('nexo.attribution_text')): ?>
                 <a href="<?php echo e(config('nexo.attribution_url') ?: url('/')); ?>" class="hover:underline" rel="noopener">
                     <?php echo e(config('nexo.attribution_text')); ?>
