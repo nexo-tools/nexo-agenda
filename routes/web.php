@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AbsenceController;
+use App\Http\Controllers\AppBookingController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -42,6 +43,9 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('app')->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
+        Route::get('bookings/create', [AppBookingController::class, 'create'])->name('bookings.create');
+        Route::post('bookings', [AppBookingController::class, 'store'])->name('bookings.store');
+        Route::patch('bookings/{booking}/status', [AppBookingController::class, 'updateStatus'])->name('bookings.status');
         Route::resource('services', ServiceController::class)->except(['show']);
         Route::resource('professionals', ProfessionalController::class)->except(['show', 'create']);
         Route::post('professionals/{professional}/absences', [AbsenceController::class, 'store'])

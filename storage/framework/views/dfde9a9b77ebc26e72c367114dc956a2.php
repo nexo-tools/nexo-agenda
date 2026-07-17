@@ -180,4 +180,4 @@
 <?php $component = $__componentOriginal4619374cef299e94fd7263111d0abc69; ?>
 <?php unset($__componentOriginal4619374cef299e94fd7263111d0abc69); ?>
 <?php endif; ?>
-<?php /**PATH /var/www/html/resources/views/app/dashboard.blade.php ENDPATH**/ ?>
+<?php /**PATH /app/resources/views/app/dashboard.blade.php ENDPATH**/ ?>

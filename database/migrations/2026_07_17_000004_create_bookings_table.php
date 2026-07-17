@@ -14,7 +14,7 @@ return new class extends Migration
             $table->foreignId('professional_id')->constrained()->cascadeOnDelete();
             $table->foreignId('service_id')->constrained()->cascadeOnDelete();
             $table->string('client_name');
-            $table->string('client_email');
+            $table->string('client_email')->nullable();
             $table->string('client_phone')->nullable();
             $table->string('note', 500)->nullable();
             $table->dateTime('starts_at');
