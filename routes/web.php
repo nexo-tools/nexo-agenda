@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookingManagementController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\PublicBookingController;
 use App\Http\Controllers\ServiceController;
@@ -32,6 +33,9 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->middleware('throttle:5,1')->name('password.store');
 });
+
+Route::get('feeds/{token}.ics', [FeedController::class, 'professional'])
+    ->middleware('throttle:60,1')->name('feeds.professional');
 
 Route::get('t/{token}', [BookingManagementController::class, 'show'])->name('booking.manage');
 Route::post('t/{token}/cancelar', [BookingManagementController::class, 'cancel'])
@@ -57,6 +61,8 @@ Route::middleware('auth')->group(function () {
         Route::post('professionals/{professional}/absences', [AbsenceController::class, 'store'])
             ->name('professionals.absences.store');
         Route::delete('absences/{absence}', [AbsenceController::class, 'destroy'])->name('absences.destroy');
+        Route::post('professionals/{professional}/feed-token', [FeedController::class, 'regenerate'])
+            ->name('professionals.feed-token');
     });
 });
 

@@ -74,6 +74,23 @@
     </form>
 
     <section class="mt-10 max-w-2xl">
+        <h2 class="font-semibold">{{ __('Calendario externo') }}</h2>
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+            {{ __('Suscríbete a esta URL desde Google Calendar o Apple Calendar para ver los turnos de :name automáticamente. No la compartas: cualquiera con el enlace ve la agenda.', ['name' => $professional->name]) }}
+        </p>
+        <div class="mt-2 flex flex-wrap items-center gap-2">
+            <code class="break-all rounded-lg bg-slate-100 px-3 py-2 text-xs dark:bg-slate-800">{{ route('feeds.professional', $professional->feed_token) }}</code>
+            <form method="POST" action="{{ route('professionals.feed-token', $professional) }}"
+                  onsubmit="return confirm(@js(__('¿Regenerar el enlace? El actual dejará de funcionar.')))">
+                @csrf
+                <button class="rounded-lg px-3 py-1.5 text-sm text-brand-700 hover:bg-brand-50 dark:text-brand-400 dark:hover:bg-slate-700">
+                    {{ __('Regenerar') }}
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section class="mt-10 max-w-2xl">
         <h2 class="font-semibold">{{ __('Ausencias') }}</h2>
         <p class="text-sm text-slate-600 dark:text-slate-400">{{ __('Vacaciones, feriados propios o días sin atención.') }}</p>
 

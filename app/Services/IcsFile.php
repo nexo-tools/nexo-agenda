@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\ServiceMode;
 use App\Models\Booking;
+use App\Models\Professional;
 
 class IcsFile
 {
@@ -33,6 +34,48 @@ class IcsFile
             'END:VEVENT',
             'END:VCALENDAR',
         ];
+
+        return implode("\r\n", $lines)."\r\n";
+    }
+
+    /**
+     * Subscription feed with the professional's upcoming (and recent) bookings.
+     */
+    public function forProfessional(Professional $professional): string
+    {
+        $business = $professional->business;
+
+        $bookings = $professional->bookings()
+            ->occupying()
+            ->where('starts_at', '>=', now()->subDays(30))
+            ->with('service:id,name')
+            ->orderBy('starts_at')
+            ->get();
+
+        $lines = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//Nexo Agenda//ES',
+            'METHOD:PUBLISH',
+            'X-WR-CALNAME:'.$this->escape($professional->name.' — '.$business->name),
+            'X-WR-TIMEZONE:'.$business->timezone,
+        ];
+
+        foreach ($bookings as $booking) {
+            $lines = [
+                ...$lines,
+                'BEGIN:VEVENT',
+                'UID:booking-'.$booking->id.'@nexoagenda',
+                'DTSTAMP:'.now()->utc()->format('Ymd\THis\Z'),
+                'DTSTART:'.$booking->starts_at->utc()->format('Ymd\THis\Z'),
+                'DTEND:'.$booking->ends_at->utc()->format('Ymd\THis\Z'),
+                'SUMMARY:'.$this->escape($booking->client_name.' — '.$booking->service->name),
+                'STATUS:CONFIRMED',
+                'END:VEVENT',
+            ];
+        }
+
+        $lines[] = 'END:VCALENDAR';
 
         return implode("\r\n", $lines)."\r\n";
     }
