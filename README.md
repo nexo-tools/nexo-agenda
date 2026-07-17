@@ -1,58 +1,193 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<img src="resources/brand/isotype.svg" width="88" alt="Nexo Agenda isotype">
 
-## About Laravel
+# Nexo Agenda
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Open source, self-hosted booking platform for service businesses.**
+Own your bookings, your clients and your data — no monthly fee, no per-client
+commission, no feature paywalls. Runs on cheap shared PHP hosting.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+[![CI](https://github.com/alvarocdev-git/nexo-agenda/actions/workflows/ci.yml/badge.svg)](https://github.com/alvarocdev-git/nexo-agenda/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-0d9488.svg)](LICENSE)
+![PHP 8.3+](https://img.shields.io/badge/PHP-8.3%2B-777bb4.svg)
+![Laravel 13](https://img.shields.io/badge/Laravel-13-ff2d20.svg)
+![Tests](https://img.shields.io/badge/tests-147%20passing-0f766e.svg)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+[Live demo](https://nexoagenda.alvarocdev.com/estudio-nexo) ·
+[Deployment guide](DEPLOYMENT.md) ·
+[Contributing](CONTRIBUTING.md) ·
+[Scope & roadmap](docs/SCOPE.md)
 
-## Learning Laravel
+</div>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Nexo Agenda is the **open source alternative to AgendaPro, Fresha and Booksy**:
+a multi-business booking system where any business registers, sets up its
+services and professionals, and gets a public booking page at `/{slug}`. Clients
+book in seconds from a phone — **no account, no app**. It's the second product of
+the **Nexo** family (sibling of [Nexo Links](https://nexolinks.alvarocdev.com)).
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Why it exists
 
-## Agentic Development
+Commercial booking tools charge monthly fees, take a commission on every new
+marketplace client, gate reminders behind paid tiers, and make your data hard to
+export. Nexo Agenda answers each of those pain points directly:
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+| Pain point in commercial tools | Nexo Agenda answer |
+|---|---|
+| 20% commission per marketplace client, price hikes | Self-hosted, free, **zero commissions** |
+| WhatsApp / SMS reminders charged separately | Free prefilled `wa.me` links + email always included |
+| No built-in reviews or feedback | Reviews with moderation, translatable help center |
+| Data locked in, hard to export | One-click CSV export of clients and bookings |
+| Native apps that crash | Mobile-first web, nothing to install |
+| Account required to book | Guest booking with a hashed magic link |
+
+## Screenshots
+
+Screenshots are generated from the demo seeder so they always match the current
+UI — see [Generating screenshots](#generating-screenshots). Once captured into
+`docs/screenshots/`, they render here:
+
+<!-- Uncomment when the PNGs exist in docs/screenshots/
+| Public booking page | Booking flow (4 steps) | Owner dashboard |
+|---|---|---|
+| ![Public page](docs/screenshots/public-page.png) | ![Booking flow](docs/screenshots/booking-flow.png) | ![Dashboard](docs/screenshots/dashboard.png) |
+-->
+
+Try it live instead: **[nexoagenda.alvarocdev.com/estudio-nexo](https://nexoagenda.alvarocdev.com/estudio-nexo)**.
+
+## Features
+
+**Booking core**
+- Multi-business: open registration, reserved slugs, public page at `/{slug}`
+- Services (in-person or virtual with a video link), buffers, min/max notice, cancellation window
+- Professionals with weekly schedules and absences
+- Timezone-aware availability engine
+- Guest booking in 4 steps — no account — with a hashed **magic link** to view / cancel / reschedule
+- Owner dashboard (day / week) + manual bookings
+
+**Communications (zero external cost)**
+- Branded confirmation, reminder and cancellation emails
+- `.ics` calendar attachment + prefilled `wa.me` WhatsApp links
+- Automatic 24h reminder via a scheduled command
+
+**Differentiators**
+- Light CRM per business (visit history, no-show count) + CSV export
+- Waitlist with automatic cancellation notifications
+- Per-professional `.ics` subscription feeds
+- Per-business public-page theming (accent color, logo)
+- Front-desk (counter) fast day view + QR check-in
+- First-party, cookieless statistics (occupancy, no-shows, top services)
+- Client reviews with moderation and public ratings
+- Opt-in public directory `/explorar` with search by name/category/city and SEO category pages
+
+**Quality & operations**
+- **i18n** es / en / pt with a visible selector (custom generator, guardian test)
+- Security headers + self-contained CSP (zero external requests), rate limiting, hashed tokens
+- WCAG AA accessibility audited
+- Public-page cache invalidated by model events, DB indexes and pagination from day one
+- Branded, translated error pages (404/403/419/429/500/503)
+- Dynamic `sitemap.xml` + `robots.txt`, help center and feedback system
+
+## Tech stack
+
+- **PHP 8.3+**, **Laravel 13**
+- **Blade** + **Alpine.js** + **Tailwind CSS 4** (Vite)
+- **MySQL** (portable to any Laravel-supported DB)
+- **Pest** (147 tests / 386 assertions), **Pint**, **Larastan** (level 6)
+- Zero external runtime requests: no CDNs, no Google Fonts, system font stack
+
+## Quickstart (local, Docker / Laravel Sail)
 
 ```bash
-composer require laravel/boost --dev
+git clone https://github.com/alvarocdev-git/nexo-agenda.git
+cd nexo-agenda
 
-php artisan boost:install
+cp .env.example .env
+
+# Install PHP deps (no local PHP required)
+docker run --rm -v "$PWD":/app -w /app composer:latest install
+
+# Boot the stack (app, MySQL, Mailpit)
+./vendor/bin/sail up -d
+./vendor/bin/sail artisan key:generate
+./vendor/bin/sail artisan migrate
+
+# Front-end assets (Node 20+)
+npm install
+npm run build
+
+# Optional: seed a full demo business
+./vendor/bin/sail artisan db:seed --class=DemoSeeder
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Then open **http://localhost:8080**. The demo seeder creates
+`demo@nexoagenda.test` / `password` with a public page at `/estudio-nexo`.
+
+### Handy commands
+
+```bash
+npm run brand          # regenerate favicons / OG / manifest from the isotype
+npm run translations   # rebuild lang/{en,pt}.json from source strings
+./vendor/bin/sail artisan schedule:work   # run the reminder scheduler locally
+```
+
+### Running the checks
+
+```bash
+docker run --rm -v "$PWD":/app -w /app composer:latest sh -c \
+  "vendor/bin/pint --test && vendor/bin/phpstan analyse --no-progress && vendor/bin/pest"
+node scripts/generate-translations.mjs --check
+```
+
+## Deployment
+
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for a complete, step-by-step guide to
+deploying on shared hosting (Hostinger) with a subdomain, the reminder cron, and
+SMTP. Nothing ties the app to shared hosting — it's a standard Laravel app,
+portable to a VPS without rewrites.
+
+### Generating screenshots
+
+Screenshots in this README come from the demo seeder so they always match the
+current UI:
+
+```bash
+./vendor/bin/sail artisan migrate:fresh --seed --seeder=DemoSeeder
+```
+
+Then capture the pages below (browser at a 390×844 mobile viewport for public
+pages, 1440×900 for the dashboard) and save them under `docs/screenshots/`:
+
+- `public-page.png` → `/estudio-nexo`
+- `booking-flow.png` → `/estudio-nexo/reservar/{service}` (the horarios/datos step)
+- `dashboard.png` → `/` after logging in as `demo@nexoagenda.test` / `password`
+
+## Configuration highlights
+
+Every string that follows is set via `.env` (see `.env.example`):
+
+- `APP_LOCALE=es` (base locale; `en` / `pt` via the selector)
+- `NEXO_ATTRIBUTION_URL` / `NEXO_ATTRIBUTION_TEXT` — optional "powered by" footer
+- `SESSION_SECURE_COOKIE=true` in production (HTTPS)
+
+Business categories and reserved slugs live in [`config/nexo.php`](config/nexo.php).
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are welcome — read **[CONTRIBUTING.md](CONTRIBUTING.md)** and our
+**[Code of Conduct](CODE_OF_CONDUCT.md)**. Found a security issue? See
+**[SECURITY.md](SECURITY.md)** (please don't open a public issue).
 
-## Code of Conduct
+## Documentation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- [`docs/SCOPE.md`](docs/SCOPE.md) — value proposition, domain model, roadmap
+- [`docs/DECISIONS.md`](docs/DECISIONS.md) — architectural decision log
+- [`docs/BRAND.md`](docs/BRAND.md) — brand, palette, isotype
+- [`docs/WIREFRAMES.md`](docs/WIREFRAMES.md) — screen wireframes
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[MIT](LICENSE) © [Alvaro Carrizales](https://alvarocdev.com) (alvarocdev)
