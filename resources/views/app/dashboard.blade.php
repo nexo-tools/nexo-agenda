@@ -71,7 +71,7 @@
                     <h2 class="font-semibold">{{ $professional->name }}</h2>
 
                     @if ($items->isEmpty())
-                        <p class="mt-2 text-sm text-slate-400">{{ __('Sin turnos este día.') }}</p>
+                        <p class="mt-2 text-sm text-slate-500">{{ __('Sin turnos este día.') }}</p>
                     @endif
 
                     <ul class="mt-2 space-y-2">

@@ -41,7 +41,7 @@
                                 + {{ __('Franja') }}
                             </button>
                         </div>
-                        <p class="mt-1 text-sm text-slate-400" x-show="!days[d] || days[d].length === 0">{{ __('No atiende') }}</p>
+                        <p class="mt-1 text-sm text-slate-500" x-show="!days[d] || days[d].length === 0">{{ __('No atiende') }}</p>
                         <template x-for="(row, i) in days[d] ?? []" :key="i">
                             <div class="mt-2 flex items-center gap-2">
                                 <label class="sr-only" :for="`b-${d}-${i}-s`">{{ __('Inicio') }}</label>

@@ -6,10 +6,11 @@
            value="{{ $type !== 'password' ? old($name, $value) : '' }}"
            @if ($required) required @endif
            @if ($autocomplete) autocomplete="{{ $autocomplete }}" @endif
+           @error($name) aria-invalid="true" aria-describedby="{{ $name }}-error" @enderror
            {{ $attributes->class([
                'w-full rounded-lg border-slate-300 bg-white text-ink shadow-sm focus:border-brand-500 focus:ring-brand-500 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200',
            ]) }}>
     @error($name)
-        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+        <p id="{{ $name }}-error" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
     @enderror
 </div>

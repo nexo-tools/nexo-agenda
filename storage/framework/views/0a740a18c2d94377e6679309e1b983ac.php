@@ -34,6 +34,14 @@ unset($__defined_vars, $__key, $__value); ?>
            value="<?php echo e($type !== 'password' ? old($name, $value) : ''); ?>"
            <?php if($required): ?> required <?php endif; ?>
            <?php if($autocomplete): ?> autocomplete="<?php echo e($autocomplete); ?>" <?php endif; ?>
+           <?php $__errorArgs = [$name];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> aria-invalid="true" aria-describedby="<?php echo e($name); ?>-error" <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
            <?php echo e($attributes->class([
                'w-full rounded-lg border-slate-300 bg-white text-ink shadow-sm focus:border-brand-500 focus:ring-brand-500 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200',
            ])); ?>>
@@ -42,7 +50,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-        <p class="mt-1 text-sm text-red-600 dark:text-red-400"><?php echo e($message); ?></p>
+        <p id="<?php echo e($name); ?>-error" class="mt-1 text-sm text-red-600 dark:text-red-400"><?php echo e($message); ?></p>
     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;

@@ -54,7 +54,7 @@ unset($__defined_vars, $__key, $__value); ?>
 
         </main>
 
-        <footer class="mx-auto max-w-xl px-4 pb-8 text-center text-xs text-slate-400 dark:text-slate-500">
+        <footer class="mx-auto max-w-xl px-4 pb-8 text-center text-xs text-slate-500 dark:text-slate-400">
             <?php if (isset($component)) { $__componentOriginal7b69d71eac2771bb6249ff4d7cc262ee = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal7b69d71eac2771bb6249ff4d7cc262ee = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.locale-switcher','data' => ['class' => 'mb-3 justify-center']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>

@@ -5,7 +5,7 @@
         <meta http-equiv="refresh" content="60">
     </head>
     <body class="min-h-screen bg-slate-950 font-sans text-slate-100 antialiased">
-        <header class="flex items-center justify-between px-4 py-3 text-sm text-slate-400">
+        <header class="flex items-center justify-between px-4 py-3 text-sm text-slate-500">
             <a href="{{ route('dashboard') }}" class="rounded-lg px-3 py-1.5 hover:bg-slate-800">← {{ __('Agenda') }}</a>
             <span class="font-semibold text-slate-200">{{ $business->name }}</span>
             <span class="tabular-nums">{{ $now->format('H:i') }} · {{ __('se actualiza solo') }}</span>
@@ -39,7 +39,7 @@
                                     @endif
                                 </div>
                                 <p class="mt-1 text-lg">{{ $booking->client_name }}</p>
-                                <p class="text-sm text-slate-400">{{ $booking->service->name }}</p>
+                                <p class="text-sm text-slate-500">{{ $booking->service->name }}</p>
 
                                 @if ($booking->status === \App\Enums\BookingStatus::Confirmed)
                                     <div class="mt-3 flex gap-2">

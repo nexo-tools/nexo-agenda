@@ -5,7 +5,7 @@
         <meta http-equiv="refresh" content="60">
     </head>
     <body class="min-h-screen bg-slate-950 font-sans text-slate-100 antialiased">
-        <header class="flex items-center justify-between px-4 py-3 text-sm text-slate-400">
+        <header class="flex items-center justify-between px-4 py-3 text-sm text-slate-500">
             <a href="<?php echo e(route('dashboard')); ?>" class="rounded-lg px-3 py-1.5 hover:bg-slate-800">← <?php echo e(__('Agenda')); ?></a>
             <span class="font-semibold text-slate-200"><?php echo e($business->name); ?></span>
             <span class="tabular-nums"><?php echo e($now->format('H:i')); ?> · <?php echo e(__('se actualiza solo')); ?></span>
@@ -39,7 +39,7 @@
                                     <?php endif; ?>
                                 </div>
                                 <p class="mt-1 text-lg"><?php echo e($booking->client_name); ?></p>
-                                <p class="text-sm text-slate-400"><?php echo e($booking->service->name); ?></p>
+                                <p class="text-sm text-slate-500"><?php echo e($booking->service->name); ?></p>
 
                                 <?php if($booking->status === \App\Enums\BookingStatus::Confirmed): ?>
                                     <div class="mt-3 flex gap-2">

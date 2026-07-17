@@ -87,7 +87,7 @@
                     <h2 class="font-semibold"><?php echo e($professional->name); ?></h2>
 
                     <?php if($items->isEmpty()): ?>
-                        <p class="mt-2 text-sm text-slate-400"><?php echo e(__('Sin turnos este día.')); ?></p>
+                        <p class="mt-2 text-sm text-slate-500"><?php echo e(__('Sin turnos este día.')); ?></p>
                     <?php endif; ?>
 
                     <ul class="mt-2 space-y-2">

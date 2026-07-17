@@ -24,7 +24,7 @@
             {{ $slot }}
         </main>
 
-        <footer class="mx-auto max-w-xl px-4 pb-8 text-center text-xs text-slate-400 dark:text-slate-500">
+        <footer class="mx-auto max-w-xl px-4 pb-8 text-center text-xs text-slate-500 dark:text-slate-400">
             <x-locale-switcher class="mb-3 justify-center" />
             @if (config('nexo.attribution_text'))
                 <a href="{{ config('nexo.attribution_url') ?: url('/') }}" class="hover:underline" rel="noopener">
