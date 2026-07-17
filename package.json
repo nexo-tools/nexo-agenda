@@ -5,7 +5,8 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "brand": "node scripts/generate-brand-assets.mjs"
+        "brand": "node scripts/generate-brand-assets.mjs",
+        "translations": "node scripts/generate-translations.mjs"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.11",

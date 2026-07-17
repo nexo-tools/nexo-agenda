@@ -15,6 +15,7 @@
             <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-sm sm:p-8 dark:bg-slate-800">
                 {{ $slot }}
             </div>
+            <x-locale-switcher class="mt-4" />
         </main>
     </body>
 </html>

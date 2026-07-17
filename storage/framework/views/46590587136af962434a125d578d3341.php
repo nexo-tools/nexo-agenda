@@ -55,6 +55,26 @@ unset($__defined_vars, $__key, $__value); ?>
         </main>
 
         <footer class="mx-auto max-w-xl px-4 pb-8 text-center text-xs text-slate-400 dark:text-slate-500">
+            <?php if (isset($component)) { $__componentOriginal7b69d71eac2771bb6249ff4d7cc262ee = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal7b69d71eac2771bb6249ff4d7cc262ee = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.locale-switcher','data' => ['class' => 'mb-3 justify-center']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('locale-switcher'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'mb-3 justify-center']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal7b69d71eac2771bb6249ff4d7cc262ee)): ?>
+<?php $attributes = $__attributesOriginal7b69d71eac2771bb6249ff4d7cc262ee; ?>
+<?php unset($__attributesOriginal7b69d71eac2771bb6249ff4d7cc262ee); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal7b69d71eac2771bb6249ff4d7cc262ee)): ?>
+<?php $component = $__componentOriginal7b69d71eac2771bb6249ff4d7cc262ee; ?>
+<?php unset($__componentOriginal7b69d71eac2771bb6249ff4d7cc262ee); ?>
+<?php endif; ?>
             <?php if(config('nexo.attribution_text')): ?>
                 <a href="<?php echo e(config('nexo.attribution_url') ?: url('/')); ?>" class="hover:underline" rel="noopener">
                     <?php echo e(config('nexo.attribution_text')); ?>

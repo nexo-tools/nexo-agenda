@@ -62,6 +62,10 @@
                 <p class="mb-4 rounded-lg bg-brand-100 px-4 py-3 text-sm text-brand-900" role="status">{{ session('status') }}</p>
             @endif
             {{ $slot }}
+
+            <footer class="mt-10">
+                <x-locale-switcher />
+            </footer>
         </main>
     </body>
 </html>

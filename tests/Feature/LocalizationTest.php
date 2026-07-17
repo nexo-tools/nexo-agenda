@@ -1,0 +1,54 @@
+<?php
+
+use App\Models\Business;
+use App\Models\Service;
+use Illuminate\Support\Facades\Process;
+
+beforeEach(function () {
+    $this->business = Business::factory()->create(['slug' => 'idiomas-test']);
+    Service::factory()->for($this->business)->create();
+});
+
+it('defaults to spanish', function () {
+    $this->get('/idiomas-test')->assertSee('Reserva tu turno');
+});
+
+it('honours the accept-language header', function () {
+    $this->get('/idiomas-test', ['Accept-Language' => 'pt-BR,pt;q=0.9'])
+        ->assertSee('Agende seu horário');
+
+    $this->get('/idiomas-test', ['Accept-Language' => 'en-US,en;q=0.9'])
+        ->assertSee('Book your appointment');
+});
+
+it('switches with the lang parameter and persists in the session', function () {
+    $this->get('/idiomas-test?lang=en')->assertSee('Book your appointment');
+
+    // Next request without the parameter keeps English.
+    $this->get('/idiomas-test')->assertSee('Book your appointment');
+});
+
+it('ignores unsupported locales', function () {
+    $this->get('/idiomas-test?lang=fr')->assertSee('Reserva tu turno');
+});
+
+it('shows the locale switcher', function () {
+    $this->get('/idiomas-test')
+        ->assertSee('lang=es', false)
+        ->assertSee('lang=en', false)
+        ->assertSee('lang=pt', false);
+});
+
+it('translates validation messages', function () {
+    $response = $this->post('/register', [], ['Accept-Language' => 'pt']);
+
+    $response->assertSessionHasErrors();
+    expect(session('errors')->first('name'))->toContain('obrigatório');
+});
+
+it('keeps every string translated in en and pt', function () {
+    $result = Process::path(base_path())
+        ->run('node scripts/generate-translations.mjs --check');
+
+    expect($result->exitCode())->toBe(0, 'Faltan traducciones: '.$result->errorOutput());
+})->skip(fn () => Process::run('which node')->failed(), 'node no disponible');
