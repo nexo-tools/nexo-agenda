@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,5 +34,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('app')->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
         Route::resource('services', ServiceController::class)->except(['show']);
+        Route::resource('professionals', ProfessionalController::class)->except(['show', 'create']);
+        Route::post('professionals/{professional}/absences', [AbsenceController::class, 'store'])
+            ->name('professionals.absences.store');
+        Route::delete('absences/{absence}', [AbsenceController::class, 'destroy'])->name('absences.destroy');
     });
 });

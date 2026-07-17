@@ -36,6 +36,12 @@ class Business extends Model
         return $this->hasMany(Service::class);
     }
 
+    /** @return HasMany<Professional, $this> */
+    public function professionals(): HasMany
+    {
+        return $this->hasMany(Professional::class);
+    }
+
     public static function uniqueSlugFor(string $name): string
     {
         $base = Str::slug($name) ?: 'negocio';
