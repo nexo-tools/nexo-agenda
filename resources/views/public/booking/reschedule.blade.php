@@ -1,4 +1,4 @@
-<x-public-layout :title="__('Reprogramar').' — '.$booking->business->name">
+<x-public-layout :title="__('Reprogramar').' — '.$booking->business->name" :business="$booking->business">
     <a href="{{ route('booking.manage', $token) }}" class="text-sm text-brand-700 hover:underline dark:text-brand-400">
         ← {{ __('Tu turno') }}
     </a>

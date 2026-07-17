@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-#[Fillable(['name', 'slug', 'category', 'city', 'timezone', 'whatsapp_phone', 'address', 'description', 'in_directory'])]
+#[Fillable(['name', 'slug', 'category', 'city', 'timezone', 'whatsapp_phone', 'address', 'description', 'in_directory', 'brand_color', 'logo_path'])]
 class Business extends Model
 {
     /** @use HasFactory<BusinessFactory> */
@@ -52,6 +52,21 @@ class Business extends Model
     public function waitlistEntries(): HasMany
     {
         return $this->hasMany(WaitlistEntry::class);
+    }
+
+    /**
+     * Black or white, whichever contrasts best with the accent color (WCAG-oriented).
+     */
+    public function accentTextColor(): string
+    {
+        $hex = ltrim($this->brand_color ?? '#0f766e', '#');
+
+        [$r, $g, $b] = [hexdec(substr($hex, 0, 2)), hexdec(substr($hex, 2, 2)), hexdec(substr($hex, 4, 2))];
+
+        // Relative luminance, sRGB.
+        $luminance = (0.2126 * $r + 0.7152 * $g + 0.0722 * $b) / 255;
+
+        return $luminance > 0.55 ? '#0f172a' : '#ffffff';
     }
 
     public static function uniqueSlugFor(string $name): string

@@ -1,6 +1,6 @@
 @php($local = $booking->starts_at->setTimezone($booking->business->timezone))
 
-<x-public-layout :title="__('Tu turno').' — '.$booking->business->name">
+<x-public-layout :title="__('Tu turno').' — '.$booking->business->name" :business="$booking->business">
     @if (session('status'))
         <p class="mb-4 rounded-lg bg-brand-100 px-4 py-3 text-sm text-brand-900" role="status">{{ session('status') }}</p>
     @endif

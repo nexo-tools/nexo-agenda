@@ -1,18 +1,21 @@
 <?php if (isset($component)) { $__componentOriginal58c831a7c3cbf004f2e66a23aed50e5b = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal58c831a7c3cbf004f2e66a23aed50e5b = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.public-layout','data' => ['title' => $business->name]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.public-layout','data' => ['title' => $business->name,'business' => $business]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('public-layout'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['title' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($business->name)]); ?>
+<?php $component->withAttributes(['title' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($business->name),'business' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($business)]); ?>
      <?php $__env->slot('meta', null, []); ?> 
         <meta name="description" content="<?php echo e(__('Reserva tu turno en :name', ['name' => $business->name])); ?>">
      <?php $__env->endSlot(); ?>
 
     <header class="mb-6">
+        <?php if($business->logo_path): ?>
+            <img src="<?php echo e(Storage::url($business->logo_path)); ?>" alt="" class="mb-3 h-16 w-16 rounded-2xl object-contain">
+        <?php endif; ?>
         <h1 class="text-2xl font-bold"><?php echo e($business->name); ?></h1>
         <p class="text-sm text-slate-600 dark:text-slate-400">
             <?php echo e(__('nexo.categories.'.$business->category)); ?> · <?php echo e($business->city); ?>

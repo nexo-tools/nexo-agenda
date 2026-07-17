@@ -1,9 +1,12 @@
-<x-public-layout :title="$business->name">
+<x-public-layout :title="$business->name" :business="$business">
     <x-slot:meta>
         <meta name="description" content="{{ __('Reserva tu turno en :name', ['name' => $business->name]) }}">
     </x-slot:meta>
 
     <header class="mb-6">
+        @if ($business->logo_path)
+            <img src="{{ Storage::url($business->logo_path) }}" alt="" class="mb-3 h-16 w-16 rounded-2xl object-contain">
+        @endif
         <h1 class="text-2xl font-bold">{{ $business->name }}</h1>
         <p class="text-sm text-slate-600 dark:text-slate-400">
             {{ __('nexo.categories.'.$business->category) }} · {{ $business->city }}

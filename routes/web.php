@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookingManagementController;
+use App\Http\Controllers\BusinessSettingsController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeedController;
@@ -52,6 +53,8 @@ Route::middleware('auth')->group(function () {
         Route::get('bookings/create', [AppBookingController::class, 'create'])->name('bookings.create');
         Route::post('bookings', [AppBookingController::class, 'store'])->name('bookings.store');
         Route::patch('bookings/{booking}/status', [AppBookingController::class, 'updateStatus'])->name('bookings.status');
+        Route::get('settings', [BusinessSettingsController::class, 'edit'])->name('settings.edit');
+        Route::put('settings', [BusinessSettingsController::class, 'update'])->name('settings.update');
         Route::get('clients', [ClientController::class, 'index'])->name('clients.index');
         Route::get('clients/detail', [ClientController::class, 'show'])->name('clients.show');
         Route::get('clients/export.csv', [ClientController::class, 'exportClients'])->name('clients.export');

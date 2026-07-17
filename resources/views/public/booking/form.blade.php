@@ -1,4 +1,4 @@
-<x-public-layout :title="__('Tus datos').' — '.$business->name">
+<x-public-layout :title="__('Tus datos').' — '.$business->name" :business="$business">
     <a href="{{ route('public.times', [$business, $service, 'professional' => $professional->id, 'date' => $start->toDateString()]) }}"
        class="text-sm text-brand-700 hover:underline dark:text-brand-400">
         ← {{ __('Cambiar horario') }}

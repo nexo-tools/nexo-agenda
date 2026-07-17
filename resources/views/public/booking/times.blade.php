@@ -1,4 +1,4 @@
-<x-public-layout :title="__('¿Cuándo?').' — '.$business->name">
+<x-public-layout :title="__('¿Cuándo?').' — '.$business->name" :business="$business">
     <a href="{{ route('public.professional', [$business, $service]) }}" class="text-sm text-brand-700 hover:underline dark:text-brand-400">
         ← {{ __('Cambiar profesional') }}
     </a>
