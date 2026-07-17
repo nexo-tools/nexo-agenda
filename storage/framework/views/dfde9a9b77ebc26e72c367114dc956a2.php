@@ -18,11 +18,18 @@
 
             </a>
         </div>
-        <a href="<?php echo e(route('bookings.create', ['date' => $day->toDateString()])); ?>"
-           class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">
-            ⊕ <?php echo e(__('Turno')); ?>
+        <div class="flex items-center gap-2">
+            <a href="<?php echo e(route('frontdesk')); ?>"
+               class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800">
+                <?php echo e(__('Modo mostrador')); ?>
 
-        </a>
+            </a>
+            <a href="<?php echo e(route('bookings.create', ['date' => $day->toDateString()])); ?>"
+               class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">
+                ⊕ <?php echo e(__('Turno')); ?>
+
+            </a>
+        </div>
     </div>
 
     <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
