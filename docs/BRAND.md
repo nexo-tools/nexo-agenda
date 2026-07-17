@@ -6,7 +6,9 @@ Convention: two words for display ("Nexo Agenda"), joined for domain/slug
 
 Name collision check (2026-07-17): no scheduling product found under
 "Nexo Agenda"/"NexoAgenda" (only nexo-sa.com, audio equipment — unrelated).
-Re-verify before deploying.
+Re-verified before the Stage 4 go-public step (2026-07-17): still clear — a web
+search returns only unrelated established schedulers (Calendly, Zoho, Square,
+NexHealth, etc.), none using the "Nexo Agenda" name.
 
 ## Personality
 
