@@ -30,6 +30,16 @@ jobs:
       - name: Larastan (static analysis)
         run: vendor/bin/phpstan analyse --no-progress
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build assets
+        run: |
+          npm ci
+          npm run build
+
       - name: Pest (tests)
         run: |
           cp .env.example .env

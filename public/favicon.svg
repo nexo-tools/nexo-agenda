@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Calendar cell with an open top-right corner; the Nexo node docks into it -->
+  <path d="M20 16 H33" fill="none" stroke="#0d9488" stroke-width="7" stroke-linecap="round"/>
+  <path d="M52 35 V48 Q52 60 40 60 H20 Q8 60 8 48 V28 Q8 16 20 16"
+        fill="none" stroke="#0d9488" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="46" cy="22" r="9.5" fill="#0d9488"/>
+</svg>
