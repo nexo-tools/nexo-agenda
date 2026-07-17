@@ -20,6 +20,11 @@ class ServiceFactory extends Factory
             'duration_minutes' => fake()->randomElement([15, 30, 45, 60]),
             'price' => fake()->numberBetween(50, 500) * 100,
             'mode' => 'in_person',
+            'buffer_minutes' => 0,
+            'min_notice_hours' => 0,
+            'cancellation_hours' => 12,
+            'max_advance_days' => 60,
+            'is_active' => true,
         ];
     }
 }

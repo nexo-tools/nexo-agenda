@@ -42,6 +42,12 @@ class Business extends Model
         return $this->hasMany(Professional::class);
     }
 
+    /** @return HasMany<Booking, $this> */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+
     public static function uniqueSlugFor(string $name): string
     {
         $base = Str::slug($name) ?: 'negocio';

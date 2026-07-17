@@ -40,4 +40,10 @@ class Professional extends Model
     {
         return $this->hasMany(Absence::class);
     }
+
+    /** @return HasMany<Booking, $this> */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

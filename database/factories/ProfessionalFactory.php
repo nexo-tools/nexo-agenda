@@ -17,6 +17,7 @@ class ProfessionalFactory extends Factory
         return [
             'business_id' => Business::factory(),
             'name' => fake()->firstName(),
+            'is_active' => true,
         ];
     }
 
