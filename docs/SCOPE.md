@@ -97,6 +97,9 @@ client reviews, i18n es/en/pt with visible selector, opt-in public directory
   capacity) — deliberately out of scope; Hi.Events/Alf.io own that space today.
 - Cross-pollination with Nexo Links (business page linking both products).
 - Closable public registration via env flag (private instances).
+- Signed URLs for booking management links: tokens are stored hashed, so only
+  the confirmation email carries the magic link today (reminders point to it).
+  Laravel signed routes would let every email include the link, statelessly.
 
 ## Non-goals
 

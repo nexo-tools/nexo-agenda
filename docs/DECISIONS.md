@@ -19,3 +19,4 @@ appended with date + reason via `docs:` commits.
 | 12 | Directory | Opt-in `/explorar`, Stage 2 (phase 2.10) | Free, zero-commission counter to Fresha's 20% marketplace fee; opt-in respects privacy; needs category+city modeled from Stage 1. |
 | 13 | Workflow | One commit per phase; stages run without check-ins; review checkpoint at each stage end | Owner preference; proven with Nexo Links. Stage 4 (server deploy) is guided step-by-step by nature. |
 | 14 | Calendar sync | `.ics` attachments + subscription feeds, no Google OAuth | Zero external dependencies; works with every calendar app. |
+| 15 | Magic-link storage (2026-07-17, phase 1.8) | Token hashed in DB; only the confirmation email carries the link | Hash can't be reversed to re-send links, so reminders point to the confirmation email. Stateless signed URLs noted in backlog. |
