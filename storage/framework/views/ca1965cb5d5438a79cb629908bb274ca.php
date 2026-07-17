@@ -2,14 +2,14 @@
 
 <?php if (isset($component)) { $__componentOriginal58c831a7c3cbf004f2e66a23aed50e5b = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal58c831a7c3cbf004f2e66a23aed50e5b = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.public-layout','data' => ['title' => __('Tu turno').' — '.$booking->business->name]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.public-layout','data' => ['title' => __('Tu turno').' — '.$booking->business->name,'business' => $booking->business]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('public-layout'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['title' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(__('Tu turno').' — '.$booking->business->name)]); ?>
+<?php $component->withAttributes(['title' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(__('Tu turno').' — '.$booking->business->name),'business' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($booking->business)]); ?>
     <?php if(session('status')): ?>
         <p class="mb-4 rounded-lg bg-brand-100 px-4 py-3 text-sm text-brand-900" role="status"><?php echo e(session('status')); ?></p>
     <?php endif; ?>
@@ -57,6 +57,16 @@
 
         <?php if($booking->business->address): ?>
             <p class="mt-4 text-sm text-slate-600 dark:text-slate-400">⌂ <?php echo e($booking->business->address); ?></p>
+        <?php endif; ?>
+
+        <?php if($booking->status === \App\Enums\BookingStatus::Confirmed): ?>
+            <div class="mt-5 border-t border-slate-200 pt-5 text-center dark:border-slate-700">
+                <div class="mx-auto inline-block rounded-xl bg-white p-2">
+                    <?php echo app(\App\Services\QrSvg::class)->forUrl(route('checkin', $token), 180); ?>
+
+                </div>
+                <p class="mt-2 text-xs text-slate-500"><?php echo e(__('Muestra este código al llegar para hacer el check-in.')); ?></p>
+            </div>
         <?php endif; ?>
     </div>
 

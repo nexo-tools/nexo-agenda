@@ -48,6 +48,15 @@
         @if ($booking->business->address)
             <p class="mt-4 text-sm text-slate-600 dark:text-slate-400">⌂ {{ $booking->business->address }}</p>
         @endif
+
+        @if ($booking->status === \App\Enums\BookingStatus::Confirmed)
+            <div class="mt-5 border-t border-slate-200 pt-5 text-center dark:border-slate-700">
+                <div class="mx-auto inline-block rounded-xl bg-white p-2">
+                    {!! app(\App\Services\QrSvg::class)->forUrl(route('checkin', $token), 180) !!}
+                </div>
+                <p class="mt-2 text-xs text-slate-500">{{ __('Muestra este código al llegar para hacer el check-in.') }}</p>
+            </div>
+        @endif
     </div>
 
     @if ($booking->clientCanManage())

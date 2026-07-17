@@ -58,6 +58,16 @@
         <?php if($booking->business->address): ?>
             <p class="mt-4 text-sm text-slate-600 dark:text-slate-400">⌂ <?php echo e($booking->business->address); ?></p>
         <?php endif; ?>
+
+        <?php if($booking->status === \App\Enums\BookingStatus::Confirmed): ?>
+            <div class="mt-5 border-t border-slate-200 pt-5 text-center dark:border-slate-700">
+                <div class="mx-auto inline-block rounded-xl bg-white p-2">
+                    <?php echo app(\App\Services\QrSvg::class)->forUrl(route('checkin', $token), 180); ?>
+
+                </div>
+                <p class="mt-2 text-xs text-slate-500"><?php echo e(__('Muestra este código al llegar para hacer el check-in.')); ?></p>
+            </div>
+        <?php endif; ?>
     </div>
 
     <?php if($booking->clientCanManage()): ?>

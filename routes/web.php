@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookingManagementController;
 use App\Http\Controllers\BusinessSettingsController;
+use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeedController;
@@ -53,6 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('app')->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
         Route::get('mostrador', FrontDeskController::class)->name('frontdesk');
+        Route::get('checkin/{token}', [CheckInController::class, 'show'])->name('checkin');
+        Route::post('checkin/{token}', [CheckInController::class, 'store'])->name('checkin.store');
         Route::get('estadisticas', StatsController::class)->name('stats');
         Route::get('bookings/create', [AppBookingController::class, 'create'])->name('bookings.create');
         Route::post('bookings', [AppBookingController::class, 'store'])->name('bookings.store');
