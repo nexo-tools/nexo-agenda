@@ -21,6 +21,7 @@
                     <x-nav-link :href="route('professionals.index')" :active="request()->routeIs('professionals.*')">{{ __('Equipo') }}</x-nav-link>
                     <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')">{{ __('Clientes') }}</x-nav-link>
                     <x-nav-link :href="route('stats')" :active="request()->routeIs('stats')">{{ __('Estadísticas') }}</x-nav-link>
+                    <x-nav-link :href="route('reviews.index')" :active="request()->routeIs('reviews.*')">{{ __('Reseñas') }}</x-nav-link>
                     <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">{{ __('Ajustes') }}</x-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -45,6 +46,7 @@
                 <x-nav-link :href="route('professionals.index')" :active="request()->routeIs('professionals.*')" class="block w-full">{{ __('Equipo') }}</x-nav-link>
                 <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="block w-full">{{ __('Clientes') }}</x-nav-link>
                 <x-nav-link :href="route('stats')" :active="request()->routeIs('stats')" class="block w-full">{{ __('Estadísticas') }}</x-nav-link>
+                <x-nav-link :href="route('reviews.index')" :active="request()->routeIs('reviews.*')" class="block w-full">{{ __('Reseñas') }}</x-nav-link>
                 <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="block w-full">{{ __('Ajustes') }}</x-nav-link>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

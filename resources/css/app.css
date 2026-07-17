@@ -5,6 +5,25 @@
     display: none !important;
 }
 
+/* CSS-only star rating: DOM order 5→1 + row-reverse renders 1→5. */
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.rating label {
+    color: #cbd5e1;
+    cursor: pointer;
+}
+
+.rating label:has(:checked),
+.rating label:has(:checked) ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #f59e0b;
+}
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 

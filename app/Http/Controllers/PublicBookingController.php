@@ -30,6 +30,9 @@ class PublicBookingController extends Controller
         return view('public.business', [
             'business' => $business,
             'services' => $business->services()->where('is_active', true)->orderBy('name')->get(),
+            'ratingAverage' => round((float) $business->visibleReviews()->avg('rating'), 1),
+            'ratingCount' => $business->visibleReviews()->count(),
+            'reviews' => $business->visibleReviews()->latest()->whereNotNull('comment')->take(3)->get(),
         ]);
     }
 

@@ -10,6 +10,11 @@
         <h1 class="text-2xl font-bold">{{ $business->name }}</h1>
         <p class="text-sm text-slate-600 dark:text-slate-400">
             {{ __('nexo.categories.'.$business->category) }} · {{ $business->city }}
+            @if ($ratingCount > 0)
+                · <span aria-hidden="true" class="text-amber-500">★</span>
+                {{ number_format($ratingAverage, 1, ',') }}
+                <span class="text-slate-500">({{ $ratingCount }})</span>
+            @endif
         </p>
         @if ($business->description)
             <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">{{ $business->description }}</p>
@@ -49,6 +54,24 @@
                 </li>
             @endforeach
         </ul>
+    @endif
+
+    @if ($reviews->isNotEmpty())
+        <section class="mt-8">
+            <h2 class="mb-3 font-semibold">{{ __('Reseñas') }}</h2>
+            <ul class="space-y-3">
+                @foreach ($reviews as $review)
+                    <li class="rounded-2xl bg-white p-4 text-sm shadow-sm dark:bg-slate-800">
+                        <p>
+                            <span aria-hidden="true" class="text-amber-500">{{ str_repeat('★', $review->rating) }}</span>
+                            <span class="sr-only">{{ trans_choice(':count estrella|:count estrellas', $review->rating) }}</span>
+                            <span class="ml-1 font-medium">{{ $review->client_name }}</span>
+                        </p>
+                        <p class="mt-1 text-slate-600 dark:text-slate-400">{{ $review->comment }}</p>
+                    </li>
+                @endforeach
+            </ul>
+        </section>
     @endif
 
     <div class="mt-8 space-y-1 text-sm text-slate-600 dark:text-slate-400">

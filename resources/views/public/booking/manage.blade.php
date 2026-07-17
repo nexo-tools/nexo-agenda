@@ -82,6 +82,45 @@
         </p>
     @endif
 
+    @if ($booking->canBeReviewed())
+        <section class="mt-6 rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-800">
+            <h2 class="font-semibold">{{ __('¿Cómo estuvo tu experiencia?') }}</h2>
+            <form method="POST" action="{{ route('booking.review', $token) }}" class="mt-3 space-y-3">
+                @csrf
+                <fieldset>
+                    <legend class="sr-only">{{ __('Calificación') }}</legend>
+                    <div class="rating gap-1 text-3xl">
+                        @foreach ([5, 4, 3, 2, 1] as $stars)
+                            <label>
+                                <input type="radio" name="rating" value="{{ $stars }}" class="sr-only" @checked(old('rating') == $stars) required>
+                                <span aria-hidden="true">★</span>
+                                <span class="sr-only">{{ trans_choice(':count estrella|:count estrellas', $stars) }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                    @error('rating')
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                    @enderror
+                </fieldset>
+
+                <div>
+                    <label for="comment" class="mb-1 block text-sm font-medium">{{ __('Comentario (opcional)') }}</label>
+                    <textarea id="comment" name="comment" rows="3" maxlength="500"
+                              class="w-full rounded-lg border-slate-300 bg-white text-ink shadow-sm focus:border-brand-500 focus:ring-brand-500 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200">{{ old('comment') }}</textarea>
+                    @error('comment')
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <x-button>{{ __('Enviar reseña') }}</x-button>
+            </form>
+        </section>
+    @elseif ($booking->review)
+        <p class="mt-4 rounded-2xl bg-white p-4 text-center text-sm text-slate-600 shadow-sm dark:bg-slate-800 dark:text-slate-400">
+            {{ __('Calificaste esta visita con :rating de 5. ¡Gracias!', ['rating' => $booking->review->rating]) }}
+        </p>
+    @endif
+
     <p class="mt-4 text-center text-xs text-slate-500">
         {{ __('Guarda este enlace: es tu comprobante y desde aquí gestionas tu turno.') }}
     </p>

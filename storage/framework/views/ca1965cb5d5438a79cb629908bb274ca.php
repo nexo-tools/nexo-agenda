@@ -97,6 +97,78 @@
         </p>
     <?php endif; ?>
 
+    <?php if($booking->canBeReviewed()): ?>
+        <section class="mt-6 rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-800">
+            <h2 class="font-semibold"><?php echo e(__('¿Cómo estuvo tu experiencia?')); ?></h2>
+            <form method="POST" action="<?php echo e(route('booking.review', $token)); ?>" class="mt-3 space-y-3">
+                <?php echo csrf_field(); ?>
+                <fieldset>
+                    <legend class="sr-only"><?php echo e(__('Calificación')); ?></legend>
+                    <div class="rating gap-1 text-3xl">
+                        <?php $__currentLoopData = [5, 4, 3, 2, 1]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stars): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <label>
+                                <input type="radio" name="rating" value="<?php echo e($stars); ?>" class="sr-only" <?php if(old('rating') == $stars): echo 'checked'; endif; ?> required>
+                                <span aria-hidden="true">★</span>
+                                <span class="sr-only"><?php echo e(trans_choice(':count estrella|:count estrellas', $stars)); ?></span>
+                            </label>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                    <?php $__errorArgs = ['rating'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400"><?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </fieldset>
+
+                <div>
+                    <label for="comment" class="mb-1 block text-sm font-medium"><?php echo e(__('Comentario (opcional)')); ?></label>
+                    <textarea id="comment" name="comment" rows="3" maxlength="500"
+                              class="w-full rounded-lg border-slate-300 bg-white text-ink shadow-sm focus:border-brand-500 focus:ring-brand-500 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200"><?php echo e(old('comment')); ?></textarea>
+                    <?php $__errorArgs = ['comment'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400"><?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
+
+                <?php if (isset($component)) { $__componentOriginald0f1fd2689e4bb7060122a5b91fe8561 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.button','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?><?php echo e(__('Enviar reseña')); ?> <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561)): ?>
+<?php $attributes = $__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561; ?>
+<?php unset($__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginald0f1fd2689e4bb7060122a5b91fe8561)): ?>
+<?php $component = $__componentOriginald0f1fd2689e4bb7060122a5b91fe8561; ?>
+<?php unset($__componentOriginald0f1fd2689e4bb7060122a5b91fe8561); ?>
+<?php endif; ?>
+            </form>
+        </section>
+    <?php elseif($booking->review): ?>
+        <p class="mt-4 rounded-2xl bg-white p-4 text-center text-sm text-slate-600 shadow-sm dark:bg-slate-800 dark:text-slate-400">
+            <?php echo e(__('Calificaste esta visita con :rating de 5. ¡Gracias!', ['rating' => $booking->review->rating])); ?>
+
+        </p>
+    <?php endif; ?>
+
     <p class="mt-4 text-center text-xs text-slate-500">
         <?php echo e(__('Guarda este enlace: es tu comprobante y desde aquí gestionas tu turno.')); ?>
 

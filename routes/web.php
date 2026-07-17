@@ -15,6 +15,7 @@ use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FrontDeskController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\PublicBookingController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\WaitlistController;
@@ -42,6 +43,8 @@ Route::get('feeds/{token}.ics', [FeedController::class, 'professional'])
     ->middleware('throttle:60,1')->name('feeds.professional');
 
 Route::get('t/{token}', [BookingManagementController::class, 'show'])->name('booking.manage');
+Route::post('t/{token}/resena', [ReviewController::class, 'store'])
+    ->middleware('throttle:10,1')->name('booking.review');
 Route::post('t/{token}/cancelar', [BookingManagementController::class, 'cancel'])
     ->middleware('throttle:10,1')->name('booking.cancel');
 Route::get('t/{token}/reprogramar', [BookingManagementController::class, 'reschedule'])->name('booking.reschedule');
@@ -57,6 +60,8 @@ Route::middleware('auth')->group(function () {
         Route::get('checkin/{token}', [CheckInController::class, 'show'])->name('checkin');
         Route::post('checkin/{token}', [CheckInController::class, 'store'])->name('checkin.store');
         Route::get('estadisticas', StatsController::class)->name('stats');
+        Route::get('resenas', [ReviewController::class, 'index'])->name('reviews.index');
+        Route::patch('resenas/{review}', [ReviewController::class, 'toggle'])->name('reviews.toggle');
         Route::get('bookings/create', [AppBookingController::class, 'create'])->name('bookings.create');
         Route::post('bookings', [AppBookingController::class, 'store'])->name('bookings.store');
         Route::patch('bookings/{booking}/status', [AppBookingController::class, 'updateStatus'])->name('bookings.status');

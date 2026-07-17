@@ -20,6 +20,12 @@
         <p class="text-sm text-slate-600 dark:text-slate-400">
             <?php echo e(__('nexo.categories.'.$business->category)); ?> · <?php echo e($business->city); ?>
 
+            <?php if($ratingCount > 0): ?>
+                · <span aria-hidden="true" class="text-amber-500">★</span>
+                <?php echo e(number_format($ratingAverage, 1, ',')); ?>
+
+                <span class="text-slate-500">(<?php echo e($ratingCount); ?>)</span>
+            <?php endif; ?>
         </p>
         <?php if($business->description): ?>
             <p class="mt-2 text-sm text-slate-700 dark:text-slate-300"><?php echo e($business->description); ?></p>
@@ -63,6 +69,24 @@
                 </li>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
+    <?php endif; ?>
+
+    <?php if($reviews->isNotEmpty()): ?>
+        <section class="mt-8">
+            <h2 class="mb-3 font-semibold"><?php echo e(__('Reseñas')); ?></h2>
+            <ul class="space-y-3">
+                <?php $__currentLoopData = $reviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $review): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li class="rounded-2xl bg-white p-4 text-sm shadow-sm dark:bg-slate-800">
+                        <p>
+                            <span aria-hidden="true" class="text-amber-500"><?php echo e(str_repeat('★', $review->rating)); ?></span>
+                            <span class="sr-only"><?php echo e(trans_choice(':count estrella|:count estrellas', $review->rating)); ?></span>
+                            <span class="ml-1 font-medium"><?php echo e($review->client_name); ?></span>
+                        </p>
+                        <p class="mt-1 text-slate-600 dark:text-slate-400"><?php echo e($review->comment); ?></p>
+                    </li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+        </section>
     <?php endif; ?>
 
     <div class="mt-8 space-y-1 text-sm text-slate-600 dark:text-slate-400">

@@ -54,6 +54,18 @@ class Business extends Model
         return $this->hasMany(WaitlistEntry::class);
     }
 
+    /** @return HasMany<Review, $this> */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    /** @return HasMany<Review, $this> */
+    public function visibleReviews(): HasMany
+    {
+        return $this->reviews()->where('is_hidden', false);
+    }
+
     /**
      * Black or white, whichever contrasts best with the accent color (WCAG-oriented).
      */
