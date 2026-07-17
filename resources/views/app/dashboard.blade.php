@@ -89,7 +89,15 @@
                                         {{ $booking->status->label() }}
                                     </span>
                                 </div>
-                                <p class="mt-1">{{ $booking->client_name }} · {{ $booking->service->name }}</p>
+                                <p class="mt-1">
+                                    {{ $booking->client_name }} · {{ $booking->service->name }}
+                                    @if ($booking->client_phone)
+                                        <a href="https://wa.me/{{ preg_replace('/\D/', '', $booking->client_phone) }}?text={{ urlencode(__('Hola :name, te recordamos tu turno de :service el :date a las :time en :business. ¡Te esperamos!', ['name' => $booking->client_name, 'service' => $booking->service->name, 'date' => $booking->starts_at->setTimezone($tz)->isoFormat('dddd D/M'), 'time' => $booking->starts_at->setTimezone($tz)->format('H:i'), 'business' => $business->name])) }}"
+                                           class="ml-1 text-brand-700 hover:underline dark:text-brand-400" rel="noopener" target="_blank">
+                                            ✆ WhatsApp
+                                        </a>
+                                    @endif
+                                </p>
                                 @if ($booking->note)
                                     <p class="mt-1 text-xs text-slate-500">{{ $booking->note }}</p>
                                 @endif

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookingRequest;
+use App\Mail\BookingConfirmed;
+use App\Mail\NewBookingReceived;
 use App\Models\Booking;
 use App\Models\Business;
 use App\Models\Professional;
@@ -13,6 +15,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class PublicBookingController extends Controller
@@ -117,10 +120,10 @@ class PublicBookingController extends Controller
             return $business->bookings()->create([
                 'professional_id' => $professional->id,
                 'service_id' => $service->id,
-                'client_name' => $request->string('client_name'),
-                'client_email' => $request->string('client_email'),
-                'client_phone' => $request->input('client_phone') ?: null,
-                'note' => $request->input('note') ?: null,
+                'client_name' => $request->validated('client_name'),
+                'client_email' => $request->validated('client_email'),
+                'client_phone' => $request->validated('client_phone') ?: null,
+                'note' => $request->validated('note') ?: null,
                 'starts_at' => $start->utc(),
                 'ends_at' => $start->addMinutes($service->duration_minutes)->utc(),
                 'management_token' => $token['hash'],
@@ -132,6 +135,10 @@ class PublicBookingController extends Controller
                 ->route('public.times', [$business, $service, 'professional' => $professional->id, 'date' => $start->toDateString()])
                 ->with('slot_taken', true);
         }
+
+        $booking->setRelations(['business' => $business, 'service' => $service, 'professional' => $professional]);
+        Mail::to($booking->client_email)->send(new BookingConfirmed($booking, $token['token']));
+        Mail::to($business->user->email)->send(new NewBookingReceived($booking));
 
         return redirect()->route('booking.manage', $token['token']);
     }

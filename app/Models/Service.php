@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property ServiceMode $mode
+ * @property bool $is_active
+ */
 #[Fillable([
     'name', 'duration_minutes', 'price', 'mode', 'video_link', 'buffer_minutes',
     'min_notice_hours', 'cancellation_hours', 'max_advance_days', 'is_active',

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BookingCancelled;
+use App\Mail\BookingRescheduled;
 use App\Models\Booking;
 use App\Services\Availability;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class BookingManagementController extends Controller
@@ -34,6 +37,10 @@ class BookingManagementController extends Controller
         }
 
         $booking->cancel();
+
+        if ($booking->client_email !== null) {
+            Mail::to($booking->client_email)->send(new BookingCancelled($booking->load(['business', 'service', 'professional'])));
+        }
 
         return redirect()->route('booking.manage', $token)->with('status', __('Tu turno fue cancelado.'));
     }
@@ -107,6 +114,10 @@ class BookingManagementController extends Controller
         if (! $updated) {
             return redirect()->route('booking.reschedule', [$token, 'date' => $start->toDateString()])
                 ->with('slot_taken', true);
+        }
+
+        if ($booking->client_email !== null) {
+            Mail::to($booking->client_email)->send(new BookingRescheduled($booking));
         }
 
         return redirect()->route('booking.manage', $token)->with('status', __('Tu turno fue reprogramado.'));

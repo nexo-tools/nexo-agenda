@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Enums\BookingStatus;
+use App\Mail\BookingCancelled;
+use App\Mail\BookingConfirmed;
 use App\Models\Booking;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -79,6 +82,11 @@ class AppBookingController extends Controller
             return back()->withInput()->withErrors(['time' => __('Ese horario se superpone con otro turno.')]);
         }
 
+        if ($booking->client_email !== null) {
+            $booking->setRelations(['business' => $business, 'service' => $service, 'professional' => $professional]);
+            Mail::to($booking->client_email)->send(new BookingConfirmed($booking, $token['token']));
+        }
+
         return redirect()
             ->route('dashboard', ['date' => $start->toDateString()])
             ->with('status', __('Turno creado.'));
@@ -94,6 +102,10 @@ class AppBookingController extends Controller
 
         if ($validated['status'] === BookingStatus::Cancelled->value) {
             $booking->cancel();
+
+            if ($booking->client_email !== null) {
+                Mail::to($booking->client_email)->send(new BookingCancelled($booking->load(['business', 'service', 'professional'])));
+            }
         } else {
             $booking->update(['status' => $validated['status']]);
         }
