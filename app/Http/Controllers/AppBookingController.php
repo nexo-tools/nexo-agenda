@@ -6,6 +6,7 @@ use App\Enums\BookingStatus;
 use App\Mail\BookingCancelled;
 use App\Mail\BookingConfirmed;
 use App\Models\Booking;
+use App\Services\WaitlistNotifier;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -106,6 +107,8 @@ class AppBookingController extends Controller
             if ($booking->client_email !== null) {
                 Mail::to($booking->client_email)->send(new BookingCancelled($booking->load(['business', 'service', 'professional'])));
             }
+
+            app(WaitlistNotifier::class)->bookingCancelled($booking);
         } else {
             $booking->update(['status' => $validated['status']]);
         }

@@ -48,6 +48,12 @@ class Business extends Model
         return $this->hasMany(Booking::class);
     }
 
+    /** @return HasMany<WaitlistEntry, $this> */
+    public function waitlistEntries(): HasMany
+    {
+        return $this->hasMany(WaitlistEntry::class);
+    }
+
     public static function uniqueSlugFor(string $name): string
     {
         $base = Str::slug($name) ?: 'negocio';

@@ -41,6 +41,10 @@
 
     <p class="mb-3 text-center font-medium capitalize">{{ $day->isoFormat('dddd D [de] MMMM') }}</p>
 
+    @if (session('status'))
+        <p class="mb-4 rounded-lg bg-brand-100 px-4 py-3 text-sm text-brand-900" role="status">{{ session('status') }}</p>
+    @endif
+
     @if ($slots->isEmpty())
         <p class="rounded-2xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">
             {{ __('No hay horarios disponibles este día.') }}
@@ -57,4 +61,26 @@
             @endforeach
         </ul>
     @endif
+
+    <details class="mt-6 rounded-2xl bg-white p-4 shadow-sm dark:bg-slate-800" @if ($errors->any() || $slots->isEmpty()) open @endif>
+        <summary class="cursor-pointer text-sm font-medium text-brand-700 dark:text-brand-400">
+            {{ $slots->isEmpty() ? __('Avisarme si se libera un horario este día') : __('¿Prefieres otro horario? Súmate a la lista de espera') }}
+        </summary>
+        <form method="POST" action="{{ route('public.waitlist', [$business, $service]) }}" class="mt-4 space-y-3">
+            @csrf
+            <input type="hidden" name="professional" value="{{ $chosen?->id ?? 'any' }}">
+            <input type="hidden" name="date" value="{{ $day->toDateString() }}">
+
+            <x-field :label="__('Nombre')" name="client_name" required autocomplete="name" />
+            <x-field :label="__('Email')" name="client_email" type="email" required autocomplete="email" />
+            @error('date')
+                <p class="text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+            @enderror
+
+            <x-button>{{ __('Anotarme en la lista de espera') }}</x-button>
+            <p class="text-xs text-slate-500">
+                {{ __('Si alguien cancela ese día, te avisamos por email al instante.') }}
+            </p>
+        </form>
+    </details>
 </x-public-layout>

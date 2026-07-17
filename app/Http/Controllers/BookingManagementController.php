@@ -6,6 +6,7 @@ use App\Mail\BookingCancelled;
 use App\Mail\BookingRescheduled;
 use App\Models\Booking;
 use App\Services\Availability;
+use App\Services\WaitlistNotifier;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,7 +16,10 @@ use Illuminate\View\View;
 
 class BookingManagementController extends Controller
 {
-    public function __construct(private readonly Availability $availability) {}
+    public function __construct(
+        private readonly Availability $availability,
+        private readonly WaitlistNotifier $waitlist,
+    ) {}
 
     public function show(string $token): View
     {
@@ -41,6 +45,8 @@ class BookingManagementController extends Controller
         if ($booking->client_email !== null) {
             Mail::to($booking->client_email)->send(new BookingCancelled($booking->load(['business', 'service', 'professional'])));
         }
+
+        $this->waitlist->bookingCancelled($booking);
 
         return redirect()->route('booking.manage', $token)->with('status', __('Tu turno fue cancelado.'));
     }

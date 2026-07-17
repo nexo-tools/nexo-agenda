@@ -53,6 +53,10 @@
 
     <p class="mb-3 text-center font-medium capitalize"><?php echo e($day->isoFormat('dddd D [de] MMMM')); ?></p>
 
+    <?php if(session('status')): ?>
+        <p class="mb-4 rounded-lg bg-brand-100 px-4 py-3 text-sm text-brand-900" role="status"><?php echo e(session('status')); ?></p>
+    <?php endif; ?>
+
     <?php if($slots->isEmpty()): ?>
         <p class="rounded-2xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">
             <?php echo e(__('No hay horarios disponibles este día.')); ?>
@@ -71,6 +75,93 @@
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
     <?php endif; ?>
+
+    <details class="mt-6 rounded-2xl bg-white p-4 shadow-sm dark:bg-slate-800" <?php if($errors->any() || $slots->isEmpty()): ?> open <?php endif; ?>>
+        <summary class="cursor-pointer text-sm font-medium text-brand-700 dark:text-brand-400">
+            <?php echo e($slots->isEmpty() ? __('Avisarme si se libera un horario este día') : __('¿Prefieres otro horario? Súmate a la lista de espera')); ?>
+
+        </summary>
+        <form method="POST" action="<?php echo e(route('public.waitlist', [$business, $service])); ?>" class="mt-4 space-y-3">
+            <?php echo csrf_field(); ?>
+            <input type="hidden" name="professional" value="<?php echo e($chosen?->id ?? 'any'); ?>">
+            <input type="hidden" name="date" value="<?php echo e($day->toDateString()); ?>">
+
+            <?php if (isset($component)) { $__componentOriginalae4c123bc9806121d87d234de2f27a3b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalae4c123bc9806121d87d234de2f27a3b = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.field','data' => ['label' => __('Nombre'),'name' => 'client_name','required' => true,'autocomplete' => 'name']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('field'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(__('Nombre')),'name' => 'client_name','required' => true,'autocomplete' => 'name']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalae4c123bc9806121d87d234de2f27a3b)): ?>
+<?php $attributes = $__attributesOriginalae4c123bc9806121d87d234de2f27a3b; ?>
+<?php unset($__attributesOriginalae4c123bc9806121d87d234de2f27a3b); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalae4c123bc9806121d87d234de2f27a3b)): ?>
+<?php $component = $__componentOriginalae4c123bc9806121d87d234de2f27a3b; ?>
+<?php unset($__componentOriginalae4c123bc9806121d87d234de2f27a3b); ?>
+<?php endif; ?>
+            <?php if (isset($component)) { $__componentOriginalae4c123bc9806121d87d234de2f27a3b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalae4c123bc9806121d87d234de2f27a3b = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.field','data' => ['label' => __('Email'),'name' => 'client_email','type' => 'email','required' => true,'autocomplete' => 'email']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('field'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(__('Email')),'name' => 'client_email','type' => 'email','required' => true,'autocomplete' => 'email']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalae4c123bc9806121d87d234de2f27a3b)): ?>
+<?php $attributes = $__attributesOriginalae4c123bc9806121d87d234de2f27a3b; ?>
+<?php unset($__attributesOriginalae4c123bc9806121d87d234de2f27a3b); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalae4c123bc9806121d87d234de2f27a3b)): ?>
+<?php $component = $__componentOriginalae4c123bc9806121d87d234de2f27a3b; ?>
+<?php unset($__componentOriginalae4c123bc9806121d87d234de2f27a3b); ?>
+<?php endif; ?>
+            <?php $__errorArgs = ['date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <p class="text-sm text-red-600 dark:text-red-400"><?php echo e($message); ?></p>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+
+            <?php if (isset($component)) { $__componentOriginald0f1fd2689e4bb7060122a5b91fe8561 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.button','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?><?php echo e(__('Anotarme en la lista de espera')); ?> <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561)): ?>
+<?php $attributes = $__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561; ?>
+<?php unset($__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginald0f1fd2689e4bb7060122a5b91fe8561)): ?>
+<?php $component = $__componentOriginald0f1fd2689e4bb7060122a5b91fe8561; ?>
+<?php unset($__componentOriginald0f1fd2689e4bb7060122a5b91fe8561); ?>
+<?php endif; ?>
+            <p class="text-xs text-slate-500">
+                <?php echo e(__('Si alguien cancela ese día, te avisamos por email al instante.')); ?>
+
+            </p>
+        </form>
+    </details>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal58c831a7c3cbf004f2e66a23aed50e5b)): ?>

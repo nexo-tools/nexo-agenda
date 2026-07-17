@@ -106,7 +106,16 @@
 
                                     </span>
                                 </div>
-                                <p class="mt-1"><?php echo e($booking->client_name); ?> · <?php echo e($booking->service->name); ?></p>
+                                <p class="mt-1">
+                                    <?php echo e($booking->client_name); ?> · <?php echo e($booking->service->name); ?>
+
+                                    <?php if($booking->client_phone): ?>
+                                        <a href="https://wa.me/<?php echo e(preg_replace('/\D/', '', $booking->client_phone)); ?>?text=<?php echo e(urlencode(__('Hola :name, te recordamos tu turno de :service el :date a las :time en :business. ¡Te esperamos!', ['name' => $booking->client_name, 'service' => $booking->service->name, 'date' => $booking->starts_at->setTimezone($tz)->isoFormat('dddd D/M'), 'time' => $booking->starts_at->setTimezone($tz)->format('H:i'), 'business' => $business->name]))); ?>"
+                                           class="ml-1 text-brand-700 hover:underline dark:text-brand-400" rel="noopener" target="_blank">
+                                            ✆ WhatsApp
+                                        </a>
+                                    <?php endif; ?>
+                                </p>
                                 <?php if($booking->note): ?>
                                     <p class="mt-1 text-xs text-slate-500"><?php echo e($booking->note); ?></p>
                                 <?php endif; ?>

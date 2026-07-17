@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\PublicBookingController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\WaitlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -66,5 +67,7 @@ Route::scopeBindings()->group(function () {
     Route::get('{business:slug}/reservar/{service}/datos', [PublicBookingController::class, 'form'])->name('public.form');
     Route::post('{business:slug}/reservar/{service}', [PublicBookingController::class, 'store'])
         ->middleware('throttle:15,1')->name('public.store');
+    Route::post('{business:slug}/reservar/{service}/espera', [WaitlistController::class, 'store'])
+        ->middleware('throttle:10,1')->name('public.waitlist');
 });
 Route::get('{business:slug}', [PublicBookingController::class, 'business'])->name('public.business');
