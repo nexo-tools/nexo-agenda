@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property CarbonImmutable $starts_on
+ * @property CarbonImmutable $ends_on
+ */
 #[Fillable(['starts_on', 'ends_on', 'reason'])]
 class Absence extends Model
 {
@@ -13,8 +18,8 @@ class Absence extends Model
     protected function casts(): array
     {
         return [
-            'starts_on' => 'date',
-            'ends_on' => 'date',
+            'starts_on' => 'immutable_date',
+            'ends_on' => 'immutable_date',
         ];
     }
 

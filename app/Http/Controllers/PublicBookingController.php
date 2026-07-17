@@ -10,6 +10,7 @@ use App\Models\Business;
 use App\Models\Professional;
 use App\Models\Service;
 use App\Services\Availability;
+use App\Services\BusinessStats;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
@@ -22,8 +23,10 @@ class PublicBookingController extends Controller
 {
     public function __construct(private readonly Availability $availability) {}
 
-    public function business(Business $business): View
+    public function business(Request $request, Business $business): View
     {
+        app(BusinessStats::class)->recordVisit($business, $request);
+
         return view('public.business', [
             'business' => $business,
             'services' => $business->services()->where('is_active', true)->orderBy('name')->get(),

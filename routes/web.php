@@ -15,6 +15,7 @@ use App\Http\Controllers\FrontDeskController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\PublicBookingController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\StatsController;
 use App\Http\Controllers\WaitlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('app')->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
         Route::get('mostrador', FrontDeskController::class)->name('frontdesk');
+        Route::get('estadisticas', StatsController::class)->name('stats');
         Route::get('bookings/create', [AppBookingController::class, 'create'])->name('bookings.create');
         Route::post('bookings', [AppBookingController::class, 'store'])->name('bookings.store');
         Route::patch('bookings/{booking}/status', [AppBookingController::class, 'updateStatus'])->name('bookings.status');
