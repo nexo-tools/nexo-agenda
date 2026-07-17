@@ -27,7 +27,20 @@
             <p class="max-w-md text-lg text-slate-600 dark:text-slate-400">
                 {{ __('Reservas online para tu negocio. Open source, sin comisiones.') }}
             </p>
-            <p class="text-sm text-slate-500 dark:text-slate-500">{{ __('Muy pronto.') }}</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="{{ route('register') }}"
+                   class="rounded-lg bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-800">
+                    {{ __('Crear cuenta gratis') }}
+                </a>
+                <a href="{{ route('directory') }}"
+                   class="rounded-lg border border-brand-700 px-5 py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50 dark:border-brand-400 dark:text-brand-400 dark:hover:bg-slate-800">
+                    {{ __('Explorar negocios') }}
+                </a>
+            </div>
+            @auth
+                <a href="{{ route('dashboard') }}" class="text-sm text-brand-700 hover:underline dark:text-brand-400">{{ __('Ir a mi agenda') }}</a>
+            @endauth
+            <x-locale-switcher />
         </main>
     </body>
 </html>

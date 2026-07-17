@@ -11,6 +11,7 @@ use App\Http\Controllers\BusinessSettingsController;
 use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DirectoryController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FrontDeskController;
 use App\Http\Controllers\ProfessionalController;
@@ -38,6 +39,9 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->middleware('throttle:5,1')->name('password.store');
 });
+
+Route::get('explorar', [DirectoryController::class, 'index'])->name('directory');
+Route::get('explorar/rubro/{category}', [DirectoryController::class, 'index'])->name('directory.category');
 
 Route::get('feeds/{token}.ics', [FeedController::class, 'professional'])
     ->middleware('throttle:60,1')->name('feeds.professional');

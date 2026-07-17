@@ -20,6 +20,7 @@ class BusinessSettingsRequest extends FormRequest
             'brand_color' => ['nullable', 'regex:/^#[0-9a-fA-F]{6}$/'],
             'logo' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp,svg', 'max:1024'],
             'remove_logo' => ['nullable', 'boolean'],
+            'in_directory' => ['nullable', 'boolean'],
         ];
     }
 

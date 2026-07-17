@@ -24,6 +24,7 @@ class BusinessSettingsController extends Controller
         $data = $request->safe()->only([
             'name', 'category', 'city', 'address', 'whatsapp_phone', 'description', 'brand_color',
         ]);
+        $data['in_directory'] = $request->boolean('in_directory');
 
         if ($request->boolean('remove_logo') && $business->logo_path !== null) {
             Storage::disk('public')->delete($business->logo_path);

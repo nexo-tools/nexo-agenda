@@ -190,6 +190,20 @@ unset($__errorArgs, $__bag); ?>
             <?php endif; ?>
         </fieldset>
 
+        <label class="flex items-start gap-2 text-sm">
+            <input type="hidden" name="in_directory" value="0">
+            <input type="checkbox" name="in_directory" value="1" <?php if(old('in_directory', $business->in_directory)): echo 'checked'; endif; ?>
+                   class="mt-0.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500">
+            <span>
+                <?php echo e(__('Aparecer en el directorio público')); ?>
+
+                <span class="block text-xs text-slate-500">
+                    <?php echo e(__('Tu negocio se podrá encontrar en /explorar buscando por rubro y ciudad. Gratis, sin comisiones.')); ?>
+
+                </span>
+            </span>
+        </label>
+
         <?php if (isset($component)) { $__componentOriginald0f1fd2689e4bb7060122a5b91fe8561 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.button','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
