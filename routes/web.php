@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookingManagementController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\PublicBookingController;
@@ -46,6 +47,10 @@ Route::middleware('auth')->group(function () {
         Route::get('bookings/create', [AppBookingController::class, 'create'])->name('bookings.create');
         Route::post('bookings', [AppBookingController::class, 'store'])->name('bookings.store');
         Route::patch('bookings/{booking}/status', [AppBookingController::class, 'updateStatus'])->name('bookings.status');
+        Route::get('clients', [ClientController::class, 'index'])->name('clients.index');
+        Route::get('clients/detail', [ClientController::class, 'show'])->name('clients.show');
+        Route::get('clients/export.csv', [ClientController::class, 'exportClients'])->name('clients.export');
+        Route::get('bookings/export.csv', [ClientController::class, 'exportBookings'])->name('bookings.export');
         Route::resource('services', ServiceController::class)->except(['show']);
         Route::resource('professionals', ProfessionalController::class)->except(['show', 'create']);
         Route::post('professionals/{professional}/absences', [AbsenceController::class, 'store'])
