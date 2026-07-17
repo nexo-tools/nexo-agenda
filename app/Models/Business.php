@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 #[Fillable(['name', 'slug', 'category', 'city', 'timezone', 'whatsapp_phone', 'address', 'description', 'in_directory'])]
@@ -27,6 +28,12 @@ class Business extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /** @return HasMany<Service, $this> */
+    public function services(): HasMany
+    {
+        return $this->hasMany(Service::class);
     }
 
     public static function uniqueSlugFor(string $name): string

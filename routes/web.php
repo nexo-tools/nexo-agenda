@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -30,5 +31,6 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('app')->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
+        Route::resource('services', ServiceController::class)->except(['show']);
     });
 });

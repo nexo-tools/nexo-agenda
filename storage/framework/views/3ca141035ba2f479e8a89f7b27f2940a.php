@@ -131,4 +131,4 @@
         </main>
     </body>
 </html>
-<?php /**PATH /var/www/html/resources/views/components/app-layout.blade.php ENDPATH**/ ?>
+<?php /**PATH /app/resources/views/components/app-layout.blade.php ENDPATH**/ ?>
