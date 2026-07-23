@@ -18,8 +18,8 @@ return [
 
     // Slugs that can never be taken by a business (they collide with app routes).
     'reserved_slugs' => [
-        'admin', 'api', 'app', 'ayuda', 'blog', 'build', 'contacto', 'demo',
-        'docs', 'explorar', 'help', 'icons', 'login', 'logout', 'mail', 'og',
+        'admin', 'api', 'app', 'auth', 'ayuda', 'blog', 'build', 'contacto', 'demo',
+        'docs', 'explorar', 'help', 'icons', 'login', 'logout', 'mail', 'nexo', 'og',
         'password', 'privacidad', 'register', 'reservas', 'salir', 'sitemap',
         'soporte', 'status', 't', 'terminos', 'turnos', 'www',
     ],

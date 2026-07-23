@@ -24,6 +24,23 @@
         <x-button>{{ __('Entrar') }}</x-button>
     </form>
 
+    @if (config('nexo-sso.enabled'))
+        <div class="my-4 flex items-center gap-3 text-xs uppercase text-slate-400">
+            <span class="h-px flex-grow bg-slate-200 dark:bg-slate-700"></span>
+            {{ __('o') }}
+            <span class="h-px flex-grow bg-slate-200 dark:bg-slate-700"></span>
+        </div>
+
+        @error('nexo_sso')
+            <p class="mb-3 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-300" role="alert">{{ $message }}</p>
+        @enderror
+
+        <a href="{{ route('nexo-sso.redirect') }}"
+           class="flex w-full items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">
+            {{ __('Continuar con Nexo ID') }}
+        </a>
+    @endif
+
     <p class="mt-4 text-center text-sm text-slate-600 dark:text-slate-400">
         {{ __('¿No tienes cuenta?') }}
         <a href="{{ route('register') }}" class="font-medium text-brand-700 hover:underline dark:text-brand-400">{{ __('Regístrate') }}</a>

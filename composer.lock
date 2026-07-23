@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "458b2ad26b7f1b4e68f122243f7da0ba",
+    "content-hash": "691a6f7bea538a65fff8aa1fb18c89ec",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -613,6 +613,72 @@
             "time": "2025-03-06T22:45:56+00:00"
         },
         {
+            "name": "firebase/php-jwt",
+            "version": "v7.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/googleapis/php-jwt.git",
+                "reference": "b374a5d1a4f1f67fadc2165cdb284645945e2fc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/googleapis/php-jwt/zipball/b374a5d1a4f1f67fadc2165cdb284645945e2fc0",
+                "reference": "b374a5d1a4f1f67fadc2165cdb284645945e2fc0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.4",
+                "phpfastcache/phpfastcache": "^9.2",
+                "phpseclib/phpseclib": "~3.0",
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.5",
+                "psr/cache": "^2.0||^3.0",
+                "psr/http-client": "^1.0",
+                "psr/http-factory": "^1.0"
+            },
+            "suggest": {
+                "ext-sodium": "Support EdDSA (Ed25519) signatures",
+                "paragonie/sodium_compat": "Support EdDSA (Ed25519) signatures when libsodium is not present",
+                "phpseclib/phpseclib": "Support PS256 (RSASSA-PSS) signatures"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Firebase\\JWT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Neuman Vong",
+                    "email": "neuman+pear@twilio.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Anant Narayanan",
+                    "email": "anant@php.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
+            "homepage": "https://github.com/googleapis/php-jwt",
+            "keywords": [
+                "jwt",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/googleapis/php-jwt/issues",
+                "source": "https://github.com/googleapis/php-jwt/tree/v7.1.0"
+            },
+            "time": "2026-06-11T17:54:14+00:00"
+        },
+        {
             "name": "fruitcake/php-cors",
             "version": "v1.4.0",
             "source": {
@@ -747,16 +813,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.15.0",
+            "version": "7.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "90bd104afeb0fcc2190c9eb6fd8a441447e4b30d"
+                "reference": "61443dfb33c62f308ee8add20f45b4d6e4bf8d2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/90bd104afeb0fcc2190c9eb6fd8a441447e4b30d",
-                "reference": "90bd104afeb0fcc2190c9eb6fd8a441447e4b30d",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/61443dfb33c62f308ee8add20f45b4d6e4bf8d2f",
+                "reference": "61443dfb33c62f308ee8add20f45b4d6e4bf8d2f",
                 "shasum": ""
             },
             "require": {
@@ -855,7 +921,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.15.0"
+                "source": "https://github.com/guzzle/guzzle/tree/7.15.1"
             },
             "funding": [
                 {
@@ -871,7 +937,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-17T12:26:48+00:00"
+            "time": "2026-07-18T11:23:11+00:00"
         },
         {
             "name": "guzzlehttp/promises",

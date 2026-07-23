@@ -93,10 +93,27 @@ class ClientController extends Controller
             fwrite($out, "\u{FEFF}"); // BOM so Excel opens UTF-8 correctly
 
             foreach ($rows as $row) {
-                fputcsv($out, array_map(fn ($v) => $v === null ? '' : (string) $v, $row));
+                fputcsv($out, array_map($this->neutralizeCsvCell(...), $row));
             }
 
             fclose($out);
         }, $filename, ['Content-Type' => 'text/csv; charset=UTF-8']);
+    }
+
+    /**
+     * Neutralize CSV formula injection (CWE-1236): a cell whose first character is
+     * = + - @ (or a tab/CR) is executed as a formula when the owner opens the export
+     * in Excel/Sheets. Guest-controlled fields (client name/email/phone/note) reach
+     * here, so prefix any such value with a single quote.
+     */
+    private function neutralizeCsvCell(mixed $value): string
+    {
+        $value = $value === null ? '' : (string) $value;
+
+        if ($value !== '' && in_array($value[0], ['=', '+', '-', '@', "\t", "\r"], true)) {
+            return "'".$value;
+        }
+
+        return $value;
     }
 }

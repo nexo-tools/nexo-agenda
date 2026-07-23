@@ -165,6 +165,28 @@ duplicate it here; append new decisions there via `docs:` commits.
 
 <!-- Newest first, dated. Persist non-obvious context for the next session. -->
 
+- **2026-07-23** — **Nexo ID SSO client integrated** (ecosystem FASE 2; copied from the
+  standards template `~/alvaro/templates/nexo-sso-client`). Optional, **off by default**
+  (`NEXO_SSO_ENABLED=false`) — standalone local auth untouched (AC-CFG-1 asserts SSO routes
+  404 when disabled). Files: `config/nexo-sso.php`, `routes/nexo-sso.php` (required in
+  `web.php` **before** the `{business:slug}` catch-all), `app/Services/NexoSso/*`,
+  `app/Http/Controllers/Auth/NexoSsoController.php` (its user-facing strings translated to
+  the Spanish base locale), migration `..._add_nexo_id_sub_to_users_table`. **Key design (the
+  blocker):** an owner's `User` and `Business` are created together at registration, but an
+  OIDC sign-up carries no category/city, so the SSO resolver creates only the `User`; a new
+  **`EnsureBusiness` middleware** on the `/app` group redirects business-less owners to an
+  **onboarding form** (`OnboardingController`, `app/onboarding/create.blade.php`, routes
+  `onboarding.create`/`store` — kept OUTSIDE EnsureBusiness to avoid a loop) instead of
+  500ing on `$user->business->...`. Guest booking stays accountless; SSO targets owners only.
+  Also this pass (ecosystem-audit bucket C): **fixed a live CSV formula-injection** in the
+  client/booking exports (`ClientController::neutralizeCsvCell` prefixes cells starting with
+  `= + - @ \t \r`); ported the **`.htaccess`↔middleware CSP sync test**; added `auth`/`nexo`
+  to `reserved_slugs`; bumped `guzzlehttp/guzzle` ≥7.15.1 (audit clean) + added
+  `firebase/php-jwt`; untracked the empty `database/database.sqlite` (+ gitignore). 175 tests
+  (1 node-skip), Pint + Larastan + audit + i18n `--check` green. **Deferred to FASE 5**
+  (bucket C low): SVG-upload hardening, malformed `?date/?start` 500 guard, DST timezone test
+  cases, footer env test, stronger i18n guardian. Source: `~/alvaro/inbox/ecosystem-audit`.
+
 - **2026-07-19** — Context extraction from the Stage 0–2 build session: added the
   Stringable/`whereDate`/GD/`sail:install`/SVG-inlining gotchas to the
   conventions above. Also for the record: `laravel-lang` was tried and **doesn't

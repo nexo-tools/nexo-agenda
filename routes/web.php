@@ -16,6 +16,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FrontDeskController;
 use App\Http\Controllers\HelpController;
+use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\PublicBookingController;
 use App\Http\Controllers\ReviewController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\WaitlistController;
+use App\Http\Middleware\EnsureBusiness;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -71,7 +73,13 @@ Route::post('t/{token}/reprogramar', [BookingManagementController::class, 'updat
 Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-    Route::prefix('app')->group(function () {
+    // Onboarding: an authenticated owner without a business (e.g. after a Nexo ID
+    // SSO sign-up, whose claims carry no category/city) creates it here. Kept
+    // outside EnsureBusiness so there is no redirect loop.
+    Route::get('app/crear-negocio', [OnboardingController::class, 'create'])->name('onboarding.create');
+    Route::post('app/crear-negocio', [OnboardingController::class, 'store'])->name('onboarding.store');
+
+    Route::prefix('app')->middleware(EnsureBusiness::class)->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
         Route::get('mostrador', FrontDeskController::class)->name('frontdesk');
         Route::get('checkin/{token}', [CheckInController::class, 'show'])->name('checkin');
@@ -97,6 +105,10 @@ Route::middleware('auth')->group(function () {
             ->name('professionals.feed-token');
     });
 });
+
+// Nexo ID SSO client routes (no-op unless NEXO_SSO_ENABLED). Required before the
+// slug catch-all so /auth/nexo/* can never be shadowed.
+require __DIR__.'/nexo-sso.php';
 
 // Public booking pages — the slug catch-all must stay at the very end.
 Route::scopeBindings()->group(function () {

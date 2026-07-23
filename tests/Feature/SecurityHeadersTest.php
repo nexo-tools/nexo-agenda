@@ -37,3 +37,15 @@ it('does not advertise HSTS over plain http', function () {
 
     expect($response->headers->has('Strict-Transport-Security'))->toBeFalse();
 });
+
+it('keeps the .htaccess CSP in sync with the middleware CSP', function () {
+    // On LiteSpeed the web server strips the PHP-sent CSP (Force-HTTPS), so it is
+    // re-asserted in public/.htaccess. The two must match or prod silently weakens.
+    $middlewareCsp = $this->get('/')->headers->get('Content-Security-Policy');
+
+    $htaccess = file_get_contents(public_path('.htaccess'));
+    preg_match('/Header always set Content-Security-Policy "([^"]*)"/', $htaccess, $m);
+
+    expect($m[1] ?? null)->not->toBeNull()
+        ->and($m[1])->toBe($middlewareCsp);
+});
