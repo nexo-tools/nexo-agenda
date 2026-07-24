@@ -17,7 +17,6 @@
     <span class="nexo-footer__spacer"></span>
 
     <span>
-        {{ __('nexo.footer.powered_by') }}
         <a href="{{ $attrUrl }}" rel="noopener">{{ $attrLabel }}</a>
     </span>
 
