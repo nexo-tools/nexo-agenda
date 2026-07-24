@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Nexo Tools">
+  <defs>
+    <linearGradient id="nexoTile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#nexoTile)"/>
+  <g fill="#fff">
+    <rect x="14" y="14" width="8" height="8" rx="2.2"/>
+    <rect x="26" y="14" width="8" height="8" rx="2.2"/>
+    <rect x="14" y="26" width="8" height="8" rx="2.2"/>
+    <rect x="26" y="26" width="8" height="8" rx="2.2"/>
+  </g>
+</svg>
