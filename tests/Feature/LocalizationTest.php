@@ -21,11 +21,14 @@ it('honours the accept-language header', function () {
         ->assertSee('Book your appointment');
 });
 
-it('switches with the lang parameter and persists in the session', function () {
-    $this->get('/idiomas-test?lang=en')->assertSee('Book your appointment');
+it('switches with the lang parameter and persists via the shared nexo-lang cookie', function () {
+    $this->get('/idiomas-test?lang=en')
+        ->assertSee('Book your appointment')
+        ->assertPlainCookie('nexo-lang', 'en');
 
-    // Next request without the parameter keeps English.
-    $this->get('/idiomas-test')->assertSee('Book your appointment');
+    // A later request carrying the cookie keeps English (shared across tools).
+    $this->withUnencryptedCookie('nexo-lang', 'en')
+        ->get('/idiomas-test')->assertSee('Book your appointment');
 });
 
 it('ignores unsupported locales', function () {

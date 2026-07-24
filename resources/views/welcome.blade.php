@@ -17,8 +17,16 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="flex min-h-screen flex-col bg-brand-50 font-sans text-ink antialiased dark:bg-slate-900 dark:text-slate-200">
-        <x-nexo-header brand="Nexo Agenda" mark="/ecosystem/nexoagenda.svg" />
+    <body class="flex min-h-screen flex-col bg-bg font-sans text-ink antialiased">
+        <x-nexo-header brand="Nexo Agenda" mark="/ecosystem/nexoagenda.svg">
+            <x-slot:actions>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="nexo-btn nexo-btn--ghost">{{ __('Ir a mi agenda') }}</a>
+                @else
+                    <a href="{{ route('login') }}" class="nexo-btn nexo-btn--ghost">{{ __('Entrar') }}</a>
+                @endauth
+            </x-slot:actions>
+        </x-nexo-header>
         <main class="flex flex-1 flex-col items-center justify-center gap-6 px-6 text-center">
             <img src="/favicon.svg" alt="" width="88" height="88">
             <h1 class="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">{{ config('app.name') }}</h1>

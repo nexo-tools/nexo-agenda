@@ -52,7 +52,7 @@ class SecurityHeaders
         // The only inline <script> is the FOUC-free theme-init (partials/theme-init);
         // it is allow-listed by its exact sha256 hash — no 'unsafe-inline' for scripts.
         // If you edit that snippet, recompute the hash (and mirror it in public/.htaccess).
-        $script = "'self' 'unsafe-eval' 'sha256-q0puGALRdXRJIRldb9avY05vEAmqxd4zX/mmrF5cgnU='";
+        $script = "'self' 'unsafe-eval' 'sha256-QY4re+NFw+ChK0c8H/EaTpktoUisSWU0fL7V6J43umM='";
         $style = "'self' 'unsafe-inline'";
         $connect = "'self'";
 

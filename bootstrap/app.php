@@ -18,6 +18,11 @@ return Application::configure(basePath: dirname(__DIR__))
             SetLocale::class,
             SecurityHeaders::class,
         ]);
+
+        // Shared preference cookies (theme + language) are scoped to the parent
+        // domain so they cross every ecosystem tool. Each tool has its own APP_KEY,
+        // so they must stay UNencrypted to be readable across tools.
+        $middleware->encryptCookies(except: ['nexo-lang', 'nexo-theme']);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
