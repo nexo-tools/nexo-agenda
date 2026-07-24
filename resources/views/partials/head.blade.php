@@ -7,7 +7,9 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#7c3aed">
+{{-- Chrome pages get the Nexo violet; the public storefront passes the business
+     accent (or the teal storefront default) so its mobile UI never turns violet. --}}
+<meta name="theme-color" content="{{ $themeColor ?? '#7c3aed' }}">
 
 @include('partials.theme-init')
 

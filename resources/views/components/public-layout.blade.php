@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        @include('partials.head')
+        @include('partials.head', ['themeColor' => $business?->brand_color ?: '#0f766e'])
         @isset($meta){{ $meta }}@endisset
 
         {{-- Public storefront palette. The Nexo brand violet is the app CHROME accent
