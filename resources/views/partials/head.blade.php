@@ -9,4 +9,6 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#0d9488">
 
+@include('partials.theme-init')
+
 @vite(['resources/css/app.css', 'resources/js/app.js'])

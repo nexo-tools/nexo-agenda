@@ -49,8 +49,10 @@ class SecurityHeaders
     {
         // Alpine evaluates directive expressions at runtime, which needs
         // 'unsafe-eval'; inline styles power per-business theming and stat bars.
-        // No inline <script> exists anywhere, so scripts stay locked to 'self'.
-        $script = "'self' 'unsafe-eval'";
+        // The only inline <script> is the FOUC-free theme-init (partials/theme-init);
+        // it is allow-listed by its exact sha256 hash — no 'unsafe-inline' for scripts.
+        // If you edit that snippet, recompute the hash (and mirror it in public/.htaccess).
+        $script = "'self' 'unsafe-eval' 'sha256-q0puGALRdXRJIRldb9avY05vEAmqxd4zX/mmrF5cgnU='";
         $style = "'self' 'unsafe-inline'";
         $connect = "'self'";
 
