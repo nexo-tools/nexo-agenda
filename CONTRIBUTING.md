@@ -79,4 +79,4 @@ After adding or changing a `__('…')` string:
 - Don't cache Eloquent models — cache plain arrays of primitives
   (see decision #17 in [`docs/DECISIONS.md`](docs/DECISIONS.md)).
 
-Questions? Open a [discussion or issue](https://github.com/alvarocdev-git/nexo-agenda/issues).
+Questions? Open a [discussion or issue](https://github.com/nexo-tools/nexo-agenda/issues).

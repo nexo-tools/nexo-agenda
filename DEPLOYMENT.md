@@ -33,7 +33,7 @@ Over SSH:
 
 ```bash
 cd ~
-git clone https://github.com/alvarocdev-git/nexo-agenda.git
+git clone https://github.com/nexo-tools/nexo-agenda.git
 cd nexo-agenda
 ```
 

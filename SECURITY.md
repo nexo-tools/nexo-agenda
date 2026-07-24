@@ -11,7 +11,7 @@ Nexo Agenda is under active development. Security fixes are applied to the
 
 Report privately through one of these channels:
 
-- **GitHub** — use [Security Advisories](https://github.com/alvarocdev-git/nexo-agenda/security/advisories/new)
+- **GitHub** — use [Security Advisories](https://github.com/nexo-tools/nexo-agenda/security/advisories/new)
   ("Report a vulnerability") on this repository.
 - **Email** — nexoagenda@alvarocdev.com
 

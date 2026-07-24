@@ -8,7 +8,7 @@
 Own your bookings, your clients and your data — no monthly fee, no per-client
 commission, no feature paywalls. Runs on cheap shared PHP hosting.
 
-[![CI](https://github.com/alvarocdev-git/nexo-agenda/actions/workflows/ci.yml/badge.svg)](https://github.com/alvarocdev-git/nexo-agenda/actions/workflows/ci.yml)
+[![CI](https://github.com/nexo-tools/nexo-agenda/actions/workflows/ci.yml/badge.svg)](https://github.com/nexo-tools/nexo-agenda/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-0d9488.svg)](LICENSE)
 ![PHP 8.3+](https://img.shields.io/badge/PHP-8.3%2B-777bb4.svg)
 ![Laravel 13](https://img.shields.io/badge/Laravel-13-ff2d20.svg)
@@ -102,7 +102,7 @@ Try it live instead: **[nexoagenda.alvarocdev.com/estudio-nexo](https://nexoagen
 ## Quickstart (local, Docker / Laravel Sail)
 
 ```bash
-git clone https://github.com/alvarocdev-git/nexo-agenda.git
+git clone https://github.com/nexo-tools/nexo-agenda.git
 cd nexo-agenda
 
 cp .env.example .env
