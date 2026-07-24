@@ -3,19 +3,14 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-slate-50 font-sans text-ink antialiased dark:bg-slate-900 dark:text-slate-200">
-        <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-brand-700">
+    <body class="flex min-h-screen flex-col bg-bg font-sans text-ink antialiased">
+        <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-surface focus:px-4 focus:py-2 focus:text-brand-700">
             {{ __('Saltar al contenido') }}
         </a>
 
-        <header class="border-b border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800" x-data="{ open: false }">
-            <div class="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-4">
-                <a href="{{ route('dashboard') }}" class="flex items-center gap-2 font-bold">
-                    <img src="/favicon.svg" alt="" width="28" height="28">
-                    <span>{{ config('app.name') }}</span>
-                </a>
-
-                <nav class="hidden items-center gap-1 sm:flex" aria-label="{{ __('Principal') }}">
+        <div x-data="{ open: false }">
+            <x-nexo-header brand="Nexo Agenda" mark="/ecosystem/nexoagenda.svg" :home="route('dashboard')">
+                <x-slot:nav>
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">{{ __('Agenda') }}</x-nav-link>
                     <x-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')">{{ __('Servicios') }}</x-nav-link>
                     <x-nav-link :href="route('professionals.index')" :active="request()->routeIs('professionals.*')">{{ __('Equipo') }}</x-nav-link>
@@ -23,24 +18,27 @@
                     <x-nav-link :href="route('stats')" :active="request()->routeIs('stats')">{{ __('Estadísticas') }}</x-nav-link>
                     <x-nav-link :href="route('reviews.index')" :active="request()->routeIs('reviews.*')">{{ __('Reseñas') }}</x-nav-link>
                     <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">{{ __('Ajustes') }}</x-nav-link>
-                    <form method="POST" action="{{ route('logout') }}">
+                </x-slot:nav>
+
+                <x-slot:actions>
+                    {{-- Owner account action (desktop); on mobile it lives in the panel below. --}}
+                    <form method="POST" action="{{ route('logout') }}" class="hidden md:block">
                         @csrf
-                        <button class="rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-700">
-                            {{ __('Salir') }}
-                        </button>
+                        <button class="nexo-btn nexo-btn--ghost">{{ __('Salir') }}</button>
                     </form>
-                </nav>
 
-                <button class="rounded-lg p-2 hover:bg-slate-100 sm:hidden dark:hover:bg-slate-700"
-                        @click="open = !open" :aria-expanded="open" aria-controls="menu-movil">
-                    <span class="sr-only">{{ __('Menú') }}</span>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                        <path d="M4 7h16M4 12h16M4 17h16"/>
-                    </svg>
-                </button>
-            </div>
+                    {{-- Primary-nav toggle (mobile only); the nexo-header nav is hidden below md. --}}
+                    <button type="button" class="nexo-btn nexo-btn--ghost nexo-btn--icon md:hidden"
+                            @click="open = !open" :aria-expanded="open" aria-controls="menu-movil">
+                        <span class="sr-only">{{ __('Menú') }}</span>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                            <path d="M4 7h16M4 12h16M4 17h16"/>
+                        </svg>
+                    </button>
+                </x-slot:actions>
+            </x-nexo-header>
 
-            <nav id="menu-movil" x-show="open" x-cloak class="border-t border-slate-200 px-4 py-2 sm:hidden dark:border-slate-700" aria-label="{{ __('Principal') }}">
+            <nav id="menu-movil" x-show="open" x-cloak class="border-b border-line bg-surface px-4 py-2 md:hidden" aria-label="{{ __('Principal') }}">
                 <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="block w-full">{{ __('Agenda') }}</x-nav-link>
                 <x-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')" class="block w-full">{{ __('Servicios') }}</x-nav-link>
                 <x-nav-link :href="route('professionals.index')" :active="request()->routeIs('professionals.*')" class="block w-full">{{ __('Equipo') }}</x-nav-link>
@@ -55,17 +53,15 @@
                     </button>
                 </form>
             </nav>
-        </header>
+        </div>
 
-        <main id="contenido" class="mx-auto max-w-5xl px-4 py-6">
+        <main id="contenido" class="mx-auto w-full max-w-5xl flex-1 px-4 py-6">
             @if (session('status'))
                 <p class="mb-4 rounded-lg bg-brand-100 px-4 py-3 text-sm text-brand-900" role="status">{{ session('status') }}</p>
             @endif
             {{ $slot }}
-
-            <footer class="mt-10">
-                <x-locale-switcher />
-            </footer>
         </main>
+
+        <x-nexo-footer />
     </body>
 </html>

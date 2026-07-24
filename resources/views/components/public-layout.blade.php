@@ -6,14 +6,31 @@
         @include('partials.head')
         @isset($meta){{ $meta }}@endisset
 
-        @if ($business?->brand_color)
-            <style>
-                .bg-brand-700 { background-color: {{ $business->brand_color }} !important; color: {{ $business->accentTextColor() }} !important; }
-                .hover\:bg-brand-800:hover { background-color: {{ $business->brand_color }} !important; filter: brightness(0.9); }
-                .text-brand-700 { color: {{ $business->brand_color }} !important; }
-                .dark .dark\:text-brand-400 { color: {{ $business->brand_color }} !important; }
-            </style>
-        @endif
+        {{-- Public storefront palette. The Nexo brand violet is the app CHROME accent
+             (owner dashboard, auth, errors, marketing) — it must never reach a
+             business storefront. So the public booking/directory pages keep their own
+             teal accent scale here, decoupled from the chrome brand-* (violet), and a
+             business overrides the primary accent with its configured color below. --}}
+        <style>
+            :root {
+                --color-brand-50: #f0fdfa;
+                --color-brand-100: #ccfbf1;
+                --color-brand-200: #99f6e4;
+                --color-brand-300: #5eead4;
+                --color-brand-400: #2dd4bf;
+                --color-brand-500: #14b8a6;
+                --color-brand-600: #0d9488;
+                --color-brand-700: #0f766e;
+                --color-brand-800: #115e59;
+                --color-brand-900: #134e4a;
+            }
+            @if ($business)
+                @php($accent = $business->brand_color ?: '#0f766e')
+                .bg-brand-700 { background-color: {{ $accent }} !important; color: {{ $business->accentTextColor() }} !important; }
+                .hover\:bg-brand-800:hover { background-color: {{ $accent }} !important; filter: brightness(0.92); }
+                .text-brand-700, .dark\:text-brand-400 { color: {{ $accent }} !important; }
+            @endif
+        </style>
     </head>
     <body class="min-h-screen bg-slate-50 font-sans text-ink antialiased dark:bg-slate-900 dark:text-slate-200">
         <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-brand-700">
