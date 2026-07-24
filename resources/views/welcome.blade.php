@@ -4,19 +4,14 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name') }} — {{ __('Reservas online para tu negocio') }}</title>
-        <meta name="description" content="{{ __('Agenda, servicios, profesionales y reservas online. Open source y self-hosted.') }}">
+        <x-nexo-seo
+            :title="config('app.name').' — '.__('Reservas online para tu negocio')"
+            :description="__('Agenda, servicios, profesionales y reservas online. Open source y self-hosted.')" />
 
         <link rel="icon" href="/favicon.ico" sizes="48x48">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
         <link rel="manifest" href="/site.webmanifest">
-        <meta name="theme-color" content="#7c3aed">
-
-        <meta property="og:title" content="{{ config('app.name') }}">
-        <meta property="og:description" content="{{ __('Reservas online para tu negocio') }}">
-        <meta property="og:image" content="{{ url('/og-image.png') }}">
-        <meta property="og:type" content="website">
 
         @include('partials.theme-init')
 

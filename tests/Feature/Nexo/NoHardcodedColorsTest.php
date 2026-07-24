@@ -17,13 +17,13 @@ it('has no hardcoded hex colors in blade views or app css (use --nexo-* tokens)'
     //  - public-layout: the per-business accent + the teal storefront scale, a
     //    product feature that is deliberately decoupled from the Nexo brand;
     //  - settings/edit: the <input type="color"> default value must be a literal;
-    //  - head/welcome: the <meta name="theme-color"> content can't be a CSS var.
+    //  - head/nexo-seo: the <meta name="theme-color"> content can't be a CSS var.
     $allowed = [
         'css/nexo-tokens.css',
         'views/components/public-layout.blade.php',
         'views/app/settings/edit.blade.php',
         'views/partials/head.blade.php',
-        'views/welcome.blade.php',
+        'views/components/nexo-seo.blade.php',
     ];
 
     $base = resource_path().DIRECTORY_SEPARATOR;
