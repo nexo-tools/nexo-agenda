@@ -24,7 +24,11 @@ return [
         'soporte', 'status', 't', 'terminos', 'turnos', 'www',
     ],
 
-    'attribution_url' => env('NEXO_ATTRIBUTION_URL'),
-    'attribution_text' => env('NEXO_ATTRIBUTION_TEXT'),
+    // Powered-by attribution shown in the footers. Canonical ecosystem contract
+    // (same name/shape across every Nexo tool): NEXO_ATTRIBUTION_LABEL / _URL.
+    'attribution' => [
+        'label' => env('NEXO_ATTRIBUTION_LABEL'),
+        'url' => env('NEXO_ATTRIBUTION_URL'),
+    ],
 
 ];

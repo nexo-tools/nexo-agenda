@@ -22,8 +22,8 @@
                     </tr>
                 </table>
                 <p style="color:#94a3b8;font-size:12px;margin-top:16px;">
-                    @if (config('nexo.attribution_text'))
-                        {{ config('nexo.attribution_text') }} ·
+                    @if (config('nexo.attribution.label'))
+                        {{ config('nexo.attribution.label') }} ·
                     @endif
                     {{ config('app.name') }}
                 </p>

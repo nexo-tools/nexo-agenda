@@ -47,9 +47,9 @@
                 <a href="{{ route('help') }}" class="hover:underline">{{ __('Ayuda') }}</a>
                 <a href="{{ route('contact') }}" class="hover:underline">{{ __('Contacto') }}</a>
             </nav>
-            @if (config('nexo.attribution_text'))
-                <a href="{{ config('nexo.attribution_url') ?: url('/') }}" class="hover:underline" rel="noopener">
-                    {{ config('nexo.attribution_text') }}
+            @if (config('nexo.attribution.label'))
+                <a href="{{ config('nexo.attribution.url') ?: url('/') }}" class="hover:underline" rel="noopener">
+                    {{ config('nexo.attribution.label') }}
                 </a>
             @else
                 <a href="{{ url('/') }}" class="hover:underline">{{ config('app.name') }}</a>
