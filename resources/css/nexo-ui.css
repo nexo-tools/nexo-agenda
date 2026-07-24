@@ -1,0 +1,85 @@
+/*
+ * Nexo UI — shared chrome component layer, built on nexo-brand tokens.
+ * Framework-agnostic (works under Tailwind 3 or 4): import AFTER nexo-brand
+ * tokens.css. Tools style their own content with Tailwind; these classes keep
+ * the ecosystem chrome (header, footer, switchers, buttons) identical everywhere.
+ *
+ *   @import 'nexo-brand/tokens.css';
+ *   @import 'nexo-ui/css/nexo-ui.css';
+ */
+
+/* ---- Base / buttons -------------------------------------------------- */
+.nexo-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 44px; padding: 0.5rem 1rem; border-radius: var(--nexo-radius-md);
+  font: inherit; font-weight: 600; line-height: 1; cursor: pointer;
+  border: 1px solid transparent; text-decoration: none;
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+.nexo-btn:focus-visible { outline: 2px solid var(--nexo-ring); outline-offset: 2px; }
+.nexo-btn--primary { background: var(--nexo-primary); color: var(--nexo-primary-fg); }
+.nexo-btn--primary:hover { background: var(--nexo-primary-hover); }
+.nexo-btn--primary:active { background: var(--nexo-primary-active); }
+.nexo-btn--ghost { background: transparent; color: var(--nexo-text); border-color: var(--nexo-border); }
+.nexo-btn--ghost:hover { background: var(--nexo-bg-subtle); }
+.nexo-btn--icon { min-width: 44px; padding: 0.5rem; }
+
+/* ---- Header ---------------------------------------------------------- */
+.nexo-header {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.75rem 1rem; min-height: 60px;
+  background: var(--nexo-surface); border-bottom: 1px solid var(--nexo-border);
+  color: var(--nexo-text);
+}
+.nexo-header__brand { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; font-weight: 700; }
+.nexo-header__brand img, .nexo-header__brand svg { width: 32px; height: 32px; display: block; }
+.nexo-header__nav { display: none; gap: 0.25rem; margin-inline-start: 0.5rem; }
+.nexo-header__spacer { flex: 1; }
+.nexo-header__actions { display: flex; align-items: center; gap: 0.25rem; }
+@media (min-width: 768px) { .nexo-header__nav { display: flex; } }
+
+/* ---- Dropdown menus (app-switcher, locale, account) ------------------ */
+.nexo-menu { position: relative; }
+.nexo-menu__panel {
+  position: absolute; inset-inline-end: 0; top: calc(100% + 0.5rem); z-index: 50;
+  min-width: 15rem; max-width: 90vw; padding: 0.5rem;
+  background: var(--nexo-surface-raised); color: var(--nexo-text);
+  border: 1px solid var(--nexo-border); border-radius: var(--nexo-radius-lg);
+  box-shadow: var(--nexo-shadow-lg);
+}
+.nexo-menu__label { padding: 0.25rem 0.5rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--nexo-text-subtle); }
+.nexo-menu__item {
+  display: flex; align-items: center; gap: 0.6rem; width: 100%;
+  padding: 0.5rem; border-radius: var(--nexo-radius-md);
+  color: var(--nexo-text); text-decoration: none; background: none; border: 0; cursor: pointer; text-align: start;
+}
+.nexo-menu__item:hover { background: var(--nexo-bg-subtle); }
+.nexo-menu__item[aria-current="true"], .nexo-menu__item--current { background: var(--nexo-primary-subtle); color: var(--nexo-primary-subtle-fg); }
+.nexo-menu__item img, .nexo-menu__item svg { width: 24px; height: 24px; border-radius: 7px; flex: none; }
+.nexo-menu__item small { display: block; color: var(--nexo-text-muted); font-weight: 400; }
+.nexo-menu__sep { height: 1px; margin: 0.5rem 0.25rem; background: var(--nexo-border); }
+.nexo-menu__foot { padding: 0.4rem 0.5rem; font-size: 0.8rem; }
+.nexo-menu__foot a { color: var(--nexo-link); text-decoration: none; }
+.nexo-menu__foot a:hover { color: var(--nexo-link-hover); text-decoration: underline; }
+.nexo-badge-soon { font-size: 0.62rem; text-transform: uppercase; letter-spacing: .05em; padding: 1px 6px; border-radius: 999px; background: var(--nexo-bg-subtle); color: var(--nexo-text-subtle); }
+
+/* ---- Footer ---------------------------------------------------------- */
+.nexo-footer {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem;
+  padding: 1.25rem 1rem; border-top: 1px solid var(--nexo-border);
+  background: var(--nexo-bg-subtle); color: var(--nexo-text-muted); font-size: 0.875rem;
+}
+.nexo-footer a { color: var(--nexo-text-muted); text-decoration: none; }
+.nexo-footer a:hover { color: var(--nexo-link); text-decoration: underline; }
+.nexo-footer__eco { display: inline-flex; align-items: center; gap: 0.4rem; }
+.nexo-footer__spacer { flex: 1; }
+
+/* ---- Help center ----------------------------------------------------- */
+.nexo-help { max-width: 46rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; color: var(--nexo-text); }
+.nexo-help h1 { font-size: 1.875rem; font-weight: 700; margin-bottom: 0.5rem; }
+.nexo-help__item { border: 1px solid var(--nexo-border); border-radius: var(--nexo-radius-lg); background: var(--nexo-surface); margin-top: 0.75rem; }
+.nexo-help__item summary { padding: 0.9rem 1rem; cursor: pointer; font-weight: 600; }
+.nexo-help__item > div { padding: 0 1rem 1rem; color: var(--nexo-text-muted); }
+
+/* Respect reduced motion. */
+@media (prefers-reduced-motion: reduce) { .nexo-btn { transition: none; } }

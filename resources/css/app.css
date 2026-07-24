@@ -1,5 +1,15 @@
 @import 'tailwindcss';
+
+/* Nexo brand tokens FIRST, then the shared chrome layer (header/footer/switchers). */
+@import './nexo-tokens.css';
+@import './nexo-ui.css';
+
 @plugin '@tailwindcss/forms';
+
+/* Dark utilities follow the stamped [data-theme="dark"] (theme-init + toggle),
+   not prefers-color-scheme — so an explicit choice wins over the OS. The tokens
+   themselves still honour prefers-color-scheme when no choice is stamped. */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 [x-cloak] {
     display: none !important;
@@ -13,7 +23,7 @@
 }
 
 .rating label {
-    color: #cbd5e1;
+    color: var(--nexo-border-strong);
     cursor: pointer;
 }
 
@@ -21,12 +31,12 @@
 .rating label:has(:checked) ~ label,
 .rating label:hover,
 .rating label:hover ~ label {
-    color: #f59e0b;
+    color: var(--nexo-warning);
 }
 
 /* The radios are visually hidden, so surface keyboard focus on the star. */
 .rating label:has(:focus-visible) {
-    outline: 2px solid var(--color-brand-600);
+    outline: 2px solid var(--nexo-ring);
     outline-offset: 2px;
     border-radius: 4px;
 }
@@ -47,20 +57,35 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    /* System fonts only — zero external requests. */
-    --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    /* System fonts only — zero external requests (from --nexo-font-sans). */
+    --font-sans: var(--nexo-font-sans);
+    --font-mono: var(--nexo-font-mono);
 
-    /* Brand teal (see docs/BRAND.md). */
-    --color-brand-50: #f0fdfa;
-    --color-brand-100: #ccfbf1;
-    --color-brand-200: #99f6e4;
-    --color-brand-300: #5eead4;
-    --color-brand-400: #2dd4bf;
-    --color-brand-500: #14b8a6;
-    --color-brand-600: #0d9488;
-    --color-brand-700: #0f766e;
-    --color-brand-800: #115e59;
-    --color-brand-900: #134e4a;
+    /* Brand scale → Nexo violet tokens (see nexo-tokens.css / docs/BRAND.md).
+       This is the app CHROME accent (owner dashboard, auth, marketing). Public
+       per-business booking pages override .bg-brand-700/.text-brand-700 with each
+       business's configured accent in public-layout — the brand violet never
+       reaches a business storefront. */
+    --color-brand-50: var(--nexo-violet-50);
+    --color-brand-100: var(--nexo-violet-100);
+    --color-brand-200: var(--nexo-violet-200);
+    --color-brand-300: var(--nexo-violet-300);
+    --color-brand-400: var(--nexo-violet-400);
+    --color-brand-500: var(--nexo-violet-500);
+    --color-brand-600: var(--nexo-violet-600);
+    --color-brand-700: var(--nexo-violet-700);
+    --color-brand-800: var(--nexo-violet-800);
+    --color-brand-900: var(--nexo-violet-900);
+    --color-brand-950: var(--nexo-violet-950);
 
-    --color-ink: #0f172a;
+    /* Semantic utilities so content can use bg-surface / text-ink / text-muted /
+       border-line etc. (theme-aware: they resolve to the light/dark value via
+       data-theme). */
+    --color-bg: var(--nexo-bg);
+    --color-surface: var(--nexo-surface);
+    --color-surface-raised: var(--nexo-surface-raised);
+    --color-ink: var(--nexo-text);
+    --color-muted: var(--nexo-text-muted);
+    --color-subtle: var(--nexo-text-subtle);
+    --color-line: var(--nexo-border);
 }

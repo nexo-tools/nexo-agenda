@@ -1,0 +1,199 @@
+/*
+ * Nexo design tokens — GENERATED from palette.json by build-tokens.mjs.
+ * Do NOT edit by hand. Run `node build-tokens.mjs` after changing palette.json.
+ * Palette: Nexo brand palette v1.0.0 (primary: violet).
+ *
+ * Theming: light is the default. Dark applies (a) automatically under
+ * prefers-color-scheme: dark unless the root is explicitly [data-theme="light"],
+ * and (b) whenever the root is [data-theme="dark"]. So a theme toggle that stamps
+ * data-theme on <html> wins in both directions over the OS preference.
+ */
+
+:root {
+  /* Reference scales (mode-independent) */
+  --nexo-white: #ffffff;
+  --nexo-black: #000000;
+  --nexo-violet-50: #f5f3ff;
+  --nexo-violet-100: #ede9fe;
+  --nexo-violet-200: #ddd6fe;
+  --nexo-violet-300: #c4b5fd;
+  --nexo-violet-400: #a78bfa;
+  --nexo-violet-500: #8b5cf6;
+  --nexo-violet-600: #7c3aed;
+  --nexo-violet-700: #6d28d9;
+  --nexo-violet-800: #5b21b6;
+  --nexo-violet-900: #4c1d95;
+  --nexo-violet-950: #2e1065;
+  --nexo-slate-50: #f8fafc;
+  --nexo-slate-100: #f1f5f9;
+  --nexo-slate-200: #e2e8f0;
+  --nexo-slate-300: #cbd5e1;
+  --nexo-slate-400: #94a3b8;
+  --nexo-slate-500: #64748b;
+  --nexo-slate-600: #475569;
+  --nexo-slate-700: #334155;
+  --nexo-slate-800: #1e293b;
+  --nexo-slate-900: #0f172a;
+  --nexo-slate-950: #020617;
+  --nexo-emerald-50: #ecfdf5;
+  --nexo-emerald-100: #d1fae5;
+  --nexo-emerald-300: #6ee7b7;
+  --nexo-emerald-400: #34d399;
+  --nexo-emerald-500: #10b981;
+  --nexo-emerald-600: #059669;
+  --nexo-emerald-700: #047857;
+  --nexo-emerald-950: #022c22;
+  --nexo-amber-50: #fffbeb;
+  --nexo-amber-100: #fef3c7;
+  --nexo-amber-300: #fcd34d;
+  --nexo-amber-400: #fbbf24;
+  --nexo-amber-500: #f59e0b;
+  --nexo-amber-600: #d97706;
+  --nexo-amber-700: #b45309;
+  --nexo-amber-950: #451a03;
+  --nexo-red-50: #fef2f2;
+  --nexo-red-100: #fee2e2;
+  --nexo-red-300: #fca5a5;
+  --nexo-red-400: #f87171;
+  --nexo-red-500: #ef4444;
+  --nexo-red-600: #dc2626;
+  --nexo-red-700: #b91c1c;
+  --nexo-red-950: #450a0a;
+  --nexo-sky-50: #f0f9ff;
+  --nexo-sky-100: #e0f2fe;
+  --nexo-sky-300: #7dd3fc;
+  --nexo-sky-400: #38bdf8;
+  --nexo-sky-500: #0ea5e9;
+  --nexo-sky-600: #0284c7;
+  --nexo-sky-700: #0369a1;
+  --nexo-sky-950: #082f49;
+
+  /* Radii, shadows, fonts (mode-independent) */
+  --nexo-radius-sm: 0.375rem;
+  --nexo-radius-md: 0.5rem;
+  --nexo-radius-lg: 0.75rem;
+  --nexo-radius-xl: 1rem;
+  --nexo-radius-2xl: 1.5rem;
+  --nexo-radius-full: 9999px;
+  --nexo-shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.06);
+  --nexo-shadow-md: 0 4px 12px -2px rgb(15 23 42 / 0.10), 0 2px 4px -2px rgb(15 23 42 / 0.06);
+  --nexo-shadow-lg: 0 12px 28px -6px rgb(15 23 42 / 0.16), 0 4px 10px -4px rgb(15 23 42 / 0.08);
+  --nexo-shadow-focus: 0 0 0 3px rgb(139 92 246 / 0.45);
+  --nexo-font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --nexo-font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+
+  /* Semantic tokens — light (default) */
+  --nexo-bg: var(--nexo-slate-50);
+  --nexo-bg-subtle: var(--nexo-slate-100);
+  --nexo-surface: #ffffff;
+  --nexo-surface-raised: #ffffff;
+  --nexo-surface-sunken: var(--nexo-slate-100);
+  --nexo-border: var(--nexo-slate-200);
+  --nexo-border-strong: var(--nexo-slate-300);
+  --nexo-text: var(--nexo-slate-900);
+  --nexo-text-muted: var(--nexo-slate-600);
+  --nexo-text-subtle: var(--nexo-slate-500);
+  --nexo-primary: var(--nexo-violet-600);
+  --nexo-primary-hover: var(--nexo-violet-700);
+  --nexo-primary-active: var(--nexo-violet-800);
+  --nexo-primary-fg: #ffffff;
+  --nexo-primary-subtle: var(--nexo-violet-100);
+  --nexo-primary-subtle-fg: var(--nexo-violet-700);
+  --nexo-ring: var(--nexo-violet-600);
+  --nexo-link: var(--nexo-violet-700);
+  --nexo-link-hover: var(--nexo-violet-800);
+  --nexo-success: var(--nexo-emerald-700);
+  --nexo-success-fg: #ffffff;
+  --nexo-success-subtle: var(--nexo-emerald-50);
+  --nexo-success-subtle-fg: var(--nexo-emerald-700);
+  --nexo-warning: var(--nexo-amber-500);
+  --nexo-warning-fg: var(--nexo-slate-900);
+  --nexo-warning-subtle: var(--nexo-amber-50);
+  --nexo-warning-subtle-fg: var(--nexo-amber-700);
+  --nexo-danger: var(--nexo-red-600);
+  --nexo-danger-fg: #ffffff;
+  --nexo-danger-subtle: var(--nexo-red-50);
+  --nexo-danger-subtle-fg: var(--nexo-red-700);
+  --nexo-info: var(--nexo-sky-700);
+  --nexo-info-fg: #ffffff;
+  --nexo-info-subtle: var(--nexo-sky-50);
+  --nexo-info-subtle-fg: var(--nexo-sky-700);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --nexo-bg: var(--nexo-slate-950);
+    --nexo-bg-subtle: var(--nexo-slate-900);
+    --nexo-surface: var(--nexo-slate-900);
+    --nexo-surface-raised: var(--nexo-slate-800);
+    --nexo-surface-sunken: var(--nexo-slate-950);
+    --nexo-border: var(--nexo-slate-800);
+    --nexo-border-strong: var(--nexo-slate-700);
+    --nexo-text: var(--nexo-slate-100);
+    --nexo-text-muted: var(--nexo-slate-400);
+    --nexo-text-subtle: var(--nexo-slate-500);
+    --nexo-primary: var(--nexo-violet-500);
+    --nexo-primary-hover: var(--nexo-violet-400);
+    --nexo-primary-active: var(--nexo-violet-300);
+    --nexo-primary-fg: var(--nexo-slate-950);
+    --nexo-primary-subtle: var(--nexo-violet-950);
+    --nexo-primary-subtle-fg: var(--nexo-violet-200);
+    --nexo-ring: var(--nexo-violet-400);
+    --nexo-link: var(--nexo-violet-300);
+    --nexo-link-hover: var(--nexo-violet-200);
+    --nexo-success: var(--nexo-emerald-400);
+    --nexo-success-fg: var(--nexo-emerald-950);
+    --nexo-success-subtle: var(--nexo-emerald-950);
+    --nexo-success-subtle-fg: var(--nexo-emerald-300);
+    --nexo-warning: var(--nexo-amber-400);
+    --nexo-warning-fg: var(--nexo-amber-950);
+    --nexo-warning-subtle: var(--nexo-amber-950);
+    --nexo-warning-subtle-fg: var(--nexo-amber-300);
+    --nexo-danger: var(--nexo-red-400);
+    --nexo-danger-fg: var(--nexo-red-950);
+    --nexo-danger-subtle: var(--nexo-red-950);
+    --nexo-danger-subtle-fg: var(--nexo-red-300);
+    --nexo-info: var(--nexo-sky-400);
+    --nexo-info-fg: var(--nexo-sky-950);
+    --nexo-info-subtle: var(--nexo-sky-950);
+    --nexo-info-subtle-fg: var(--nexo-sky-300);
+  }
+}
+
+:root[data-theme="dark"] {
+  --nexo-bg: var(--nexo-slate-950);
+  --nexo-bg-subtle: var(--nexo-slate-900);
+  --nexo-surface: var(--nexo-slate-900);
+  --nexo-surface-raised: var(--nexo-slate-800);
+  --nexo-surface-sunken: var(--nexo-slate-950);
+  --nexo-border: var(--nexo-slate-800);
+  --nexo-border-strong: var(--nexo-slate-700);
+  --nexo-text: var(--nexo-slate-100);
+  --nexo-text-muted: var(--nexo-slate-400);
+  --nexo-text-subtle: var(--nexo-slate-500);
+  --nexo-primary: var(--nexo-violet-500);
+  --nexo-primary-hover: var(--nexo-violet-400);
+  --nexo-primary-active: var(--nexo-violet-300);
+  --nexo-primary-fg: var(--nexo-slate-950);
+  --nexo-primary-subtle: var(--nexo-violet-950);
+  --nexo-primary-subtle-fg: var(--nexo-violet-200);
+  --nexo-ring: var(--nexo-violet-400);
+  --nexo-link: var(--nexo-violet-300);
+  --nexo-link-hover: var(--nexo-violet-200);
+  --nexo-success: var(--nexo-emerald-400);
+  --nexo-success-fg: var(--nexo-emerald-950);
+  --nexo-success-subtle: var(--nexo-emerald-950);
+  --nexo-success-subtle-fg: var(--nexo-emerald-300);
+  --nexo-warning: var(--nexo-amber-400);
+  --nexo-warning-fg: var(--nexo-amber-950);
+  --nexo-warning-subtle: var(--nexo-amber-950);
+  --nexo-warning-subtle-fg: var(--nexo-amber-300);
+  --nexo-danger: var(--nexo-red-400);
+  --nexo-danger-fg: var(--nexo-red-950);
+  --nexo-danger-subtle: var(--nexo-red-950);
+  --nexo-danger-subtle-fg: var(--nexo-red-300);
+  --nexo-info: var(--nexo-sky-400);
+  --nexo-info-fg: var(--nexo-sky-950);
+  --nexo-info-subtle: var(--nexo-sky-950);
+  --nexo-info-subtle-fg: var(--nexo-sky-300);
+}
