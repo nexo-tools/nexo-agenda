@@ -188,6 +188,25 @@ Contributions are welcome — read **[CONTRIBUTING.md](CONTRIBUTING.md)** and ou
 - [`docs/BRAND.md`](docs/BRAND.md) — brand, palette, isotype
 - [`docs/WIREFRAMES.md`](docs/WIREFRAMES.md) — screen wireframes
 
+## Nexo ecosystem
+
+Nexo is a family of open-source, self-hostable tools that share one visual identity
+([nexo-brand](https://github.com/nexo-tools)), one optional account
+([Nexo ID](https://github.com/nexo-tools/nexo-id) SSO) and one set of engineering
+standards. Every tool runs **fully standalone** — the ecosystem is opt-in.
+
+| Tool | What it is | Repo |
+| --- | --- | --- |
+| **Nexo Tools** | Ecosystem hub — discover the tools and hop between them with one account | [nexo-tools](https://github.com/nexo-tools/nexo-tools) |
+| **Nexo Links** | Link-in-bio you host yourself (Linktree alternative) | [nexo-links](https://github.com/nexo-tools/nexo-links) |
+| **Nexo Agenda** | Bookings for service businesses (AgendaPro / Fresha / Booksy alternative) | — you are here |
+| **Nexo Short** | Self-hosted URL shortener | [nexo-short](https://github.com/nexo-tools/nexo-short) |
+| **Nexo Events** | Event tickets and passes | [nexo-events](https://github.com/nexo-tools/nexo-events) |
+| **Nexo ID** | One account for every tool — OAuth 2.0 / OIDC SSO | [nexo-id](https://github.com/nexo-tools/nexo-id) |
+
+New to Nexo? Start at **[nexotools.alvarocdev.com](https://nexotools.alvarocdev.com)**.
+Built by **[alvarocdev.com](https://alvarocdev.com)** — the tech behind Nexo.
+
 ## License
 
 [MIT](LICENSE) © [Alvaro Carrizales](https://alvarocdev.com) (alvarocdev)
