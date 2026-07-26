@@ -31,4 +31,14 @@ return [
         'url' => env('NEXO_ATTRIBUTION_URL'),
     ],
 
+    // Cookieless ecosystem analytics (opt-in). Off by default so a standalone
+    // install phones nobody home; when enabled, resources/js/nexo-beacon.js
+    // sendBeacon()s an anonymous pageview to the Nexo Tools hub from the owner
+    // chrome only (never the public business storefront). See partials/beacon.
+    'beacon' => [
+        'enabled' => (bool) env('NEXO_BEACON_ENABLED', false),
+        'endpoint' => (string) env('NEXO_BEACON_ENDPOINT', 'https://nexotools.alvarocdev.com/beacon'),
+        'origin' => (string) env('NEXO_BEACON_ORIGIN', 'nexoagenda'),
+    ],
+
 ];

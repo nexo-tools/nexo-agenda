@@ -3,6 +3,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
+        @include('partials.beacon')
         <meta name="description" content="{{ __('Preguntas frecuentes sobre reservas, cancelaciones y cómo registrar tu negocio.') }}">
     </head>
     <body class="flex min-h-screen flex-col bg-bg font-sans text-ink antialiased">

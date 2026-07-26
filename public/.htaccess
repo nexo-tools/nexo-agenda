@@ -32,5 +32,5 @@
 # app/Http/Middleware/SecurityHeaders.php.
 <IfModule mod_headers.c>
     Header always unset Content-Security-Policy
-    Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' data:; font-src 'self'; script-src 'self' 'unsafe-eval' 'sha256-QY4re+NFw+ChK0c8H/EaTpktoUisSWU0fL7V6J43umM='; style-src 'self' 'unsafe-inline'; connect-src 'self'"
+    Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' data:; font-src 'self'; script-src 'self' 'unsafe-eval' 'sha256-QY4re+NFw+ChK0c8H/EaTpktoUisSWU0fL7V6J43umM='; style-src 'self' 'unsafe-inline'; connect-src 'self' https://nexotools.alvarocdev.com"
 </IfModule>

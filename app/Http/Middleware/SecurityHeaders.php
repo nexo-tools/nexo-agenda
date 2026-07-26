@@ -54,7 +54,11 @@ class SecurityHeaders
         // If you edit that snippet, recompute the hash (and mirror it in public/.htaccess).
         $script = "'self' 'unsafe-eval' 'sha256-QY4re+NFw+ChK0c8H/EaTpktoUisSWU0fL7V6J43umM='";
         $style = "'self' 'unsafe-inline'";
-        $connect = "'self'";
+        // The one permitted external host: the Nexo Tools hub, so the opt-in
+        // cookieless pageview beacon (navigator.sendBeacon) is not blocked. It
+        // only ever fires when NEXO_BEACON_ENABLED renders the beacon metas on the
+        // owner chrome; the permission is harmless otherwise. Mirror in .htaccess.
+        $connect = "'self' https://nexotools.alvarocdev.com";
 
         // Allow the Vite dev server (and its websocket) while running HMR locally.
         if ($dev = $this->viteDevServer()) {
