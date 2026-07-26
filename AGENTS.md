@@ -34,13 +34,22 @@ model, roadmap), [DECISIONS](docs/DECISIONS.md) (17+ decisions with rationale),
 There is **no local PHP/Composer/artisan** on the dev machine — Composer runs via
 Docker, and the app runs via Laravel Sail. Node is local (v20).
 
+Since 2026-07-26 the stateful services (MySQL, Mailpit, phpMyAdmin) come from
+the shared dev environment (`~/dev-environment`, compose project `nexo`):
+MySQL on host port **3307** (db `nexoagenda`, user/pass `dev`/`dev`), Mailpit
+SMTP 1025 / UI 8025, phpMyAdmin 8306. This repo's `compose.yaml` ships only
+the app runtime (`APP_PORT=8101` / `VITE_PORT=5176` / `WWWUSER`/`WWWGROUP`
+pinned in `.env`).
+
 ```bash
+# Shared stateful services first
+cd ~/dev-environment && docker compose up -d mysql mailpit
+
 # Install PHP deps (no local PHP)
 docker run --rm -v "$PWD":/app -w /app composer:latest install
 
-# Boot the stack (app :8080, MySQL :3307, Mailpit :8025)
+# Boot the app runtime (app :8101)
 ./vendor/bin/sail up -d
-./vendor/bin/sail artisan key:generate
 ./vendor/bin/sail artisan migrate
 
 # Front-end (Node 20+ local)
@@ -50,7 +59,7 @@ npm install && npm run build
 ./vendor/bin/sail artisan db:seed --class=DemoSeeder
 ```
 
-App at http://localhost:8080. Local login for the older demo: `e2e@test.com` /
+App at http://localhost:8101. Local login for the older demo: `e2e@test.com` /
 `password123` (Barberia Demo at `/barberia-demo`).
 
 ### Checks (must be green before every commit)
