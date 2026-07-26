@@ -13,3 +13,10 @@ Route::middleware(['web', 'guest'])->group(function (): void {
     Route::get('/auth/nexo/redirect', [NexoSsoController::class, 'redirect'])->name('nexo-sso.redirect');
     Route::get('/auth/nexo/callback', [NexoSsoController::class, 'callback'])->name('nexo-sso.callback');
 });
+
+// RP-initiated (central) logout. Point this tool's logout button here when SSO
+// is enabled: it ends the local session AND the Nexo ID session. POST + CSRF,
+// mirroring the framework's own logout. (AC-LOGOUT-1)
+Route::middleware(['web', 'auth'])->group(function (): void {
+    Route::post('/auth/nexo/logout', [NexoSsoController::class, 'logout'])->name('nexo-sso.logout');
+});

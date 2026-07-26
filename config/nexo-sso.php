@@ -15,6 +15,12 @@ return [
     // Requested scopes. openid is required for the id_token.
     'scopes' => 'openid profile email',
 
+    // Where Nexo ID returns the browser after a central (RP-initiated) logout.
+    // MUST be registered as a redirect URI of this client on the provider, or the
+    // provider refuses it and shows its own "signed out" page (anti open-redirect).
+    // Empty = no post-logout redirect (the provider's signed-out page is the end).
+    'post_logout_redirect_uri' => (string) env('NEXO_SSO_POST_LOGOUT_REDIRECT_URI', ''),
+
     // HTTP timeout (seconds) for every provider call — keeps degradation snappy. (AC-DEGRADE-2)
     'timeout' => (int) env('NEXO_SSO_TIMEOUT', 5),
 

@@ -28,10 +28,41 @@ test('AC-FLOW-1: the authorize redirect carries code+PKCE(S256)+state and the ex
         ->and($query['redirect_uri'])->toBe(route('nexo-sso.callback'))
         ->and($query['scope'])->toBe('openid profile email')
         ->and($query['state'])->toBe(session('nexo_sso.state'))
+        ->and($query['nonce'])->toBe(session('nexo_sso.nonce'))
         ->and($query['code_challenge_method'])->toBe('S256')
         ->and($query['code_challenge'])->toBe(
             rtrim(strtr(base64_encode(hash('sha256', session('nexo_sso.verifier'), true)), '+/', '-_'), '=')
         );
+
+    // The nonce is a fresh random value, not a fixed constant. (AC-NONCE-1)
+    expect($query['nonce'])->not->toBe('')->and(strlen((string) $query['nonce']))->toBeGreaterThanOrEqual(32);
+});
+
+test('AC-NONCE-1: an id_token whose nonce does not match the session is rejected', function (): void {
+    nexoSsoFakeProvider([
+        'access_token' => 'fake', 'token_type' => 'Bearer',
+        'id_token' => nexoSsoIdToken(['nonce' => 'a-different-nonce']),
+    ]);
+
+    nexoSsoCallback($this)->assertRedirect(route('login'))->assertSessionHasErrors('nexo_sso');
+    $this->assertGuest();
+});
+
+test('AC-NONCE-1: an id_token carrying no nonce claim is rejected', function (): void {
+    nexoSsoFakeProvider([
+        'access_token' => 'fake', 'token_type' => 'Bearer',
+        'id_token' => nexoSsoIdToken(['nonce' => null]), // null override drops the claim
+    ]);
+
+    nexoSsoCallback($this)->assertRedirect(route('login'))->assertSessionHasErrors('nexo_sso');
+    $this->assertGuest();
+});
+
+test('AC-NONCE-1: a matching nonce completes the login', function (): void {
+    nexoSsoFakeProvider(); // default id_token echoes the session nonce
+
+    nexoSsoCallback($this)->assertRedirect();
+    $this->assertAuthenticated();
 });
 
 test('AC-FLOW-2: a mismatched or missing state is rejected before any provider call', function (): void {
