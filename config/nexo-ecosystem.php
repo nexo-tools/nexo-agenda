@@ -53,14 +53,14 @@ return [
             'tagline' => 'Acortá enlaces con métricas sin cookies.',
             'url' => env('NEXO_URL_SHORT', 'https://nexoshort.alvarocdev.com'),
             'mark' => '/ecosystem/nexoshort.svg',
-            'status' => 'soon',
+            'status' => 'live',
         ],
         'nexoevents' => [
             'name' => 'Nexo Events',
             'tagline' => 'Creá eventos gratis y validá entradas con QR.',
             'url' => env('NEXO_URL_EVENTS', 'https://nexoevents.alvarocdev.com'),
             'mark' => '/ecosystem/nexoevents.svg',
-            'status' => 'soon',
+            'status' => 'live',
         ],
     ],
 ];
