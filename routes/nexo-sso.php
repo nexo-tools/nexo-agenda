@@ -11,6 +11,7 @@ if (! config('nexo-sso.enabled')) {
 
 Route::middleware(['web', 'guest'])->group(function (): void {
     Route::get('/auth/nexo/redirect', [NexoSsoController::class, 'redirect'])->name('nexo-sso.redirect');
+    Route::get('/auth/nexo/silent', [NexoSsoController::class, 'silent'])->name('nexo-sso.silent');
     Route::get('/auth/nexo/callback', [NexoSsoController::class, 'callback'])->name('nexo-sso.callback');
 });
 

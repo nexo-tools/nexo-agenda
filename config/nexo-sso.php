@@ -21,6 +21,30 @@ return [
     // Empty = no post-logout redirect (the provider's signed-out page is the end).
     'post_logout_redirect_uri' => (string) env('NEXO_SSO_POST_LOGOUT_REDIRECT_URI', ''),
 
+    // Silent SSO (OIDC prompt=none): on guest pages, try once per session to
+    // pick up an existing Nexo ID session with no UI and no clicks. Rides the
+    // master switch; this is the per-tool kill-switch. (AC-SILENT-1)
+    'silent' => (bool) env('NEXO_SSO_SILENT', true),
+
+    // Surfaces where the silent attempt must NOT fire (public storefronts,
+    // host-isolated pages, machine endpoints): path patterns (Request::is) in
+    // `silent_excluded`, route names — Str::is wildcards allowed — in
+    // `silent_excluded_routes` (the only way to express slug catch-alls like
+    // /{username}). Adaptation point per tool. The /auth/nexo/* routes are
+    // always excluded by the middleware itself.
+    'silent_excluded' => [
+        'up',
+        'sitemap.xml',
+        'robots.txt',
+        'feeds/*', // .ics calendar feeds (machine clients)
+        't/*',     // booking-management token links (end customers, from email)
+    ],
+    'silent_excluded_routes' => [
+        'public.*',           // {business} booking storefronts
+        'directory',
+        'directory.category', // /explorar public directory
+    ],
+
     // HTTP timeout (seconds) for every provider call — keeps degradation snappy. (AC-DEGRADE-2)
     'timeout' => (int) env('NEXO_SSO_TIMEOUT', 5),
 

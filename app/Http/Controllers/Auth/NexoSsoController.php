@@ -21,24 +21,38 @@ class NexoSsoController extends Controller
     {
         abort_unless(config('nexo-sso.enabled'), 404); // AC-CFG-1 (defense in depth)
 
-        $state = Str::random(40);
-        $verifier = Str::random(64); // 43–128 chars per RFC 7636
-        $nonce = Str::random(40); // echoed back as the id_token nonce claim (AC-NONCE-1)
-        $challenge = rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
-
-        session([
-            'nexo_sso.state' => $state,
-            'nexo_sso.verifier' => $verifier,
-            'nexo_sso.nonce' => $nonce,
-        ]);
-
         try {
-            $url = $sso->buildAuthorizeUrl($state, $challenge, $nonce); // discovery may hit the network
+            $url = $this->buildAuthorizeRedirect($sso);
         } catch (Throwable) {
             // Provider unreachable: friendly failure, never a 500. (AC-DEGRADE-2)
             return redirect()
                 ->route('login')
                 ->withErrors(['nexo_sso' => __('El inicio de sesión con Nexo ID no está disponible por ahora. Inténtalo de nuevo más tarde.')]);
+        }
+
+        return redirect()->away($url);
+    }
+
+    /**
+     * Silent attempt (OIDC prompt=none): same authorize request plus
+     * `prompt=none`, marked in the session so it runs at most once per session
+     * (the NexoSsoSilentLogin middleware checks the mark BEFORE redirecting
+     * here — no retry loop). Every failure here is invisible by design: the
+     * user never asked for anything, so on any hiccup they just continue to
+     * where they were going. (AC-SILENT-1, AC-SILENT-2)
+     */
+    public function silent(Request $request, NexoSsoService $sso): RedirectResponse
+    {
+        abort_unless(config('nexo-sso.enabled') && config('nexo-sso.silent'), 404);
+
+        // Idempotent (the middleware already set it); also covers direct hits.
+        $request->session()->put('nexo_sso.silent_attempted', true);
+
+        try {
+            $url = $this->buildAuthorizeRedirect($sso, prompt: 'none');
+        } catch (Throwable) {
+            // Provider unreachable: continue to the destination, no error UI.
+            return redirect()->intended('/');
         }
 
         return redirect()->away($url);
@@ -52,10 +66,31 @@ class NexoSsoController extends Controller
         $state = (string) $request->session()->pull('nexo_sso.state', '');
         $verifier = (string) $request->session()->pull('nexo_sso.verifier', '');
         $nonce = (string) $request->session()->pull('nexo_sso.nonce', '');
+        $silent = (bool) $request->session()->pull('nexo_sso.silent', false);
         $returnedState = (string) $request->query('state', '');
+
+        // OIDC error response — the provider declined without issuing a code.
+        // After a silent attempt, `login_required`/`interaction_required` is the
+        // NORMAL "no Nexo ID session" answer: stay guest, keep the once-per-
+        // session mark (already set), continue to the destination with no error
+        // UI. No login happens on this path, so no state/code checks apply.
+        // (AC-SILENT-2)
+        if ($request->filled('error')) {
+            if ($silent) {
+                return redirect()->intended('/');
+            }
+
+            return redirect()
+                ->route('login')
+                ->withErrors(['nexo_sso' => __('Falló el inicio de sesión con Nexo ID. Inténtalo de nuevo.')]);
+        }
 
         // CSRF check happens before any provider call. (AC-FLOW-2)
         if ($state === '' || $returnedState === '' || ! hash_equals($state, $returnedState) || ! $request->filled('code')) {
+            if ($silent) {
+                return redirect()->intended('/'); // silent flows never surface errors
+            }
+
             return redirect()
                 ->route('login')
                 ->withErrors(['nexo_sso' => __('No se pudo validar la solicitud de inicio de sesión. Inténtalo de nuevo.')]);
@@ -66,12 +101,20 @@ class NexoSsoController extends Controller
             $claims = $sso->validateIdToken((string) ($tokens['id_token'] ?? ''), $nonce); // AC-FLOW-3, AC-NONCE-1
             $user = $resolver->resolve($claims);
         } catch (NexoSsoLinkRefusedException) {
+            if ($silent) {
+                return redirect()->intended('/'); // they'll see it if they sign in interactively
+            }
+
             return redirect()
                 ->route('login')
                 ->withErrors(['nexo_sso' => __('Ya existe una cuenta con este correo. Verifica tu correo en Nexo ID primero.')]); // AC-LINK-2
         } catch (Throwable $e) {
             // Invalid token or provider down mid-flow: safe error, no session. (AC-FLOW-3, AC-DEGRADE-2)
             report($e);
+
+            if ($silent) {
+                return redirect()->intended('/');
+            }
 
             return redirect()
                 ->route('login')
@@ -110,6 +153,11 @@ class NexoSsoController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
+        // A logout must stick: mark the FRESH session so the silent attempt
+        // doesn't immediately sign the user back in on the next guest page.
+        // (AC-SILENT-5)
+        $request->session()->put('nexo_sso.silent_attempted', true);
+
         if (config('nexo-sso.enabled')) {
             try {
                 $endSessionUrl = $sso->buildEndSessionUrl($idTokenHint !== '' ? $idTokenHint : null);
@@ -123,5 +171,30 @@ class NexoSsoController extends Controller
         }
 
         return redirect()->route('login');
+    }
+
+    /**
+     * Shared authorize-request builder: mints state/verifier/nonce, stores them
+     * in the session, returns the provider URL. (AC-FLOW-1, AC-NONCE-1)
+     */
+    private function buildAuthorizeRedirect(NexoSsoService $sso, ?string $prompt = null): string
+    {
+        $state = Str::random(40);
+        $verifier = Str::random(64); // 43–128 chars per RFC 7636
+        $nonce = Str::random(40); // echoed back as the id_token nonce claim (AC-NONCE-1)
+        $challenge = rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
+
+        session([
+            'nexo_sso.state' => $state,
+            'nexo_sso.verifier' => $verifier,
+            'nexo_sso.nonce' => $nonce,
+            // Marks THIS authorize request as silent or interactive, so the
+            // callback picks the right failure UX. Always (re)set: a stale
+            // silent mark from an abandoned attempt must not turn a later
+            // interactive flow's errors invisible.
+            'nexo_sso.silent' => $prompt === 'none',
+        ]);
+
+        return $sso->buildAuthorizeUrl($state, $challenge, $nonce, $prompt); // discovery may hit the network
     }
 }

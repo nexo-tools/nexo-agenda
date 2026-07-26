@@ -31,10 +31,16 @@ final class NexoSsoService
         );
     }
 
-    /** Authorization request: code + PKCE(S256) + state + nonce. (AC-FLOW-1, AC-NONCE-1) */
-    public function buildAuthorizeUrl(string $state, string $codeChallenge, string $nonce): string
+    /**
+     * Authorization request: code + PKCE(S256) + state + nonce. (AC-FLOW-1, AC-NONCE-1)
+     *
+     * $prompt: OIDC `prompt` value — `none` performs a silent attempt (the
+     * provider returns the code with no UI when a session exists, or bounces
+     * straight back with `error=login_required` when it doesn't). (AC-SILENT-1)
+     */
+    public function buildAuthorizeUrl(string $state, string $codeChallenge, string $nonce, ?string $prompt = null): string
     {
-        return $this->discovery()['authorization_endpoint'].'?'.http_build_query([
+        return $this->discovery()['authorization_endpoint'].'?'.http_build_query(array_filter([
             'client_id' => config('nexo-sso.client_id'),
             'redirect_uri' => route('nexo-sso.callback'),
             'response_type' => 'code',
@@ -46,7 +52,8 @@ final class NexoSsoService
             'nonce' => $nonce,
             'code_challenge' => $codeChallenge,
             'code_challenge_method' => 'S256',
-        ]);
+            'prompt' => $prompt,
+        ], fn ($value): bool => $value !== null));
     }
 
     /**
