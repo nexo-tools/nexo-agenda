@@ -14,7 +14,7 @@
         <x-button>{{ __('Crear negocio') }}</x-button>
     </form>
 
-    <form method="POST" action="{{ route('logout') }}" class="mt-4 text-center">
+    <form method="POST" action="{{ config('nexo-sso.enabled') ? route('nexo-sso.logout') : route('logout') }}" class="mt-4 text-center">
         @csrf
         <button type="submit" class="text-sm text-slate-500 hover:underline dark:text-slate-400">{{ __('Cerrar sesión') }}</button>
     </form>

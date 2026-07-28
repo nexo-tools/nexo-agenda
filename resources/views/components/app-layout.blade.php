@@ -23,7 +23,7 @@
 
                 <x-slot:actions>
                     {{-- Owner account action (desktop); on mobile it lives in the panel below. --}}
-                    <form method="POST" action="{{ route('logout') }}" class="hidden md:block">
+                    <form method="POST" action="{{ config('nexo-sso.enabled') ? route('nexo-sso.logout') : route('logout') }}" class="hidden md:block">
                         @csrf
                         <button class="nexo-btn nexo-btn--ghost">{{ __('Salir') }}</button>
                     </form>
@@ -47,7 +47,7 @@
                 <x-nav-link :href="route('stats')" :active="request()->routeIs('stats')" class="block w-full">{{ __('Estadísticas') }}</x-nav-link>
                 <x-nav-link :href="route('reviews.index')" :active="request()->routeIs('reviews.*')" class="block w-full">{{ __('Reseñas') }}</x-nav-link>
                 <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="block w-full">{{ __('Ajustes') }}</x-nav-link>
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ config('nexo-sso.enabled') ? route('nexo-sso.logout') : route('logout') }}">
                     @csrf
                     <button class="block w-full rounded-lg px-3 py-2 text-left text-sm text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-700">
                         {{ __('Salir') }}
