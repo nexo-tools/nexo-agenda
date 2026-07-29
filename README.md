@@ -93,7 +93,7 @@ Book something for real at the
 - **PHP 8.3+**, **Laravel 13**
 - **Blade** + **Alpine.js** + **Tailwind CSS 4** (Vite)
 - **MySQL** (portable to any Laravel-supported DB)
-- **Pest** (147 tests / 386 assertions), **Pint**, **Larastan** (level 6)
+- **Pest**, **Pint**, **Larastan** (level 6)
 - Zero external runtime requests: no CDNs, no Google Fonts, system font stack
 
 ## Self-hosting

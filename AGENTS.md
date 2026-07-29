@@ -24,7 +24,7 @@ model, roadmap), [DECISIONS](docs/DECISIONS.md) (17+ decisions with rationale),
 - **PHP 8.3+** (production runs 8.5), **Laravel 13**
 - **Blade + Alpine.js 3 + Tailwind CSS 4** (Vite 8)
 - **MySQL** in dev/prod (portable to any Laravel-supported DB)
-- **Pest** (147 tests / 386 assertions), **Pint**, **Larastan** level 6
+- **Pest**, **Pint**, **Larastan** level 6
 - `bacon/bacon-qr-code` for QR check-in. Zero external runtime requests (no CDNs,
   no Google Fonts; fonts self-hosted, system stack fallback)
 - Hosting: **Hostinger shared hosting** (LiteSpeed). See [DEPLOYMENT.md](DEPLOYMENT.md).
