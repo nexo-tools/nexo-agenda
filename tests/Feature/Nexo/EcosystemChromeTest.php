@@ -34,10 +34,17 @@ it('renders the powered-by attribution from config', function () {
         ->and($html)->toContain('https://example.test');
 });
 
-it('falls back to a sane attribution label when unset', function () {
+it('falls back to the product label, never the upstream author, when unset', function () {
+    // A third-party instance that sets no attribution must not end up
+    // advertising alvarocdev.com (add-branding-footer: open-source
+    // multi-instance products carry a neutral product default).
+    // Both explicitly, so the assertion does not depend on whoever runs it
+    // having (or not having) NEXO_ATTRIBUTION_* in their local .env.
     config()->set('nexo.attribution.label', null);
+    config()->set('nexo.attribution.url', null);
 
     $html = Blade::render('<x-nexo-footer />');
 
-    expect($html)->toContain('alvarocdev.com');
+    expect($html)->toContain('made with Nexo Agenda');
+    expect($html)->not->toContain('href="https://alvarocdev.com"');
 });

@@ -3,8 +3,8 @@
      i18n: nexo.footer.* --}}
 @php
     $eco = config('nexo-ecosystem', []);
-    $attrLabel = config('nexo.attribution.label') ?: 'alvarocdev.com';
-    $attrUrl = config('nexo.attribution.url') ?: ($eco['author_url'] ?? 'https://alvarocdev.com');
+    $attrLabel = config('nexo.attribution.label') ?: 'made with Nexo Agenda';
+    $attrUrl = config('nexo.attribution.url') ?: ($eco['github_org_url'] ?? 'https://github.com/nexo-tools');
 @endphp
 
 <footer {{ $attributes->merge(['class' => 'nexo-footer']) }}>

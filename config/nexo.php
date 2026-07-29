@@ -27,7 +27,7 @@ return [
     // Powered-by attribution shown in the footers. Canonical ecosystem contract
     // (same name/shape across every Nexo tool): NEXO_ATTRIBUTION_LABEL / _URL.
     'attribution' => [
-        'label' => env('NEXO_ATTRIBUTION_LABEL'),
+        'label' => env('NEXO_ATTRIBUTION_LABEL', 'made with Nexo Agenda'),
         'url' => env('NEXO_ATTRIBUTION_URL'),
     ],
 
