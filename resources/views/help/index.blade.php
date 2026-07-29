@@ -1,10 +1,10 @@
 @php($title = __('nexo.help.title'))
+@php($description = __('Preguntas frecuentes sobre reservas, cancelaciones y cómo registrar tu negocio.'))
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
         @include('partials.beacon')
-        <meta name="description" content="{{ __('Preguntas frecuentes sobre reservas, cancelaciones y cómo registrar tu negocio.') }}">
     </head>
     <body class="flex min-h-screen flex-col bg-bg font-sans text-ink antialiased">
         <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-surface focus:px-4 focus:py-2 focus:text-brand-700">

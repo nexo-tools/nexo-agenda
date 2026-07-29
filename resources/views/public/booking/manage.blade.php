@@ -1,6 +1,8 @@
 @php($local = $booking->starts_at->setTimezone($booking->business->timezone))
 
-<x-public-layout :title="__('Tu turno').' — '.$booking->business->name" :business="$booking->business">
+{{-- noindex: the URL carries the management token, so an indexed copy is a
+     booking anyone can cancel. robots.txt disallows /t/, this is the belt. --}}
+<x-public-layout :title="__('Tu turno').' — '.$booking->business->name" :business="$booking->business" :noindex="true">
     @if (session('status'))
         <p class="mb-4 rounded-lg bg-brand-100 px-4 py-3 text-sm text-brand-900" role="status">{{ session('status') }}</p>
     @endif
@@ -51,7 +53,9 @@
 
         @if ($booking->status === \App\Enums\BookingStatus::Confirmed)
             <div class="mt-5 border-t border-slate-200 pt-5 text-center dark:border-slate-700">
-                <div class="mx-auto inline-block rounded-xl bg-white p-2">
+                {{-- White in both themes on purpose: the QR is dark modules on a
+                     light quiet zone, and inverting it stops scanners reading it. --}}
+                <div class="mx-auto inline-block rounded-xl bg-white p-2 dark:bg-white">
                     {!! app(\App\Services\QrSvg::class)->forUrl(route('checkin', $token), 180) !!}
                 </div>
                 <p class="mt-2 text-xs text-slate-500">{{ __('Muestra este código al llegar para hacer el check-in.') }}</p>

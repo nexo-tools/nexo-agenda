@@ -21,7 +21,6 @@
     "Déjalo si quieres que te respondamos.": "Leave it if you'd like us to reply.",
     "Enviar": "Send",
     "¡Gracias! Recibimos tu mensaje.": "Thanks! We got your message.",
-    "Ayuda": "Help",
     "Volver al inicio": "Back to home",
     "Página no encontrada": "Page not found",
     "No encontramos lo que buscabas. Puede que el enlace haya cambiado.": "We couldn't find what you were looking for. The link may have changed.",
@@ -330,5 +329,8 @@
     "No encontramos negocios con esos filtros.": "We couldn't find businesses with those filters.",
     "Todas las ciudades": "All cities",
     "Todos los rubros": "All categories",
-    "Tu negocio se podrá encontrar en /explorar buscando por rubro y ciudad. Gratis, sin comisiones.": "Your business will be findable in /explorar by category and city. Free, no commissions."
+    "Tu negocio se podrá encontrar en /explorar buscando por rubro y ciudad. Gratis, sin comisiones.": "Your business will be findable in /explorar by category and city. Free, no commissions.",
+    "Enlaces del sitio": "Site links",
+    "Privacidad": "Privacy",
+    "Términos": "Terms"
 }

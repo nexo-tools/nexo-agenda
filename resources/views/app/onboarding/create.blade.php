@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout :title="__('Crea tu negocio')">
     <h1 class="mb-1 text-xl font-bold">{{ __('Crea tu negocio') }}</h1>
     <p class="mb-6 text-sm text-slate-600 dark:text-slate-400">{{ __('Un último paso: cuéntanos de tu negocio para empezar a recibir reservas.') }}</p>
 

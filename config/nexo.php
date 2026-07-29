@@ -31,6 +31,15 @@ return [
         'url' => env('NEXO_ATTRIBUTION_URL'),
     ],
 
+    // Who runs THIS instance, named on the legal pages. Env-backed for the same
+    // reason as the attribution above: a third party that clones the repo must
+    // not publish the upstream author as the data controller. Left empty, the
+    // legal pages simply point at the contact form instead of naming anyone.
+    'legal' => [
+        'operator' => env('NEXO_LEGAL_OPERATOR'),
+        'contact' => env('NEXO_LEGAL_CONTACT'),
+    ],
+
     // Cookieless ecosystem analytics (opt-in). Off by default so a standalone
     // install phones nobody home; when enabled, resources/js/nexo-beacon.js
     // sendBeacon()s an anonymous pageview to the Nexo Tools hub from the owner

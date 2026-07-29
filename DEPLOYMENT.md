@@ -135,9 +135,16 @@ MAIL_PASSWORD=your_mailbox_password
 MAIL_FROM_ADDRESS="nexoagenda@alvarocdev.com"
 MAIL_FROM_NAME="${APP_NAME}"
 
-# Optional "powered by" attribution footer
+# Optional "powered by" attribution footer (the LABEL is the whole phrase —
+# the footer prepends nothing to it)
 NEXO_ATTRIBUTION_URL=https://alvarocdev.com
-NEXO_ATTRIBUTION_TEXT="powered by alvarocdev.com"
+NEXO_ATTRIBUTION_LABEL="powered by alvarocdev.com"
+
+# Who operates this instance, named on /privacidad and /terminos. Set them: this
+# deployment stores the name and contact of people who never signed up here (the
+# clients booking with each business), so its controller has to be identifiable.
+NEXO_LEGAL_OPERATOR="Alvaro C."
+NEXO_LEGAL_CONTACT=nexoagenda@alvarocdev.com
 ```
 
 > `MAIL_PORT=465` uses implicit TLS (`ssl`). If you prefer STARTTLS use

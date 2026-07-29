@@ -16,6 +16,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FrontDeskController;
 use App\Http\Controllers\HelpController;
+use App\Http\Controllers\LegalController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\PublicBookingController;
@@ -52,6 +53,15 @@ Route::get('sitemap.xml', [SitemapController::class, 'sitemap'])->name('sitemap'
 Route::get('robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 Route::get('ayuda', HelpController::class)->name('help');
+
+// Legal pages. Not optional here: besides the business account, this tool stores
+// the name, email/phone and note of whoever books an appointment — third-party
+// data the visitor never agreed to with us. Paths are Spanish (the ecosystem is
+// Spanish-first); the route NAMES are what the footer, the sitemap and
+// StaticPagesTest reference, so they stay stable across tools. Guests must be
+// able to read them, so they live outside every auth group.
+Route::get('privacidad', [LegalController::class, 'privacy'])->name('legal.privacy');
+Route::get('terminos', [LegalController::class, 'terms'])->name('legal.terms');
 Route::get('contacto', [FeedbackController::class, 'create'])->name('contact');
 Route::post('contacto', [FeedbackController::class, 'store'])
     ->middleware('throttle:5,1')->name('contact.store');

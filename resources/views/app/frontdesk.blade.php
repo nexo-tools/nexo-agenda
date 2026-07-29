@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        @include('partials.head', ['title' => __('Mostrador')])
+        @include('partials.head', ['title' => __('Mostrador'), 'noindex' => true])
         <meta http-equiv="refresh" content="60">
     </head>
     <body class="min-h-screen bg-slate-950 font-sans text-slate-100 antialiased">

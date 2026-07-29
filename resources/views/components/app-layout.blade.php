@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        @include('partials.head')
+        {{-- The owner chrome is private: noindex (which also drops the JSON-LD),
+             on top of the robots.txt Disallow: /app. --}}
+        @include('partials.head', ['noindex' => true])
         @include('partials.beacon')
     </head>
     <body class="flex min-h-screen flex-col bg-bg font-sans text-ink antialiased">

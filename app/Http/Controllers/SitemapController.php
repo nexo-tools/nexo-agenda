@@ -12,6 +12,9 @@ class SitemapController extends Controller
         $urls = collect([
             ['loc' => url('/'), 'priority' => '1.0'],
             ['loc' => route('directory'), 'priority' => '0.8'],
+            ['loc' => route('help'), 'priority' => '0.4'],
+            ['loc' => route('legal.privacy'), 'priority' => '0.3'],
+            ['loc' => route('legal.terms'), 'priority' => '0.3'],
         ]);
 
         foreach (config('nexo.categories') as $category) {

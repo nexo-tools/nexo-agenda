@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout :title="__('Nueva contraseña')">
     <h1 class="mb-6 text-xl font-bold">{{ __('Nueva contraseña') }}</h1>
 
     <form method="POST" action="{{ route('password.store') }}" class="space-y-4">

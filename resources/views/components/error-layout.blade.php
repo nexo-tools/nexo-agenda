@@ -3,7 +3,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        @include('partials.head')
+        {{-- An error page is not a page anyone should land on from a search
+             result, so it stays out of the index. --}}
+        @include('partials.head', ['noindex' => true])
     </head>
     <body class="bg-brand-50 font-sans text-ink antialiased dark:bg-slate-900 dark:text-slate-200">
         <main class="flex min-h-screen flex-col items-center justify-center px-4 py-10 text-center">

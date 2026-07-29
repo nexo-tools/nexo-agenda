@@ -1,8 +1,5 @@
-<x-public-layout :title="$business->name" :business="$business">
-    <x-slot:meta>
-        <meta name="description" content="{{ __('Reserva tu turno en :name', ['name' => $business->name]) }}">
-    </x-slot:meta>
-
+<x-public-layout :title="$business->name" :business="$business"
+    :description="__('Reserva tu turno en :name', ['name' => $business->name])">
     <header class="mb-6">
         @if ($business->logo_path)
             <img src="{{ Storage::url($business->logo_path) }}" alt="" class="mb-3 h-16 w-16 rounded-2xl object-contain">

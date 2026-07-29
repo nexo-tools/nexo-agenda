@@ -1,4 +1,5 @@
-<x-public-layout :title="__('Reprogramar').' — '.$booking->business->name" :business="$booking->business">
+{{-- noindex, same reason as the manage page: the token lives in the URL. --}}
+<x-public-layout :title="__('Reprogramar').' — '.$booking->business->name" :business="$booking->business" :noindex="true">
     <a href="{{ route('booking.manage', $token) }}" class="text-sm text-brand-700 hover:underline dark:text-brand-400">
         ← {{ __('Tu turno') }}
     </a>

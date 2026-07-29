@@ -21,7 +21,6 @@
     "Déjalo si quieres que te respondamos.": "Deixe se quiser que a gente responda.",
     "Enviar": "Enviar",
     "¡Gracias! Recibimos tu mensaje.": "Obrigado! Recebemos sua mensagem.",
-    "Ayuda": "Ajuda",
     "Volver al inicio": "Voltar ao início",
     "Página no encontrada": "Página não encontrada",
     "No encontramos lo que buscabas. Puede que el enlace haya cambiado.": "Não encontramos o que você procurava. O link pode ter mudado.",
@@ -330,5 +329,8 @@
     "No encontramos negocios con esos filtros.": "Não encontramos negócios com esses filtros.",
     "Todas las ciudades": "Todas as cidades",
     "Todos los rubros": "Todas as categorias",
-    "Tu negocio se podrá encontrar en /explorar buscando por rubro y ciudad. Gratis, sin comisiones.": "Seu negócio poderá ser encontrado em /explorar por categoria e cidade. Grátis, sem comissões."
+    "Tu negocio se podrá encontrar en /explorar buscando por rubro y ciudad. Gratis, sin comisiones.": "Seu negócio poderá ser encontrado em /explorar por categoria e cidade. Grátis, sem comissões.",
+    "Enlaces del sitio": "Links do site",
+    "Privacidad": "Privacidade",
+    "Términos": "Termos"
 }

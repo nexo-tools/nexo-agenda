@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout :title="__('Restablecer contraseña')">
     <h1 class="mb-1 text-xl font-bold">{{ __('Restablecer contraseña') }}</h1>
     <p class="mb-6 text-sm text-slate-600 dark:text-slate-400">
         {{ __('Ingresa tu email y te enviaremos un enlace para crear una nueva contraseña.') }}

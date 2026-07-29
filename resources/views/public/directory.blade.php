@@ -1,10 +1,8 @@
-<x-public-layout :title="$category ? __('nexo.categories.'.$category).' — '.__('Explorar') : __('Explorar negocios')">
-    <x-slot:meta>
-        <meta name="description" content="{{ $category
-            ? __('Encuentra dónde reservar en :category', ['category' => __('nexo.categories.'.$category)])
-            : __('Encuentra dónde reservar tu próximo turno') }}">
-    </x-slot:meta>
-
+<x-public-layout
+    :title="$category ? __('nexo.categories.'.$category).' — '.__('Explorar') : __('Explorar negocios')"
+    :description="$category
+        ? __('Encuentra dónde reservar en :category', ['category' => __('nexo.categories.'.$category)])
+        : __('Encuentra dónde reservar tu próximo turno')">
     <header class="mb-5">
         <a href="{{ route('home') }}" class="flex items-center gap-2 text-sm font-semibold">
             <img src="/favicon.svg" alt="" width="24" height="24"> {{ config('app.name') }}

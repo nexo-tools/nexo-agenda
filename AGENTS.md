@@ -132,6 +132,12 @@ General standards (branding, docs, quality, language) live in the `alvaro` repo'
   values that get persisted, compared, or passed to `Mail::to()`, use
   `$request->validated()` / `->input()` instead (a `?: null` on a Stringable
   never fires — this caused a real bug in phase 1.8).
+- An **attribute a Blade component does not declare in `@props` never becomes a
+  variable** inside it (it only lands in `$attributes`, and a layout that never
+  echoes `$attributes` drops it silently). Every value a layout has to forward to
+  `partials/head` — `title`, `description`, `noindex`, `themeColor` — is a declared
+  prop for that reason; passing `:title` to a layout that forgot to declare it
+  looks fine and renders the generic site title.
 - Don't compare date-cast attributes with `where('col', $value)`: the cast
   serializes to `Y-m-d 00:00:00`, which breaks equality against DATE columns on
   SQLite (tests). Use `whereDate()` (see `WaitlistController`).
@@ -147,10 +153,13 @@ General standards (branding, docs, quality, language) live in the `alvaro` repo'
   files whose names collide with routes (`robots.txt`/`sitemap.xml` are dynamic
   routes; the static `public/robots.txt` was removed).
 - **Branding/attribution** is env-configurable (`NEXO_ATTRIBUTION_URL` /
-  `NEXO_ATTRIBUTION_TEXT`, `config/nexo.php`) so third-party instances stay neutral;
-  Alvaro's instance sets the "powered by alvarocdev.com" values. This is the
+  `NEXO_ATTRIBUTION_LABEL` — the label is the whole phrase, the footer prepends
+  nothing — in `config/nexo.php`) so third-party instances stay neutral; Alvaro's
+  instance sets the "powered by alvarocdev.com" values. This is the
   open-source-multi-instance form of the standard branding footer — the shared
-  component is intentionally **not** hardcoded.
+  component is intentionally **not** hardcoded. Same reasoning, same shape for
+  `NEXO_LEGAL_OPERATOR` / `NEXO_LEGAL_CONTACT`: who answers for the data on
+  `/privacidad` and `/terminos` is per-instance, never the upstream author.
 
 ## Architecture (orientation, not a substitute for the code)
 
@@ -173,6 +182,32 @@ duplicate it here; append new decisions there via `docs:` commits.
 ## Accumulated context
 
 <!-- Newest first, dated. Persist non-obvious context for the next session. -->
+
+- **2026-07-28** — **Legal pages + SEO on the public pages + three nexo-ui guardians.**
+  New `/privacidad` and `/terminos` (`LegalController`, `legal/show`, content in
+  `lang/{es,en,pt}/legal.php`, linked from `nexo-footer`, from the storefront footer and
+  in the sitemap). The content describes what the code really does, and its spine is the
+  **double relationship**: the instance processes the data, but the business that receives
+  a booking is the controller towards its own client (name + email/phone + note live in
+  `bookings`, plus `waitlist_entries`, `reviews`, the CSV exports and the professional's
+  ICS feed). Operator and contact come from `NEXO_LEGAL_OPERATOR`/`NEXO_LEGAL_CONTACT`
+  (`config/nexo.php`) so a self-hoster never ships Alvaro as the data controller.
+  **The SEO gap was bigger than "no OG tags":** `public-layout` never declared `title` as a
+  prop, so `<x-public-layout :title="…">` was silently dropped and every storefront rendered
+  the generic site title — **an attribute a Blade component does not declare never becomes a
+  variable**, which is why `partials/head` now takes `$title/$description/$noindex/$themeColor`
+  and the layouts forward them as declared props. `partials/head` renders `x-nexo-seo` (it was
+  only on the home), so canonical/OG/twitter/hreflang now reach the storefront, `/explorar`,
+  help and legal; `/app`, `/t/{token}`, auth and the error pages pass `noindex` (which also
+  drops the JSON-LD). `x-nexo-seo` grew one local prop, `themeColor`, so the storefront keeps
+  painting the browser UI with the business accent instead of the chrome violet.
+  `guest-layout` moved onto `nexo-header`/`nexo-footer` (it used to hand-roll a wordmark and
+  the legacy `x-locale-switcher`, so the app-switcher and the theme toggle were missing on
+  login/register). Guardians added: `BrandAssetsPresentTest`, `DarkModeCoverageTest`,
+  `StaticPagesTest` — none weakened; the two theme-blind skip links became `focus:bg-surface`
+  and the check-in QR now says `bg-white dark:bg-white` out loud (inverting it breaks
+  scanners). `StaticPagesTest`'s branded-404 case sets `app.debug=false` because branded
+  error views only render with debug off here. 223 tests green.
 
 - **2026-07-23** — **Nexo ID SSO client integrated** (ecosystem FASE 2; copied from the
   standards template `~/alvaro/templates/nexo-sso-client`). Optional, **off by default**

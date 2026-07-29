@@ -1,10 +1,23 @@
-@props(['business' => null])
+{{-- Public storefront shell: business page, booking funnel, directory, contact.
+     $title/$description/$noindex are declared props on purpose — an attribute a
+     component does not declare never becomes a variable, so before this every
+     storefront page silently rendered the generic site title and no SEO block. --}}
+@props([
+    'business' => null,
+    'title' => null,
+    'description' => null,
+    'noindex' => false,
+])
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        @include('partials.head', ['themeColor' => $business?->brand_color ?: '#0f766e'])
-        @isset($meta){{ $meta }}@endisset
+        @include('partials.head', array_filter([
+            'title' => $title,
+            'description' => $description,
+            'noindex' => $noindex,
+            'themeColor' => $business?->brand_color ?: '#0f766e',
+        ], fn ($value) => $value !== null))
 
         {{-- Public storefront palette. The Nexo brand violet is the app CHROME accent
              (owner dashboard, auth, errors, marketing) — it must never reach a
@@ -33,7 +46,7 @@
         </style>
     </head>
     <body class="min-h-screen bg-slate-50 font-sans text-ink antialiased dark:bg-slate-900 dark:text-slate-200">
-        <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-brand-700">
+        <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-surface focus:px-4 focus:py-2 focus:text-brand-700">
             {{ __('Saltar al contenido') }}
         </a>
 
@@ -43,9 +56,15 @@
 
         <footer class="mx-auto max-w-xl px-4 pb-8 text-center text-xs text-slate-500 dark:text-slate-400">
             <x-locale-switcher class="mb-3 justify-center" />
-            <nav class="mb-3 flex justify-center gap-4" aria-label="{{ __('Ayuda') }}">
-                <a href="{{ route('help') }}" class="hover:underline">{{ __('Ayuda') }}</a>
+            {{-- The storefront carries no ecosystem chrome (a business page is the
+                 business's, not Nexo's), so the legal links the standard puts in
+                 nexo-footer have to be repeated here — and this is exactly where
+                 they matter, since this is where a client leaves their data. --}}
+            <nav class="mb-3 flex flex-wrap justify-center gap-x-4 gap-y-1" aria-label="{{ __('Enlaces del sitio') }}">
+                <a href="{{ route('help') }}" class="hover:underline">{{ __('nexo.help.title') }}</a>
                 <a href="{{ route('contact') }}" class="hover:underline">{{ __('Contacto') }}</a>
+                <a href="{{ route('legal.privacy') }}" class="hover:underline">{{ __('Privacidad') }}</a>
+                <a href="{{ route('legal.terms') }}" class="hover:underline">{{ __('Términos') }}</a>
             </nav>
             @if (config('nexo.attribution.label'))
                 <a href="{{ config('nexo.attribution.url') ?: url('/') }}" class="hover:underline" rel="noopener">

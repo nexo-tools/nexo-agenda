@@ -21,6 +21,7 @@
     'locales' => null,                {{-- ['es'=>url,'en'=>url,'pt'=>url] to override --}}
     'noindex' => false,
     'jsonld' => true,
+    'themeColor' => null,             {{-- local prop: a business storefront passes its own accent --}}
 ])
 @php
     $siteName = $siteName ?: config('app.name');
@@ -40,7 +41,9 @@
 @if ($noindex)
     <meta name="robots" content="noindex, nofollow">
 @endif
-<meta name="theme-color" content="#7c3aed">
+{{-- Nexo violet unless the page overrides it: the public booking pages must paint
+     the browser UI with the business accent, never with the app chrome brand. --}}
+<meta name="theme-color" content="{{ $themeColor ?: '#7c3aed' }}">
 
 <meta property="og:type" content="{{ $type }}">
 <meta property="og:site_name" content="{{ $siteName }}">
