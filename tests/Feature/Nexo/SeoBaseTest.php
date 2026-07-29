@@ -141,3 +141,22 @@ it('serves a valid sitemap.xml listing the public home page and the legal pages'
 
     expect(simplexml_load_string($response->getContent()))->not->toBeFalse();
 });
+
+it('emits JSON-LD that actually parses', function () {
+    // The block used to render compiled Blade internals instead of JSON: keys
+    // like `@context` are Blade directives (Laravel 11 added `@context`), so the
+    // template was compiling them away and shipping broken structured data on
+    // every page. Asserting the tag exists is not enough — it has to parse.
+    $html = $this->get('/')->assertOk()->getContent();
+
+    preg_match_all('#<script type="application/ld\+json">(.*?)</script>#s', $html, $matches);
+
+    expect($matches[1])->not->toBeEmpty('No JSON-LD block was rendered.');
+
+    foreach ($matches[1] as $block) {
+        $decoded = json_decode($block, true);
+        expect(json_last_error())->toBe(JSON_ERROR_NONE, 'JSON-LD is not valid JSON: '.substr($block, 0, 200));
+        expect($decoded['@context'] ?? null)->toBe('https://schema.org');
+        expect($decoded['@type'] ?? null)->not->toBeNull('JSON-LD has no @type.');
+    }
+});

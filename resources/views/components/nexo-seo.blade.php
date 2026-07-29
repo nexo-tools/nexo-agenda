@@ -66,17 +66,25 @@
 @endif
 
 @if ($jsonld && ! $noindex)
-    <script type="application/ld+json">{!! json_encode([
-        '@context' => 'https://schema.org',
-        '@type' => 'WebSite',
+        @php
+        // JSON-LD keys carry an `@` sigil, and Blade compiles `@context` as a
+        // directive (Laravel 11 added one), which turned this block into raw PHP
+        // in the rendered page. Keeping the sigil out of the template text is
+        // what stops Blade from seeing a directive at all.
+        $at = '@';
+        $schema = [
+        $at.'context' => 'https://schema.org',
+        $at.'type' => 'WebSite',
         'name' => $siteName,
         'url' => url('/'),
         'description' => $description,
         'inLanguage' => str_replace('_', '-', app()->getLocale()),
         'publisher' => [
-            '@type' => 'Organization',
+            $at.'type' => 'Organization',
             'name' => 'Nexo',
             'url' => config('nexo-ecosystem.hub_url', 'https://nexotools.alvarocdev.com'),
         ],
-    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    ];
+    @endphp
+    <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 @endif
