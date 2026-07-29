@@ -1,0 +1,45 @@
+# Optional overlay: the stateful services this repo's compose.yaml leaves out.
+#
+# compose.yaml runs the app runtime only, because the author's machine keeps one
+# shared MySQL/Mailpit for every Nexo tool. If you are not that machine — anyone
+# self-hosting or contributing — this file gives you a self-contained stack:
+#
+#   docker compose -f compose.yaml -f compose.selfhost.yaml up -d
+#
+# Then point .env at these services (they resolve on the compose network):
+#   DB_HOST=mysql   DB_PORT=3306   DB_DATABASE=nexoagenda   DB_USERNAME=sail   DB_PASSWORD=password
+#   MAIL_MAILER=smtp   MAIL_HOST=mailpit   MAIL_PORT=1025      (Mailpit UI: http://localhost:8025)
+#
+# No host port is published for MySQL on purpose: it would collide with whatever
+# database you already run. Reach it through the app container, or add a
+# `ports` entry here if you want it exposed.
+services:
+    laravel.test:
+        depends_on:
+            mysql:
+                condition: service_healthy
+
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        environment:
+            MYSQL_ROOT_PASSWORD: 'password'
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: 'nexoagenda'
+            MYSQL_USER: 'sail'
+            MYSQL_PASSWORD: 'password'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'nexo-selfhost-mysql:/var/lib/mysql'
+        healthcheck:
+            test: ['CMD', 'mysqladmin', 'ping', '-ppassword']
+            retries: 3
+            timeout: 5s
+
+    mailpit:
+        image: 'axllent/mailpit:latest'
+        ports:
+            - '${MAILPIT_UI_PORT:-8025}:8025'
+
+volumes:
+    nexo-selfhost-mysql:
+        driver: local
