@@ -39,15 +39,38 @@ jobs:
             sleep 5
           done
 
+      # Hostinger's SSH endpoint drops connections under load — the whole
+      # ecosystem deploys to the same account, so a normalization pass that
+      # pushes several repos at once reliably times a few out. The step used to
+      # fail the deploy and wait for a human to re-run it; now it retries, and
+      # --partial means a retry resumes instead of starting the upload over.
       - name: Upload built assets
         run: |
-          rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.DEPLOY_PORT }}" \
-            public/build/ \
-            "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/public/build/"
+          for i in 1 2 3; do
+            if rsync -avz --delete --partial \
+              -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.DEPLOY_PORT }} -o ConnectTimeout=30 -o ServerAliveInterval=15" \
+              public/build/ \
+              "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/public/build/"; then
+              exit 0
+            fi
+            echo "rsync attempt $i failed (Hostinger SSH is flaky under load); retrying in $((i * 15))s"
+            sleep $((i * 15))
+          done
+          echo "rsync failed three times — this is no longer a transient blip."
+          exit 1
 
+      # Same retry, same reason. Re-running deploy.sh is safe and is exactly what
+      # a manual `gh run rerun --failed` does today, only without the wait.
       - name: Run server-side deploy script
         run: |
-          ssh -i ~/.ssh/deploy_key -p "${{ secrets.DEPLOY_PORT }}" \
-            "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
-            "cd ${{ secrets.DEPLOY_PATH }} && { [ -f scripts/deploy.sh ] || git pull origin main; } && bash scripts/deploy.sh"
+          for i in 1 2 3; do
+            if ssh -i ~/.ssh/deploy_key -p "${{ secrets.DEPLOY_PORT }}" \
+              -o ConnectTimeout=30 -o ServerAliveInterval=15 \
+              "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
+              "cd ${{ secrets.DEPLOY_PATH }} && { [ -f scripts/deploy.sh ] || git pull origin main; } && bash scripts/deploy.sh"; then
+              exit 0
+            fi
+            echo "deploy script attempt $i failed; retrying in $((i * 15))s"
+            sleep $((i * 15))
+          done
+          exit 1
