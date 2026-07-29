@@ -67,7 +67,7 @@ jobs:
             if ssh -i ~/.ssh/deploy_key -p "${{ secrets.DEPLOY_PORT }}" \
               -o ConnectTimeout=30 -o ServerAliveInterval=15 \
               "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
-              "cd ${{ secrets.DEPLOY_PATH }} && { [ -f scripts/deploy.sh ] || git pull origin main; } && bash scripts/deploy.sh"; then
+              "cd ${{ secrets.DEPLOY_PATH }} && { [ -f scripts/deploy.sh ] || git pull origin main; } && NEXO_LEGAL_OPERATOR='${{ vars.NEXO_LEGAL_OPERATOR }}' NEXO_LEGAL_CONTACT='${{ vars.NEXO_LEGAL_CONTACT }}' bash scripts/deploy.sh"; then
               exit 0
             fi
             echo "deploy script attempt $i failed; retrying in $((i * 15))s"
