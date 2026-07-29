@@ -52,8 +52,7 @@ Captured from the live instance.
 | <img src="docs/screenshots/home-light.png" alt="Nexo Agenda home in light theme"> | <img src="docs/screenshots/home-dark.png" alt="Nexo Agenda home in dark theme"> |
 | <img src="docs/screenshots/explore-light.png" alt="Business directory in light theme"> | <img src="docs/screenshots/explore-dark.png" alt="Business directory in dark theme"> |
 
-Book something for real at the
-[live demo](https://nexoagenda.alvarocdev.com/estudio-nexo).
+Try it at the [live demo](https://nexoagenda.alvarocdev.com).
 
 ## Features
 
