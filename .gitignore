@@ -27,3 +27,6 @@ Thumbs.db
 _ide_helper.php
 
 /database/database.sqlite
+
+# Briefing personal del agente (rutas locales): nunca se publica.
+/CLAUDE.local.md

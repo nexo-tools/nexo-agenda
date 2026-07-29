@@ -24,6 +24,11 @@ jobs:
 
       - run: composer install --prefer-dist --no-progress --no-interaction
 
+      - name: Composer audit (dependency vulnerabilities)
+        run: |
+          for i in 1 2 3; do composer audit && exit 0; echo "composer audit attempt $i failed (likely transient network), retrying in 5s"; sleep 5; done
+          composer audit
+
       - name: Pint (code style)
         run: vendor/bin/pint --test
 
