@@ -16,6 +16,8 @@
 
     <span class="nexo-footer__spacer"></span>
 
+    {{-- The label is the whole phrase ("powered by example.com"): prepend
+         nothing here, or the footer reads "Made by powered by example.com". --}}
     <span>
         <a href="{{ $attrUrl }}" rel="noopener">{{ $attrLabel }}</a>
     </span>
@@ -24,9 +26,8 @@
         {{ __('nexo.footer.source') }}
     </a>
 
-    {{-- Local addition to the shared component: this tool holds third-party data
-         (the name and contact of whoever books an appointment), so the legal
-         pages have to be one click away from every page. --}}
-    <a href="{{ route('legal.privacy') }}">{{ __('Privacidad') }}</a>
-    <a href="{{ route('legal.terms') }}">{{ __('Términos') }}</a>
+    {{-- Legal pages must be reachable from every page (STANDARD.md), and this
+         tool holds third-party data: the name and contact of whoever books. --}}
+    <a href="{{ route('legal.privacy') }}">{{ __('nexo.footer.privacy') }}</a>
+    <a href="{{ route('legal.terms') }}">{{ __('nexo.footer.terms') }}</a>
 </footer>

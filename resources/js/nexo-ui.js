@@ -26,9 +26,52 @@ document.addEventListener('alpine:init', () => {
 
   // Generic dropdown (app-switcher, locale, account). Closes on outside click
   // and Escape; the trigger owns aria-expanded.
+  //
+  // The panels declare role="menu"/"menuitem", and that role is a promise: arrow
+  // navigation, Home/End, and focus returning to the trigger on close. Without
+  // it a screen-reader user is told to press arrows and nothing happens.
+  // Wire it up with:  x-data="nexoMenu" @keydown="onKeydown($event)"
   Alpine.data('nexoMenu', () => ({
     open: false,
-    toggle() { this.open = !this.open; },
-    close() { this.open = false; },
+    toggle() {
+      this.open = !this.open;
+      if (this.open) this.$nextTick(() => this.focusItem(0));
+    },
+    close({ restoreFocus = true } = {}) {
+      if (!this.open) return;
+      this.open = false;
+      if (restoreFocus) this.$el.querySelector('[aria-haspopup]')?.focus();
+    },
+    items() {
+      return Array.from(this.$el.querySelectorAll('[role="menuitem"]'))
+        .filter((el) => !el.hasAttribute('disabled') && el.offsetParent !== null);
+    },
+    focusItem(index) {
+      const items = this.items();
+      if (!items.length) return;
+      // Wrap around: past the end returns to the first item, and vice versa.
+      items[(index + items.length) % items.length].focus();
+    },
+    moveFocus(step) {
+      const items = this.items();
+      const current = items.indexOf(document.activeElement);
+      this.focusItem(current === -1 ? (step > 0 ? 0 : items.length - 1) : current + step);
+    },
+    onKeydown(event) {
+      if (event.key === 'Escape') { this.close(); return; }
+      if (!this.open) return;
+      const handlers = {
+        ArrowDown: () => this.moveFocus(1),
+        ArrowUp: () => this.moveFocus(-1),
+        Home: () => this.focusItem(0),
+        End: () => this.focusItem(this.items().length - 1),
+        // Tabbing out of a menu closes it, but the browser keeps the focus move.
+        Tab: () => this.close({ restoreFocus: false }),
+      };
+      const handler = handlers[event.key];
+      if (!handler) return;
+      if (event.key !== 'Tab') event.preventDefault();
+      handler();
+    },
   }));
 });

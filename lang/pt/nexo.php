@@ -33,10 +33,13 @@ return [
         'discover' => 'Conheça todas no Nexo Tools',
         'developers' => 'Para desenvolvedores: ver o código',
     ],
+    // No 'powered_by': NEXO_ATTRIBUTION_LABEL is the whole phrase and the
+    // footer prepends nothing (STANDARD.md, "Atribución y ecosistema").
     'footer' => [
         'part_of' => 'Parte do ecossistema Nexo',
-        'powered_by' => 'Feito por',
         'source' => 'Código aberto no GitHub',
+        'privacy' => 'Privacidade',
+        'terms' => 'Termos',
     ],
     'help' => [
         'title' => 'Central de ajuda',

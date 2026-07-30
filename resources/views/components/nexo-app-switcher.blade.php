@@ -8,7 +8,7 @@
     $tools = $eco['tools'] ?? [];
 @endphp
 
-<div class="nexo-menu" x-data="nexoMenu" @keydown.escape="close()" @click.outside="close()">
+<div class="nexo-menu" x-data="nexoMenu" @keydown="onKeydown($event)" @click.outside="close({ restoreFocus: false })">
     <button
         type="button"
         class="nexo-btn nexo-btn--ghost nexo-btn--icon"
@@ -46,10 +46,12 @@
 
         <div class="nexo-menu__sep"></div>
         <div class="nexo-menu__foot">
-            <span aria-hidden="true">🔎</span> <a href="{{ $eco['hub_url'] ?? '#' }}">{{ __('nexo.switcher.discover') }}</a>
+            <svg class="nexo-menu__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <a href="{{ $eco['hub_url'] ?? '#' }}">{{ __('nexo.switcher.discover') }}</a>
         </div>
         <div class="nexo-menu__foot">
-            <span aria-hidden="true">&lt;/&gt;</span> <a href="{{ $eco['github_org_url'] ?? '#' }}" rel="noopener">{{ __('nexo.switcher.developers') }}</a>
+            <svg class="nexo-menu__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></svg>
+            <a href="{{ $eco['github_org_url'] ?? '#' }}" rel="noopener">{{ __('nexo.switcher.developers') }}</a>
         </div>
     </div>
 </div>

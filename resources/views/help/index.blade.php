@@ -25,10 +25,10 @@
                     </details>
                 @endforeach
 
-                <div class="nexo-help__item" style="margin-top:1.5rem">
-                    <div style="padding:1rem 1rem 1.25rem">
+                <div class="nexo-help__item nexo-help__contact">
+                    <div>
                         <strong>{{ __('nexo.help.contact_title') }}</strong>
-                        <p style="margin-top:.75rem">
+                        <p>
                             <a class="nexo-btn nexo-btn--primary" href="{{ route('contact') }}">
                                 {{ __('nexo.help.contact_cta') }}
                             </a>

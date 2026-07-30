@@ -41,9 +41,17 @@
 @if ($noindex)
     <meta name="robots" content="noindex, nofollow">
 @endif
-{{-- Nexo violet unless the page overrides it: the public booking pages must paint
-     the browser UI with the business accent, never with the app chrome brand. --}}
-<meta name="theme-color" content="{{ $themeColor ?: '#7c3aed' }}">
+@if ($themeColor)
+    {{-- A business storefront paints the browser UI with its own accent, which is
+         a single colour by definition: it is the same in either scheme. --}}
+    <meta name="theme-color" content="{{ $themeColor }}">
+@else
+    {{-- Match the page background per scheme, not the accent: the browser chrome
+         should extend the page, not paint a violet bar over a dark UI.
+         Values are --nexo-bg (slate-50 / slate-950); literals because <meta> can't read CSS vars. --}}
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)">
+@endif
 
 <meta property="og:type" content="{{ $type }}">
 <meta property="og:site_name" content="{{ $siteName }}">
@@ -66,13 +74,15 @@
 @endif
 
 @if ($jsonld && ! $noindex)
-        @php
+    @php
         // JSON-LD keys carry an `@` sigil, and Blade compiles `@context` as a
-        // directive (Laravel 11 added one), which turned this block into raw PHP
-        // in the rendered page. Keeping the sigil out of the template text is
-        // what stops Blade from seeing a directive at all.
+        // directive (Laravel 11 added one), which ships compiled PHP inside the
+        // script tag instead of JSON. Keeping the sigil out of the template text
+        // is what stops Blade from seeing a directive at all — and it holds if
+        // Blade later claims `@type`, `@id` or `@graph` too.
         $at = '@';
-        $schema = [
+    @endphp
+    <script type="application/ld+json">{!! json_encode([
         $at.'context' => 'https://schema.org',
         $at.'type' => 'WebSite',
         'name' => $siteName,
@@ -84,7 +94,5 @@
             'name' => 'Nexo',
             'url' => config('nexo-ecosystem.hub_url', 'https://nexotools.alvarocdev.com'),
         ],
-    ];
-    @endphp
-    <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 @endif

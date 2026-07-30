@@ -90,6 +90,7 @@
   --nexo-surface-sunken: var(--nexo-slate-100);
   --nexo-border: var(--nexo-slate-200);
   --nexo-border-strong: var(--nexo-slate-300);
+  --nexo-border-control: var(--nexo-slate-500);
   --nexo-text: var(--nexo-slate-900);
   --nexo-text-muted: var(--nexo-slate-600);
   --nexo-text-subtle: var(--nexo-slate-500);
@@ -129,9 +130,10 @@
     --nexo-surface-sunken: var(--nexo-slate-950);
     --nexo-border: var(--nexo-slate-800);
     --nexo-border-strong: var(--nexo-slate-700);
+    --nexo-border-control: var(--nexo-slate-400);
     --nexo-text: var(--nexo-slate-100);
-    --nexo-text-muted: var(--nexo-slate-400);
-    --nexo-text-subtle: var(--nexo-slate-500);
+    --nexo-text-muted: var(--nexo-slate-300);
+    --nexo-text-subtle: var(--nexo-slate-400);
     --nexo-primary: var(--nexo-violet-500);
     --nexo-primary-hover: var(--nexo-violet-400);
     --nexo-primary-active: var(--nexo-violet-300);
@@ -168,9 +170,10 @@
   --nexo-surface-sunken: var(--nexo-slate-950);
   --nexo-border: var(--nexo-slate-800);
   --nexo-border-strong: var(--nexo-slate-700);
+  --nexo-border-control: var(--nexo-slate-400);
   --nexo-text: var(--nexo-slate-100);
-  --nexo-text-muted: var(--nexo-slate-400);
-  --nexo-text-subtle: var(--nexo-slate-500);
+  --nexo-text-muted: var(--nexo-slate-300);
+  --nexo-text-subtle: var(--nexo-slate-400);
   --nexo-primary: var(--nexo-violet-500);
   --nexo-primary-hover: var(--nexo-violet-400);
   --nexo-primary-active: var(--nexo-violet-300);

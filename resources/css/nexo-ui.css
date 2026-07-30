@@ -17,12 +17,23 @@
   transition: background-color .15s, border-color .15s, color .15s;
 }
 .nexo-btn:focus-visible { outline: 2px solid var(--nexo-ring); outline-offset: 2px; }
+/* Disabled and busy read the same: the control is not actionable right now. */
+.nexo-btn:disabled, .nexo-btn[aria-disabled="true"], .nexo-btn[aria-busy="true"] {
+  opacity: .55; cursor: not-allowed; pointer-events: none;
+}
 .nexo-btn--primary { background: var(--nexo-primary); color: var(--nexo-primary-fg); }
 .nexo-btn--primary:hover { background: var(--nexo-primary-hover); }
 .nexo-btn--primary:active { background: var(--nexo-primary-active); }
-.nexo-btn--ghost { background: transparent; color: var(--nexo-text); border-color: var(--nexo-border); }
+/* border-control, not border: a control outline must clear WCAG 1.4.11 (3:1). */
+.nexo-btn--ghost { background: transparent; color: var(--nexo-text); border-color: var(--nexo-border-control); }
 .nexo-btn--ghost:hover { background: var(--nexo-bg-subtle); }
+.nexo-btn--ghost:active { background: var(--nexo-surface-sunken); }
+.nexo-btn--danger { background: var(--nexo-danger); color: var(--nexo-danger-fg); }
+.nexo-btn--danger:hover { filter: brightness(1.08); }
+.nexo-btn--danger:active { filter: brightness(0.94); }
 .nexo-btn--icon { min-width: 44px; padding: 0.5rem; }
+/* Small only in padding — the 44px touch target is not negotiable. */
+.nexo-btn--sm { padding: 0.25rem 0.6rem; font-size: 0.8125rem; }
 
 /* ---- Header ---------------------------------------------------------- */
 .nexo-header {
@@ -47,21 +58,24 @@
   border: 1px solid var(--nexo-border); border-radius: var(--nexo-radius-lg);
   box-shadow: var(--nexo-shadow-lg);
 }
-.nexo-menu__label { padding: 0.25rem 0.5rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--nexo-text-subtle); }
+/* text-muted, not text-subtle: subtle is a large-text token (3:1 contract). */
+.nexo-menu__label { padding: 0.25rem 0.5rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--nexo-text-muted); }
 .nexo-menu__item {
   display: flex; align-items: center; gap: 0.6rem; width: 100%;
   padding: 0.5rem; border-radius: var(--nexo-radius-md);
   color: var(--nexo-text); text-decoration: none; background: none; border: 0; cursor: pointer; text-align: start;
 }
 .nexo-menu__item:hover { background: var(--nexo-bg-subtle); }
+.nexo-menu__item:focus-visible { background: var(--nexo-bg-subtle); outline: 2px solid var(--nexo-ring); outline-offset: -2px; }
 .nexo-menu__item[aria-current="true"], .nexo-menu__item--current { background: var(--nexo-primary-subtle); color: var(--nexo-primary-subtle-fg); }
 .nexo-menu__item img, .nexo-menu__item svg { width: 24px; height: 24px; border-radius: 7px; flex: none; }
 .nexo-menu__item small { display: block; color: var(--nexo-text-muted); font-weight: 400; }
 .nexo-menu__sep { height: 1px; margin: 0.5rem 0.25rem; background: var(--nexo-border); }
-.nexo-menu__foot { padding: 0.4rem 0.5rem; font-size: 0.8rem; }
+.nexo-menu__foot { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.5rem; font-size: 0.8rem; }
+.nexo-menu__glyph { width: 16px; height: 16px; flex: none; color: var(--nexo-text-muted); }
 .nexo-menu__foot a { color: var(--nexo-link); text-decoration: none; }
 .nexo-menu__foot a:hover { color: var(--nexo-link-hover); text-decoration: underline; }
-.nexo-badge-soon { font-size: 0.62rem; text-transform: uppercase; letter-spacing: .05em; padding: 1px 6px; border-radius: 999px; background: var(--nexo-bg-subtle); color: var(--nexo-text-subtle); }
+.nexo-badge-soon { font-size: 0.62rem; text-transform: uppercase; letter-spacing: .05em; padding: 1px 6px; border-radius: 999px; background: var(--nexo-bg-subtle); color: var(--nexo-text-muted); }
 
 /* ---- Footer ---------------------------------------------------------- */
 .nexo-footer {
@@ -80,6 +94,22 @@
 .nexo-help__item { border: 1px solid var(--nexo-border); border-radius: var(--nexo-radius-lg); background: var(--nexo-surface); margin-top: 0.75rem; }
 .nexo-help__item summary { padding: 0.9rem 1rem; cursor: pointer; font-weight: 600; }
 .nexo-help__item > div { padding: 0 1rem 1rem; color: var(--nexo-text-muted); }
+.nexo-help__contact { margin-top: 1.5rem; }
+.nexo-help__contact > div { padding: 1rem 1rem 1.25rem; color: var(--nexo-text); }
+.nexo-help__contact p { margin-top: 0.75rem; }
+
+/* ---- Flash / status messages ----------------------------------------- */
+/* One shape for every tool. Always pair with role="status" (or role="alert"
+   for danger) so the result of an action is announced, not just shown. */
+.nexo-flash {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  padding: 0.75rem 1rem; border-radius: var(--nexo-radius-md);
+  font-size: 0.875rem; font-weight: 500;
+  background: var(--nexo-success-subtle); color: var(--nexo-success-subtle-fg);
+}
+.nexo-flash--info { background: var(--nexo-info-subtle); color: var(--nexo-info-subtle-fg); }
+.nexo-flash--warning { background: var(--nexo-warning-subtle); color: var(--nexo-warning-subtle-fg); }
+.nexo-flash--danger { background: var(--nexo-danger-subtle); color: var(--nexo-danger-subtle-fg); }
 
 /* Respect reduced motion. */
 @media (prefers-reduced-motion: reduce) { .nexo-btn { transition: none; } }

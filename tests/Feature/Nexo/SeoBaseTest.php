@@ -65,7 +65,16 @@ it('emits the full seo head exactly once on every indexable page', function () {
         // its own description on top of the shared block.
         expect(substr_count($html, 'name="description"'))->toBe(1, "duplicate description on {$url}");
         expect(substr_count($html, '<title>'))->toBe(1, "duplicate title on {$url}");
-        expect(substr_count($html, 'name="theme-color"'))->toBe(1, "duplicate theme-color on {$url}");
+
+        // Chrome pages emit the light/dark pair (each scoped by media), a
+        // storefront emits its single accent. Anything else is a page adding
+        // its own on top of the shared block.
+        $themeColors = substr_count($html, 'name="theme-color"');
+        expect($themeColors)->toBeLessThanOrEqual(2, "duplicate theme-color on {$url}");
+        expect($themeColors)->toBeGreaterThan(0, "no theme-color on {$url}");
+        if ($themeColors === 2) {
+            expect(substr_count($html, 'media="(prefers-color-scheme:'))->toBe(2, "unscoped theme-color pair on {$url}");
+        }
     }
 });
 
