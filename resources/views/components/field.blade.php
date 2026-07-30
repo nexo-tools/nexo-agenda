@@ -11,6 +11,6 @@
                'w-full rounded-lg border-control bg-surface text-ink shadow-sm focus:border-brand-500 focus:ring-brand-500',
            ]) }}>
     @error($name)
-        <p id="{{ $name }}-error" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+        <p id="{{ $name }}-error" class="mt-1 text-sm text-danger">{{ $message }}</p>
     @enderror
 </div>

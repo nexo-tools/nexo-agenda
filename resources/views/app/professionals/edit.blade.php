@@ -28,7 +28,7 @@
         <fieldset>
             <legend class="mb-2 font-semibold">{{ __('Horario semanal') }}</legend>
             @error('blocks')
-                <p class="mb-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                <p class="mb-2 text-sm text-danger">{{ $message }}</p>
             @enderror
 
             <div class="space-y-3">
@@ -61,7 +61,7 @@
                         @foreach (range(1, 7) as $d)
                             @error('blocks.'.$d)
                                 <template x-if="d === {{ $d }}">
-                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                                 </template>
                             @enderror
                         @endforeach

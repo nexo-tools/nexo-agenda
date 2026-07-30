@@ -32,7 +32,7 @@
         </div>
 
         @error('nexo_sso')
-            <p class="mb-3 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-300" role="alert">{{ $message }}</p>
+            <p class="nexo-flash nexo-flash--danger mb-3" role="alert">{{ $message }}</p>
         @enderror
 
         <a href="{{ route('nexo-sso.redirect') }}"

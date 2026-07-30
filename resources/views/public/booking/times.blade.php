@@ -75,7 +75,7 @@
             <x-field :label="__('Nombre')" name="client_name" required autocomplete="name" />
             <x-field :label="__('Email')" name="client_email" type="email" required autocomplete="email" />
             @error('date')
-                <p class="text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                <p class="text-sm text-danger">{{ $message }}</p>
             @enderror
 
             <x-button>{{ __('Anotarme en la lista de espera') }}</x-button>

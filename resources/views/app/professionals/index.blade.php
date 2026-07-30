@@ -10,7 +10,7 @@
             <input id="name" name="name" required placeholder="{{ __('Nombre del profesional') }}"
                    class="w-full rounded-lg border-control bg-surface text-ink shadow-sm focus:border-brand-500 focus:ring-brand-500">
             @error('name')
-                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                <p class="mt-1 text-sm text-danger">{{ $message }}</p>
             @enderror
         </div>
         <x-button size="inline">{{ __('Agregar') }}</x-button>

@@ -12,6 +12,6 @@
         @endforeach
     </select>
     @error($name)
-        <p id="{{ $name }}-error" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+        <p id="{{ $name }}-error" class="mt-1 text-sm text-danger">{{ $message }}</p>
     @enderror
 </div>

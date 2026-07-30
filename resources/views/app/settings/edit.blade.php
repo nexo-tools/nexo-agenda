@@ -25,7 +25,7 @@
             <textarea id="description" name="description" rows="3" maxlength="500"
                       class="w-full rounded-lg border-control bg-surface text-ink shadow-sm focus:border-brand-500 focus:ring-brand-500">{{ old('description', $business->description) }}</textarea>
             @error('description')
-                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                <p class="mt-1 text-sm text-danger">{{ $message }}</p>
             @enderror
         </div>
 
@@ -39,7 +39,7 @@
                            value="{{ old('brand_color', $business->brand_color ?? '#0f766e') }}"
                            class="h-10 w-16 cursor-pointer rounded border-control">
                     @error('brand_color')
-                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -48,7 +48,7 @@
                     <input type="file" id="logo" name="logo" accept="image/png,image/jpeg,image/webp,image/svg+xml"
                            class="block w-full text-sm text-muted file:mr-3 file:rounded-lg file:border-0 file:bg-primary-subtle file:px-3 file:py-2 file:text-sm file:font-medium file:text-primary-subtle-fg">
                     @error('logo')
-                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                     @enderror
                 </div>
             </div>

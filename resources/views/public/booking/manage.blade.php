@@ -102,7 +102,7 @@
                         @endforeach
                     </div>
                     @error('rating')
-                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                     @enderror
                 </fieldset>
 
@@ -111,7 +111,7 @@
                     <textarea id="comment" name="comment" rows="3" maxlength="500"
                               class="w-full rounded-lg border-control bg-surface text-ink shadow-sm focus:border-brand-500 focus:ring-brand-500">{{ old('comment') }}</textarea>
                     @error('comment')
-                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                     @enderror
                 </div>
 
