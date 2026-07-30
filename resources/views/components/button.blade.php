@@ -36,6 +36,18 @@
 
 @if ($href)
     <a href="{{ $href }}" {{ $attributes->class([$classes]) }}>{{ $slot }}</a>
+@elseif ($type === 'submit')
+    {{-- Double-submit guard. Creating a booking hits availability checks and sends
+         mail, so an impatient second click used to create a second booking with
+         nothing in the client stopping it. The listener sits on the form (submit
+         does not bubble to the button) and stands down if something already
+         cancelled the submission, e.g. a confirm() the user declined. --}}
+    <button type="submit"
+            x-data="{ sending: false }"
+            x-init="$el.form?.addEventListener('submit', (event) => { if (! event.defaultPrevented) sending = true })"
+            x-bind:disabled="sending"
+            x-bind:aria-busy="sending"
+            {{ $attributes->class([$classes]) }}>{{ $slot }}</button>
 @else
     <button type="{{ $type }}" {{ $attributes->class([$classes]) }}>{{ $slot }}</button>
 @endif

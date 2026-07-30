@@ -36,7 +36,7 @@
                                 {{ $client->name }}
                                 @if ($client->no_shows >= 2)
                                     <span class="ml-1 rounded bg-danger-subtle px-2 py-0.5 text-xs text-danger-subtle-fg" title="{{ __('No asistió :count veces', ['count' => $client->no_shows]) }}">
-                                        <x-icon name="alert" /> {{ $client->no_shows }} {{ __('no-shows') }}
+                                        <x-icon name="alert" /> {{ trans_choice(':count inasistencia|:count inasistencias', $client->no_shows) }}
                                     </span>
                                 @endif
                             </p>

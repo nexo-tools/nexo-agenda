@@ -51,7 +51,7 @@ it('shows booking totals and rates for the period', function () {
         ->assertSee('Estadísticas')
         ->assertSee('Corte')
         ->assertSeeInOrder(['Turnos', '3'])
-        ->assertSeeInOrder(['No-shows', '1'])
+        ->assertSeeInOrder(['Inasistencias', '1'])
         ->assertSee('33%'); // no-show rate: 1 of 3 active
 });
 

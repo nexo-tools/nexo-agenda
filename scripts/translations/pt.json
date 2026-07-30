@@ -205,7 +205,6 @@
     "No atiende": "Não atende",
     "No hay horarios disponibles este día.": "Não há horários disponíveis neste dia.",
     "No vino": "Faltou",
-    "No-shows": "Faltas",
     "Nombre": "Nome",
     "Nombre del cliente": "Nome do cliente",
     "Nombre del negocio": "Nome do negócio",
@@ -349,5 +348,7 @@
     "Reseñas de quienes sí asistieron": "Avaliações de quem realmente compareceu",
     "Modo mostrador para la recepción": "Modo balcão para a recepção",
     "Estadísticas de visitas y ocupación": "Estatísticas de visitas e ocupação",
-    "Exportación de clientes y turnos a CSV": "Exportação de clientes e agendamentos para CSV"
+    "Exportación de clientes y turnos a CSV": "Exportação de clientes e agendamentos para CSV",
+    "Inasistencias": "Faltas",
+    ":count inasistencia|:count inasistencias": ":count falta|:count faltas"
 }

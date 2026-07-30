@@ -20,7 +20,7 @@
         @foreach ([
             [__('Turnos'), $stats['total'], null],
             [__('Asistidos'), $stats['attended'], null],
-            [__('No-shows'), $stats['no_shows'], $stats['no_show_rate'].'%'],
+            [__('Inasistencias'), $stats['no_shows'], $stats['no_show_rate'].'%'],
             [__('Ocupación'), $stats['occupancy'] !== null ? $stats['occupancy'].'%' : '—', null],
             [__('Visitas a tu página'), $stats['visits'], null],
             [__('Conversión visita → turno'), $stats['conversion'] !== null ? $stats['conversion'].'%' : '—', null],
@@ -43,9 +43,15 @@
         <div class="mt-4 flex h-36 items-end gap-0.5" role="img"
              aria-label="{{ __('Gráfico de barras: turnos por día, máximo :max', ['max' => $max]) }}">
             @foreach ($stats['per_day'] as $date => $count)
-                <div class="group relative flex h-full flex-1 flex-col justify-end"
+                {{-- tabindex, not only title: a title tooltip is hover-only, so on a
+                     phone (where this dashboard is read) the per-day number was
+                     unreachable without opening the table below. --}}
+                <div class="group relative flex h-full flex-1 flex-col justify-end focus:outline-none"
+                     tabindex="0"
+                     aria-label="{{ \Carbon\CarbonImmutable::parse($date)->isoFormat('ddd D MMM') }}: {{ trans_choice(':count turno|:count turnos', $count) }}"
                      title="{{ \Carbon\CarbonImmutable::parse($date)->isoFormat('ddd D MMM') }}: {{ trans_choice(':count turno|:count turnos', $count) }}">
-                    <div class="w-full rounded-t bg-brand-600 dark:bg-brand-400"
+                    <span class="pointer-events-none absolute inset-x-0 -top-1 hidden justify-center text-xs font-semibold tabular-nums text-ink group-hover:flex group-focus:flex">{{ $count }}</span>
+                    <div class="w-full rounded-t bg-brand-600 group-focus:ring-2 group-focus:ring-ring dark:bg-brand-400"
                          style="height: {{ $count === 0 ? '2px' : round($count * 100 / $max) .'%' }}; {{ $count === 0 ? 'opacity:.25' : '' }}"></div>
                 </div>
             @endforeach

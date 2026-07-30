@@ -205,7 +205,6 @@
     "No atiende": "Not working",
     "No hay horarios disponibles este día.": "No times available this day.",
     "No vino": "No-show",
-    "No-shows": "No-shows",
     "Nombre": "Name",
     "Nombre del cliente": "Client name",
     "Nombre del negocio": "Business name",
@@ -349,5 +348,7 @@
     "Reseñas de quienes sí asistieron": "Reviews from people who actually showed up",
     "Modo mostrador para la recepción": "Counter mode for the front desk",
     "Estadísticas de visitas y ocupación": "Visit and occupancy stats",
-    "Exportación de clientes y turnos a CSV": "Client and booking export to CSV"
+    "Exportación de clientes y turnos a CSV": "Client and booking export to CSV",
+    "Inasistencias": "No-shows",
+    ":count inasistencia|:count inasistencias": ":count no-show|:count no-shows"
 }
