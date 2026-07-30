@@ -37,7 +37,7 @@
                 @endforeach
             </select>
         </div>
-        <noscript><button class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white">{{ __('Filtrar') }}</button></noscript>
+        <noscript><button class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-brand-fg">{{ __('Filtrar') }}</button></noscript>
     </form>
 
     @if ($businesses->isEmpty())

@@ -62,10 +62,10 @@
     --font-mono: var(--nexo-font-mono);
 
     /* Brand scale → Nexo violet tokens (see nexo-tokens.css / docs/BRAND.md).
-       This is the app CHROME accent (owner dashboard, auth, marketing). Public
-       per-business booking pages override .bg-brand-700/.text-brand-700 with each
-       business's configured accent in public-layout — the brand violet never
-       reaches a business storefront. */
+       This is the app CHROME accent (owner dashboard, auth, marketing). The public
+       storefront re-derives the WHOLE scale from the business accent by
+       redefining these variables in public-layout, so the brand violet never
+       reaches a business page and no brand-* utility is left behind. */
     --color-brand-50: var(--nexo-violet-50);
     --color-brand-100: var(--nexo-violet-100);
     --color-brand-200: var(--nexo-violet-200);
@@ -77,6 +77,9 @@
     --color-brand-800: var(--nexo-violet-800);
     --color-brand-900: var(--nexo-violet-900);
     --color-brand-950: var(--nexo-violet-950);
+    /* Foreground for a filled brand surface. The chrome violet takes white; the
+       storefront overrides it per business with accentTextColor(). */
+    --color-brand-fg: white;
 
     /* Semantic utilities so content can use bg-surface / text-ink / text-muted /
        border-line etc. (theme-aware: they resolve to the light/dark value via

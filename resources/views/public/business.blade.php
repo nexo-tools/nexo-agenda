@@ -44,7 +44,7 @@
                             </p>
                         </div>
                         <a href="{{ route('public.professional', [$business, $service['id']]) }}"
-                           class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">
+                           class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-brand-fg hover:bg-brand-800">
                             {{ __('Reservar') }}
                         </a>
                     </div>

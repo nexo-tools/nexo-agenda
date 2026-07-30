@@ -71,6 +71,24 @@ it('applies the accent color on the public page', function () {
         ->assertSee('#7c3aed', false);
 });
 
+it('derives the whole brand scale from the accent, in both themes', function () {
+    $this->business->update(['brand_color' => '#7c3aed']);
+
+    $html = (string) $this->get('/ajustes-test')->assertOk()->getContent();
+
+    // The scale is re-derived, not three utilities patched with !important: the
+    // slot hover ring and the tinted chips used to stay teal on a page whose CTA
+    // already wore the business colour.
+    expect($html)->toContain('--accent: #7c3aed')
+        ->toContain('--color-brand-100')
+        ->toContain('--color-brand-500')
+        ->and($html)->not->toContain('!important');
+
+    // Dark mode gets its own tints. Forcing the light accent into dark left a
+    // dark accent (say #134e4a) unreadable on a dark page.
+    expect($html)->toContain(':root[data-theme="dark"]');
+});
+
 it('uses dark text on light accents and white on dark ones', function () {
     $this->business->update(['brand_color' => '#f9e79f']);
     expect($this->business->accentTextColor())->toBe('#0f172a');

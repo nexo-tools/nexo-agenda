@@ -19,30 +19,48 @@
             'themeColor' => $business?->brand_color ?: '#0f766e',
         ], fn ($value) => $value !== null))
 
-        {{-- Public storefront palette. The Nexo brand violet is the app CHROME accent
+        {{-- Public storefront accent. The Nexo brand violet is the app CHROME accent
              (owner dashboard, auth, errors, marketing) — it must never reach a
-             business storefront. So the public booking/directory pages keep their own
-             teal accent scale here, decoupled from the chrome brand-* (violet), and a
-             business overrides the primary accent with its configured color below. --}}
+             business storefront, so the whole brand-* scale is re-derived here from
+             one accent: teal by default, the business's configured colour when it
+             has one.
+
+             Redefining the scale variables, not overriding a handful of utility
+             classes: the previous version patched .bg-brand-700 / .text-brand-700
+             with !important, so everything else on the scale (the slot hover ring,
+             the tinted chips) stayed teal and a single booking step showed two
+             accents at once. It also forced the light accent into dark mode, where
+             a dark accent like #134e4a rendered unreadable on a dark page. --}}
+        @php($accent = $business?->brand_color ?: '#0f766e')
         <style>
             :root {
-                --color-brand-50: #f0fdfa;
-                --color-brand-100: #ccfbf1;
-                --color-brand-200: #99f6e4;
-                --color-brand-300: #5eead4;
-                --color-brand-400: #2dd4bf;
-                --color-brand-500: #14b8a6;
-                --color-brand-600: #0d9488;
-                --color-brand-700: #0f766e;
-                --color-brand-800: #115e59;
-                --color-brand-900: #134e4a;
+                --accent: {{ $accent }};
+                --color-brand-fg: {{ $business?->accentTextColor() ?? '#ffffff' }};
+                --color-brand-50: color-mix(in srgb, var(--accent) 8%, #fff);
+                --color-brand-100: color-mix(in srgb, var(--accent) 16%, #fff);
+                --color-brand-200: color-mix(in srgb, var(--accent) 30%, #fff);
+                --color-brand-300: color-mix(in srgb, var(--accent) 45%, #fff);
+                --color-brand-400: color-mix(in srgb, var(--accent) 62%, #fff);
+                --color-brand-500: color-mix(in srgb, var(--accent) 80%, #fff);
+                --color-brand-600: color-mix(in srgb, var(--accent) 92%, #fff);
+                --color-brand-700: var(--accent);
+                --color-brand-800: color-mix(in srgb, var(--accent) 88%, #000);
+                --color-brand-900: color-mix(in srgb, var(--accent) 72%, #000);
             }
-            @if ($business)
-                @php($accent = $business->brand_color ?: '#0f766e')
-                .bg-brand-700 { background-color: {{ $accent }} !important; color: {{ $business->accentTextColor() }} !important; }
-                .hover\:bg-brand-800:hover { background-color: {{ $accent }} !important; filter: brightness(0.92); }
-                .text-brand-700, .dark\:text-brand-400 { color: {{ $accent }} !important; }
-            @endif
+            {{-- Dark: the accent moves up the scale instead of staying put. Text and
+                 borders take the lightened tints (brand-300/400, what dark:text-brand-400
+                 already asks for) and the tinted fills go down to brand-900. --}}
+            :root[data-theme="dark"] {
+                --color-brand-50: color-mix(in srgb, var(--accent) 22%, #000);
+                --color-brand-100: color-mix(in srgb, var(--accent) 30%, #000);
+                --color-brand-200: color-mix(in srgb, var(--accent) 45%, #000);
+                --color-brand-300: color-mix(in srgb, var(--accent) 50%, #fff);
+                --color-brand-400: color-mix(in srgb, var(--accent) 62%, #fff);
+                --color-brand-500: color-mix(in srgb, var(--accent) 74%, #fff);
+                --color-brand-600: color-mix(in srgb, var(--accent) 86%, #fff);
+                --color-brand-800: color-mix(in srgb, var(--accent) 40%, #000);
+                --color-brand-900: color-mix(in srgb, var(--accent) 26%, #000);
+            }
         </style>
     </head>
     <body class="min-h-screen bg-bg font-sans text-ink antialiased">
