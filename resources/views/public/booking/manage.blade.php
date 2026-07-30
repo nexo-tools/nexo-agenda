@@ -47,7 +47,7 @@
         @endif
 
         @if ($booking->business->address)
-            <p class="mt-4 text-sm text-muted">⌂ {{ $booking->business->address }}</p>
+            <p class="mt-4 text-sm text-muted"><x-icon name="home" /> {{ $booking->business->address }}</p>
         @endif
 
         @if ($booking->status === \App\Enums\BookingStatus::Confirmed)

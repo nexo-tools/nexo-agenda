@@ -72,13 +72,13 @@
 
     <div class="mt-8 space-y-1 text-sm text-muted">
         @if ($business->address)
-            <p>⌂ {{ $business->address }}</p>
+            <p><x-icon name="home" /> {{ $business->address }}</p>
         @endif
         @if ($business->whatsapp_phone)
             <p>
                 <a href="https://wa.me/{{ preg_replace('/\D/', '', $business->whatsapp_phone) }}"
                    class="text-brand-700 hover:underline dark:text-brand-400" rel="noopener">
-                    ✆ WhatsApp
+                    <x-icon name="phone" /> WhatsApp
                 </a>
             </p>
         @endif

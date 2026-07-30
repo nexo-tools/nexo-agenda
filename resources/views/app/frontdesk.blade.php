@@ -47,14 +47,14 @@
                                             @csrf @method('PATCH')
                                             <input type="hidden" name="status" value="attended">
                                             <button class="w-full rounded-lg bg-success px-3 py-2.5 text-sm font-bold text-success-fg hover:brightness-110">
-                                                ✓ {{ __('Asistió') }}
+                                                <x-icon name="check" /> {{ __('Asistió') }}
                                             </button>
                                         </form>
                                         <form method="POST" action="{{ route('bookings.status', $booking) }}" class="flex-1">
                                             @csrf @method('PATCH')
                                             <input type="hidden" name="status" value="no_show">
                                             <button class="w-full rounded-lg bg-danger px-3 py-2.5 text-sm font-bold text-danger-fg hover:brightness-110">
-                                                ✗ {{ __('No vino') }}
+                                                <x-icon name="x" /> {{ __('No vino') }}
                                             </button>
                                         </form>
                                     </div>

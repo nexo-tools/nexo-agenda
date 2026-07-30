@@ -6,11 +6,11 @@
         <div class="flex gap-2">
             <a href="{{ route('clients.export') }}"
                class="rounded-lg border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-primary-subtle">
-                ↓ {{ __('Clientes CSV') }}
+                <x-icon name="download" /> {{ __('Clientes CSV') }}
             </a>
             <a href="{{ route('bookings.export') }}"
                class="rounded-lg border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-primary-subtle">
-                ↓ {{ __('Turnos CSV') }}
+                <x-icon name="download" /> {{ __('Turnos CSV') }}
             </a>
         </div>
     </div>
@@ -36,7 +36,7 @@
                                 {{ $client->name }}
                                 @if ($client->no_shows >= 2)
                                     <span class="ml-1 rounded bg-danger-subtle px-2 py-0.5 text-xs text-danger-subtle-fg" title="{{ __('No asistió :count veces', ['count' => $client->no_shows]) }}">
-                                        ⚠ {{ $client->no_shows }} {{ __('no-shows') }}
+                                        <x-icon name="alert" /> {{ $client->no_shows }} {{ __('no-shows') }}
                                     </span>
                                 @endif
                             </p>

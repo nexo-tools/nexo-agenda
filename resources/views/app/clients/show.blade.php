@@ -8,7 +8,7 @@
         @if ($client->client_phone)
             · {{ $client->client_phone }}
             <a href="https://wa.me/{{ preg_replace('/\D/', '', $client->client_phone) }}"
-               class="text-brand-700 hover:underline dark:text-brand-400" rel="noopener" target="_blank">✆ WhatsApp</a>
+               class="text-brand-700 hover:underline dark:text-brand-400" rel="noopener" target="_blank"><x-icon name="phone" /> WhatsApp</a>
         @endif
     </p>
 

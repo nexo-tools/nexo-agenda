@@ -11,7 +11,7 @@
         <div class="flex items-center gap-2">
             <x-button :href="route('frontdesk')" size="inline" variant="ghost">{{ __('Modo mostrador') }}</x-button>
             <x-button :href="route('bookings.create', ['date' => $day->toDateString()])" size="inline">
-                ⊕ {{ __('Turno') }}
+                <x-icon name="plus" /> {{ __('Turno') }}
             </x-button>
         </div>
     </div>
@@ -89,7 +89,7 @@
                                     @if ($booking->client_phone)
                                         <a href="https://wa.me/{{ preg_replace('/\D/', '', $booking->client_phone) }}?text={{ urlencode(__('Hola :name, te recordamos tu turno de :service el :date a las :time en :business. ¡Te esperamos!', ['name' => $booking->client_name, 'service' => $booking->service->name, 'date' => $booking->starts_at->setTimezone($tz)->isoFormat('dddd D/M'), 'time' => $booking->starts_at->setTimezone($tz)->format('H:i'), 'business' => $business->name])) }}"
                                            class="ml-1 text-brand-700 hover:underline dark:text-brand-400" rel="noopener" target="_blank">
-                                            ✆ WhatsApp
+                                            <x-icon name="phone" /> WhatsApp
                                         </a>
                                     @endif
                                 </p>
@@ -103,14 +103,14 @@
                                             @csrf @method('PATCH')
                                             <input type="hidden" name="status" value="attended">
                                             <button class="nexo-btn nexo-btn--sm text-success hover:bg-success-subtle">
-                                                ✓ {{ __('Asistió') }}
+                                                <x-icon name="check" /> {{ __('Asistió') }}
                                             </button>
                                         </form>
                                         <form method="POST" action="{{ route('bookings.status', $booking) }}">
                                             @csrf @method('PATCH')
                                             <input type="hidden" name="status" value="no_show">
                                             <button class="nexo-btn nexo-btn--sm text-danger hover:bg-danger-subtle">
-                                                ✗ {{ __('No vino') }}
+                                                <x-icon name="x" /> {{ __('No vino') }}
                                             </button>
                                         </form>
                                         <form method="POST" action="{{ route('bookings.status', $booking) }}"

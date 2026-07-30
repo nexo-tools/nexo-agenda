@@ -20,7 +20,7 @@
         @if ($booking->status === \App\Enums\BookingStatus::Confirmed)
             <form method="POST" action="{{ route('checkin.store', $token) }}" class="mt-6">
                 @csrf
-                <x-button>✓ {{ __('Marcar como Asistió') }}</x-button>
+                <x-button><x-icon name="check" /> {{ __('Marcar como Asistió') }}</x-button>
             </form>
         @endif
 
