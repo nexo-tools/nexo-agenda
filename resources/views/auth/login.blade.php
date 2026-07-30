@@ -1,5 +1,5 @@
 <x-guest-layout :title="__('Sign in')">
-    <h1 class="mb-6 text-xl font-bold">{{ __('Sign in') }}</h1>
+    <h1 class="mb-6 text-xl font-bold">{{ __('Sign in to your account') }}</h1>
 
     @if (session('status'))
         <p class="nexo-flash mb-4" role="status">{{ session('status') }}</p>
@@ -21,7 +21,7 @@
             </a>
         </div>
 
-        <x-button>{{ __('Log in') }}</x-button>
+        <x-button>{{ __('Sign in') }}</x-button>
     </form>
 
     @if (config('nexo-sso.enabled'))

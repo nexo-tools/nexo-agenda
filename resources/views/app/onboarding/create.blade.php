@@ -16,6 +16,6 @@
 
     <form method="POST" action="{{ config('nexo-sso.enabled') ? route('nexo-sso.logout') : route('logout') }}" class="mt-4 text-center">
         @csrf
-        <button type="submit" class="text-sm text-muted hover:underline">{{ __('Log out') }}</button>
+        <button type="submit" class="text-sm text-muted hover:underline">{{ __('Sign out') }}</button>
     </form>
 </x-guest-layout>
