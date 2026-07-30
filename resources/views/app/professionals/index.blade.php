@@ -47,7 +47,7 @@
                             {{ __('Horarios y datos') }}
                         </a>
                         <form method="POST" action="{{ route('professionals.destroy', $professional) }}"
-                              onsubmit="return confirm(@js(__('¿Eliminar este profesional?')))">
+                              x-data x-on:submit="if (! confirm(@js(__('¿Eliminar este profesional?')))) $event.preventDefault()">
                             @csrf
                             @method('DELETE')
                             <button class="rounded-lg px-3 py-1.5 text-sm text-danger hover:bg-danger-subtle">

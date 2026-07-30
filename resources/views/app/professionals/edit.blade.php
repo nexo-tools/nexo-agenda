@@ -81,7 +81,7 @@
         <div class="mt-2 flex flex-wrap items-center gap-2">
             <code class="break-all rounded-lg bg-bg-subtle px-3 py-2 text-xs">{{ route('feeds.professional', $professional->feed_token) }}</code>
             <form method="POST" action="{{ route('professionals.feed-token', $professional) }}"
-                  onsubmit="return confirm(@js(__('¿Regenerar el enlace? El actual dejará de funcionar.')))">
+                  x-data x-on:submit="if (! confirm(@js(__('¿Regenerar el enlace? El actual dejará de funcionar.')))) $event.preventDefault()">
                 @csrf
                 <button class="rounded-lg px-3 py-1.5 text-sm text-primary hover:bg-primary-subtle">
                     {{ __('Regenerar') }}

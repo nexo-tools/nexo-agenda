@@ -23,10 +23,11 @@
             <span class="px-3 py-2 text-sm text-line-strong" aria-hidden="true">‹</span>
         @endif
 
-        <form method="GET" action="{{ route('booking.reschedule', $token) }}">
+        <form method="GET" action="{{ route('booking.reschedule', $token) }}" x-data class="flex items-center gap-1">
             <label for="date" class="sr-only">{{ __('Fecha') }}</label>
-            <input type="date" id="date" name="date" value="{{ $day->toDateString() }}" onchange="this.form.submit()"
+            <input type="date" id="date" name="date" value="{{ $day->toDateString() }}" x-on:change="$el.form.requestSubmit()"
                    class="rounded-lg border-control bg-surface-raised text-sm shadow-sm focus:border-brand-500 focus:ring-brand-500">
+            <noscript><button class="nexo-btn nexo-btn--ghost nexo-btn--sm">{{ __('Ir') }}</button></noscript>
         </form>
 
         @if ($canGoForward)

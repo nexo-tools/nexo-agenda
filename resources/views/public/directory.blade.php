@@ -13,14 +13,14 @@
         <p class="text-sm text-muted">{{ __('Encuentra dónde reservar tu próximo turno') }}</p>
     </header>
 
-    <form method="GET" action="{{ route('directory') }}" class="mb-6 space-y-2">
+    <form method="GET" action="{{ route('directory') }}" x-data class="mb-6 space-y-2">
         <label for="q" class="sr-only">{{ __('Buscar') }}</label>
         <input id="q" type="search" name="q" value="{{ $search }}" placeholder="{{ __('Buscar por nombre…') }}"
                class="w-full rounded-lg border-control bg-surface-raised text-sm shadow-sm focus:border-brand-500 focus:ring-brand-500">
 
         <div class="flex gap-2">
             <label for="categoria" class="sr-only">{{ __('Rubro') }}</label>
-            <select id="categoria" name="categoria" onchange="this.form.submit()"
+            <select id="categoria" name="categoria" x-on:change="$el.form.requestSubmit()"
                     class="flex-1 rounded-lg border-control bg-surface-raised text-sm shadow-sm focus:border-brand-500 focus:ring-brand-500">
                 <option value="">{{ __('Todos los rubros') }}</option>
                 @foreach (config('nexo.categories') as $option)
@@ -29,7 +29,7 @@
             </select>
 
             <label for="ciudad" class="sr-only">{{ __('Ciudad') }}</label>
-            <select id="ciudad" name="ciudad" onchange="this.form.submit()"
+            <select id="ciudad" name="ciudad" x-on:change="$el.form.requestSubmit()"
                     class="flex-1 rounded-lg border-control bg-surface-raised text-sm shadow-sm focus:border-brand-500 focus:ring-brand-500">
                 <option value="">{{ __('Todas las ciudades') }}</option>
                 @foreach ($cities as $option)

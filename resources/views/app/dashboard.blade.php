@@ -26,11 +26,12 @@
                class="rounded-lg px-3 py-2 text-sm text-primary hover:bg-primary-subtle"
                aria-label="{{ __('Día anterior') }}">‹</a>
 
-            <form method="GET" action="{{ route('dashboard') }}">
+            <form method="GET" action="{{ route('dashboard') }}" x-data class="flex items-center gap-1">
                 <input type="hidden" name="view" value="{{ $view }}">
                 <label for="date" class="sr-only">{{ __('Fecha') }}</label>
-                <input type="date" id="date" name="date" value="{{ $day->toDateString() }}" onchange="this.form.submit()"
+                <input type="date" id="date" name="date" value="{{ $day->toDateString() }}" x-on:change="$el.form.requestSubmit()"
                        class="rounded-lg border-control bg-surface-raised text-sm shadow-sm focus:border-brand-500 focus:ring-brand-500">
+                <noscript><button class="nexo-btn nexo-btn--ghost nexo-btn--sm">{{ __('Ir') }}</button></noscript>
             </form>
 
             <a href="{{ route('dashboard', ['date' => $day->addDay()->toDateString(), 'view' => $view]) }}"
@@ -117,7 +118,7 @@
                                             </button>
                                         </form>
                                         <form method="POST" action="{{ route('bookings.status', $booking) }}"
-                                              onsubmit="return confirm(@js(__('¿Cancelar este turno?')))">
+                                              x-data x-on:submit="if (! confirm(@js(__('¿Cancelar este turno?')))) $event.preventDefault()">
                                             @csrf @method('PATCH')
                                             <input type="hidden" name="status" value="cancelled">
                                             <button class="rounded-lg px-2 py-1 text-xs text-muted hover:bg-bg-subtle">

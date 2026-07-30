@@ -39,7 +39,7 @@
                                 {{ __('Editar') }}
                             </a>
                             <form method="POST" action="{{ route('services.destroy', $service) }}"
-                                  onsubmit="return confirm(@js(__('¿Eliminar este servicio?')))">
+                                  x-data x-on:submit="if (! confirm(@js(__('¿Eliminar este servicio?')))) $event.preventDefault()">
                                 @csrf
                                 @method('DELETE')
                                 <button class="rounded-lg px-3 py-1.5 text-sm text-danger hover:bg-danger-subtle">

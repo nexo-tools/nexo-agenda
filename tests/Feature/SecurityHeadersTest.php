@@ -52,3 +52,29 @@ it('keeps the .htaccess CSP in sync with the middleware CSP', function () {
     expect($m[1] ?? null)->not->toBeNull()
         ->and($m[1])->toBe($middlewareCsp);
 });
+
+it('ships no inline event handlers, which our own CSP would refuse to run', function () {
+    // script-src carries no 'unsafe-inline' and no 'unsafe-hashes', so an
+    // onchange/onsubmit attribute is dead code in production: the date pickers
+    // and directory filters silently stopped submitting, and the confirm() in
+    // front of every destructive action never ran — the delete just happened.
+    // Alpine (allowed via 'unsafe-eval') is where that behaviour belongs.
+    $offenders = [];
+
+    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator(resource_path('views'), FilesystemIterator::SKIP_DOTS)) as $file) {
+        if (! str_ends_with($file->getFilename(), '.blade.php')) {
+            continue;
+        }
+
+        // Mail templates are rendered by mail clients, not by this CSP.
+        if (str_contains(str_replace('\\', '/', $file->getPathname()), '/views/emails/')) {
+            continue;
+        }
+
+        if (preg_match_all('/\son(?:change|submit|click|input|load|focus|blur|keydown|keyup|mouseover)\s*=/i', (string) file_get_contents($file->getPathname()), $m)) {
+            $offenders[] = $file->getPathname().' -> '.implode(', ', array_unique($m[0]));
+        }
+    }
+
+    expect($offenders)->toBe([], "Inline event handlers are blocked by our CSP:\n".implode("\n", $offenders));
+});

@@ -70,7 +70,7 @@
                 {{ __('Reprogramar') }}
             </a>
             <form method="POST" action="{{ route('booking.cancel', $token) }}" class="flex-1"
-                  onsubmit="return confirm(@js(__('¿Cancelar tu turno?')))">
+                  x-data x-on:submit="if (! confirm(@js(__('¿Cancelar tu turno?')))) $event.preventDefault()">
                 @csrf
                 <button class="w-full rounded-lg border border-danger px-4 py-2 text-sm font-semibold text-danger hover:bg-danger-subtle">
                     {{ __('Cancelar turno') }}
