@@ -14,13 +14,13 @@
         </p>
     @else
         <form method="GET" action="{{ route('public.times', [$business, $service]) }}" class="space-y-3">
-            <label class="flex cursor-pointer items-center gap-3 rounded-2xl bg-surface-raised p-4 shadow-sm has-[:checked]:ring-2 has-[:checked]:ring-brand-500">
+            <label class="flex cursor-pointer items-center gap-3 rounded-2xl bg-surface-raised p-4 shadow-sm has-[:checked]:ring-2 has-[:checked]:ring-brand-500 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand-500">
                 <input type="radio" name="professional" value="any" checked class="text-brand-600 focus:ring-brand-500">
                 <span class="font-medium">{{ __('Cualquiera disponible') }}</span>
             </label>
 
             @foreach ($professionals as $professional)
-                <label class="flex cursor-pointer items-center gap-3 rounded-2xl bg-surface-raised p-4 shadow-sm has-[:checked]:ring-2 has-[:checked]:ring-brand-500">
+                <label class="flex cursor-pointer items-center gap-3 rounded-2xl bg-surface-raised p-4 shadow-sm has-[:checked]:ring-2 has-[:checked]:ring-brand-500 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand-500">
                     <input type="radio" name="professional" value="{{ $professional->id }}" class="text-brand-600 focus:ring-brand-500">
                     <span class="font-medium">{{ $professional->name }}</span>
                 </label>

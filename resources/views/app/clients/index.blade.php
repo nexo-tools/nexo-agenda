@@ -30,7 +30,7 @@
             @foreach ($clients as $client)
                 <li>
                     <a href="{{ route('clients.show', ['key' => $client->key]) }}"
-                       class="flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-surface-raised p-4 shadow-sm hover:ring-2 hover:ring-brand-500">
+                       class="flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-surface-raised p-4 shadow-sm hover:ring-2 hover:ring-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
                         <div>
                             <p class="font-semibold">
                                 {{ $client->name }}

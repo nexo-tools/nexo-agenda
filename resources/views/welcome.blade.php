@@ -24,14 +24,8 @@
                 {{ __('Reservas online para tu negocio. Open source, sin comisiones.') }}
             </p>
             <div class="flex flex-wrap justify-center gap-3">
-                <a href="{{ route('register') }}"
-                   class="rounded-lg bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-800">
-                    {{ __('Crear cuenta gratis') }}
-                </a>
-                <a href="{{ route('directory') }}"
-                   class="rounded-lg border border-primary px-5 py-2.5 text-sm font-semibold text-primary hover:bg-primary-subtle">
-                    {{ __('Explorar negocios') }}
-                </a>
+                <x-button :href="route('register')" size="inline">{{ __('Crear cuenta gratis') }}</x-button>
+                <x-button :href="route('directory')" size="inline" variant="outline">{{ __('Explorar negocios') }}</x-button>
             </div>
             @auth
                 <a href="{{ route('dashboard') }}" class="text-sm text-brand-700 hover:underline dark:text-brand-400">{{ __('Ir a mi agenda') }}</a>

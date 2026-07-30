@@ -41,10 +41,9 @@
         </dl>
 
         @if ($booking->status === \App\Enums\BookingStatus::Confirmed && $booking->service->mode === \App\Enums\ServiceMode::Virtual && $booking->service->video_link)
-            <a href="{{ $booking->service->video_link }}" rel="noopener"
-               class="mt-4 block rounded-lg bg-brand-700 px-4 py-2 text-center text-sm font-semibold text-brand-fg hover:bg-brand-800">
+            <x-button :href="$booking->service->video_link" rel="noopener" class="mt-4">
                 {{ __('Unirse a la videollamada') }}
-            </a>
+            </x-button>
         @endif
 
         @if ($booking->business->address)

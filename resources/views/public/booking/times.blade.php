@@ -55,7 +55,7 @@
             @foreach ($slots as $time => $professionalId)
                 <li>
                     <a href="{{ route('public.form', [$business, $service, 'professional' => $professionalId, 'start' => $day->toDateString().' '.$time]) }}"
-                       class="block rounded-lg bg-surface-raised py-2 text-center text-sm font-medium shadow-sm hover:ring-2 hover:ring-brand-500">
+                       class="block rounded-lg bg-surface-raised py-2 text-center text-sm font-medium shadow-sm hover:ring-2 hover:ring-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
                         {{ $time }}
                     </a>
                 </li>

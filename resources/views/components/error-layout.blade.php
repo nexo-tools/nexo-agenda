@@ -18,10 +18,7 @@
             <h1 class="mt-4 text-2xl font-semibold">{{ $title }}</h1>
             <p class="mt-2 max-w-sm text-muted">{{ $message }}</p>
 
-            <a href="{{ url('/') }}"
-               class="mt-8 inline-flex items-center justify-center rounded-lg bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
-                {{ __('Volver al inicio') }}
-            </a>
+            <x-button :href="url('/')" size="inline" class="mt-8">{{ __('Volver al inicio') }}</x-button>
         </main>
     </body>
 </html>

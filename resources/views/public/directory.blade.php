@@ -37,7 +37,7 @@
                 @endforeach
             </select>
         </div>
-        <noscript><button class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-brand-fg">{{ __('Filtrar') }}</button></noscript>
+        <noscript><x-button size="inline">{{ __('Filtrar') }}</x-button></noscript>
     </form>
 
     @if ($businesses->isEmpty())
@@ -49,7 +49,7 @@
             @foreach ($businesses as $business)
                 <li>
                     <a href="{{ route('public.business', $business) }}"
-                       class="flex items-center gap-3 rounded-2xl bg-surface-raised p-4 shadow-sm hover:ring-2 hover:ring-brand-500">
+                       class="flex items-center gap-3 rounded-2xl bg-surface-raised p-4 shadow-sm hover:ring-2 hover:ring-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
                         @if ($business->logo_path)
                             <img src="{{ Storage::url($business->logo_path) }}" alt="" class="h-12 w-12 rounded-xl object-contain">
                         @else

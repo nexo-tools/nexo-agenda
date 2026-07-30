@@ -13,9 +13,7 @@
                 <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
             @enderror
         </div>
-        <button class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">
-            {{ __('Agregar') }}
-        </button>
+        <x-button size="inline">{{ __('Agregar') }}</x-button>
     </form>
 
     @if ($professionals->isEmpty())
@@ -43,14 +41,14 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <a href="{{ route('professionals.edit', $professional) }}"
-                           class="rounded-lg px-3 py-1.5 text-sm text-primary hover:bg-primary-subtle">
+                           class="nexo-btn nexo-btn--sm text-primary hover:bg-primary-subtle">
                             {{ __('Horarios y datos') }}
                         </a>
                         <form method="POST" action="{{ route('professionals.destroy', $professional) }}"
                               x-data x-on:submit="if (! confirm(@js(__('¿Eliminar este profesional?')))) $event.preventDefault()">
                             @csrf
                             @method('DELETE')
-                            <button class="rounded-lg px-3 py-1.5 text-sm text-danger hover:bg-danger-subtle">
+                            <button class="nexo-btn nexo-btn--sm text-danger hover:bg-danger-subtle">
                                 {{ __('Eliminar') }}
                             </button>
                         </form>

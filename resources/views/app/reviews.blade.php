@@ -23,7 +23,7 @@
                         </p>
                         <form method="POST" action="{{ route('reviews.toggle', $review) }}">
                             @csrf @method('PATCH')
-                            <button class="rounded-lg px-3 py-1.5 text-sm text-muted hover:bg-bg-subtle">
+                            <button class="nexo-btn nexo-btn--sm text-muted hover:bg-bg-subtle">
                                 {{ $review->is_hidden ? __('Mostrar') : __('Ocultar') }}
                             </button>
                         </form>

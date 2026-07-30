@@ -3,10 +3,7 @@
 
     <div class="flex items-center justify-between gap-4">
         <h1 class="text-2xl font-bold">{{ __('Servicios') }}</h1>
-        <a href="{{ route('services.create') }}"
-           class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">
-            {{ __('Nuevo servicio') }}
-        </a>
+        <x-button :href="route('services.create')" size="inline">{{ __('Nuevo servicio') }}</x-button>
     </div>
 
     @if ($services->isEmpty())
@@ -35,14 +32,14 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <a href="{{ route('services.edit', $service) }}"
-                               class="rounded-lg px-3 py-1.5 text-sm text-primary hover:bg-primary-subtle">
+                               class="nexo-btn nexo-btn--sm text-primary hover:bg-primary-subtle">
                                 {{ __('Editar') }}
                             </a>
                             <form method="POST" action="{{ route('services.destroy', $service) }}"
                                   x-data x-on:submit="if (! confirm(@js(__('¿Eliminar este servicio?')))) $event.preventDefault()">
                                 @csrf
                                 @method('DELETE')
-                                <button class="rounded-lg px-3 py-1.5 text-sm text-danger hover:bg-danger-subtle">
+                                <button class="nexo-btn nexo-btn--sm text-danger hover:bg-danger-subtle">
                                     {{ __('Eliminar') }}
                                 </button>
                             </form>

@@ -9,14 +9,10 @@
             </a>
         </div>
         <div class="flex items-center gap-2">
-            <a href="{{ route('frontdesk') }}"
-               class="rounded-lg border border-control px-4 py-2 text-sm font-medium text-ink hover:bg-bg-subtle">
-                {{ __('Modo mostrador') }}
-            </a>
-            <a href="{{ route('bookings.create', ['date' => $day->toDateString()]) }}"
-               class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">
+            <x-button :href="route('frontdesk')" size="inline" variant="ghost">{{ __('Modo mostrador') }}</x-button>
+            <x-button :href="route('bookings.create', ['date' => $day->toDateString()])" size="inline">
                 ⊕ {{ __('Turno') }}
-            </a>
+            </x-button>
         </div>
     </div>
 
@@ -106,14 +102,14 @@
                                         <form method="POST" action="{{ route('bookings.status', $booking) }}">
                                             @csrf @method('PATCH')
                                             <input type="hidden" name="status" value="attended">
-                                            <button class="rounded-lg px-2 py-1 text-xs text-success hover:bg-success-subtle">
+                                            <button class="nexo-btn nexo-btn--sm text-success hover:bg-success-subtle">
                                                 ✓ {{ __('Asistió') }}
                                             </button>
                                         </form>
                                         <form method="POST" action="{{ route('bookings.status', $booking) }}">
                                             @csrf @method('PATCH')
                                             <input type="hidden" name="status" value="no_show">
-                                            <button class="rounded-lg px-2 py-1 text-xs text-danger hover:bg-danger-subtle">
+                                            <button class="nexo-btn nexo-btn--sm text-danger hover:bg-danger-subtle">
                                                 ✗ {{ __('No vino') }}
                                             </button>
                                         </form>
@@ -121,7 +117,7 @@
                                               x-data x-on:submit="if (! confirm(@js(__('¿Cancelar este turno?')))) $event.preventDefault()">
                                             @csrf @method('PATCH')
                                             <input type="hidden" name="status" value="cancelled">
-                                            <button class="rounded-lg px-2 py-1 text-xs text-muted hover:bg-bg-subtle">
+                                            <button class="nexo-btn nexo-btn--sm text-muted hover:bg-bg-subtle">
                                                 {{ __('Cancelar') }}
                                             </button>
                                         </form>
@@ -140,7 +136,7 @@
                 @php($items = $bookings->filter(fn ($b) => $b->starts_at->setTimezone($tz)->isSameDay($weekDay)))
                 <a href="{{ route('dashboard', ['date' => $weekDay->toDateString(), 'view' => 'day']) }}"
                    @class([
-                       'rounded-2xl bg-surface-raised p-4 shadow-sm hover:ring-2 hover:ring-brand-500',
+                       'rounded-2xl bg-surface-raised p-4 shadow-sm hover:ring-2 hover:ring-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500',
                        'ring-2 ring-brand-300' => $weekDay->isSameDay($day),
                    ])>
                     <p class="text-sm font-semibold capitalize">{{ $weekDay->isoFormat('dddd D') }}</p>

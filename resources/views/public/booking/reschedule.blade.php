@@ -52,7 +52,7 @@
                     <form method="POST" action="{{ route('booking.reschedule.update', $token) }}">
                         @csrf
                         <input type="hidden" name="start" value="{{ $slot->format('Y-m-d H:i') }}">
-                        <button class="w-full rounded-lg bg-surface-raised py-2 text-center text-sm font-medium shadow-sm hover:ring-2 hover:ring-brand-500">
+                        <button class="w-full rounded-lg bg-surface-raised py-2 text-center text-sm font-medium shadow-sm hover:ring-2 hover:ring-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
                             {{ $slot->format('H:i') }}
                         </button>
                     </form>

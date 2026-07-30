@@ -37,7 +37,7 @@
                         <div class="flex items-center justify-between">
                             <span class="text-sm font-medium" x-text="labels[d]"></span>
                             <button type="button" @click="add(d)"
-                                    class="rounded-lg px-2 py-1 text-sm text-primary hover:bg-primary-subtle">
+                                    class="nexo-btn nexo-btn--sm text-primary hover:bg-primary-subtle">
                                 + {{ __('Franja') }}
                             </button>
                         </div>
@@ -52,7 +52,7 @@
                                 <input type="time" :id="`b-${d}-${i}-e`" x-model="row.end" :name="`blocks[${d}][${i}][end]`" required
                                        class="rounded-lg border-control bg-surface text-sm shadow-sm focus:border-brand-500 focus:ring-brand-500">
                                 <button type="button" @click="remove(d, i)"
-                                        class="rounded-lg px-2 py-1 text-sm text-danger hover:bg-danger-subtle">
+                                        class="nexo-btn nexo-btn--sm text-danger hover:bg-danger-subtle">
                                     <span aria-hidden="true">✕</span>
                                     <span class="sr-only">{{ __('Quitar franja') }}</span>
                                 </button>
@@ -83,7 +83,7 @@
             <form method="POST" action="{{ route('professionals.feed-token', $professional) }}"
                   x-data x-on:submit="if (! confirm(@js(__('¿Regenerar el enlace? El actual dejará de funcionar.')))) $event.preventDefault()">
                 @csrf
-                <button class="rounded-lg px-3 py-1.5 text-sm text-primary hover:bg-primary-subtle">
+                <button class="nexo-btn nexo-btn--sm text-primary hover:bg-primary-subtle">
                     {{ __('Regenerar') }}
                 </button>
             </form>
@@ -99,9 +99,7 @@
             <x-field :label="__('Desde')" name="starts_on" type="date" required class="w-auto" />
             <x-field :label="__('Hasta')" name="ends_on" type="date" required class="w-auto" />
             <x-field :label="__('Motivo (opcional)')" name="reason" class="w-40" />
-            <button class="rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">
-                {{ __('Agregar') }}
-            </button>
+            <x-button size="inline">{{ __('Agregar') }}</x-button>
         </form>
 
         <ul class="mt-4 space-y-2">
@@ -114,7 +112,7 @@
                     <form method="POST" action="{{ route('absences.destroy', $absence) }}">
                         @csrf
                         @method('DELETE')
-                        <button class="rounded-lg px-2 py-1 text-danger hover:bg-danger-subtle">
+                        <button class="nexo-btn nexo-btn--sm text-danger hover:bg-danger-subtle">
                             <span aria-hidden="true">✕</span>
                             <span class="sr-only">{{ __('Eliminar ausencia') }}</span>
                         </button>
