@@ -45,7 +45,7 @@
             @endif
         </style>
     </head>
-    <body class="min-h-screen bg-slate-50 font-sans text-ink antialiased dark:bg-slate-900 dark:text-slate-200">
+    <body class="min-h-screen bg-bg font-sans text-ink antialiased">
         <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-surface focus:px-4 focus:py-2 focus:text-brand-700">
             {{ __('Saltar al contenido') }}
         </a>
@@ -54,7 +54,7 @@
             {{ $slot }}
         </main>
 
-        <footer class="mx-auto max-w-xl px-4 pb-8 text-center text-xs text-slate-500 dark:text-slate-400">
+        <footer class="mx-auto max-w-xl px-4 pb-8 text-center text-xs text-muted">
             <x-locale-switcher class="mb-3 justify-center" />
             {{-- The storefront carries no ecosystem chrome (a business page is the
                  business's, not Nexo's), so the legal links the standard puts in

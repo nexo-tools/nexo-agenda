@@ -4,7 +4,7 @@
            @class([
                'rounded px-2 py-1 uppercase',
                'bg-brand-100 font-semibold text-brand-900 dark:bg-brand-900 dark:text-brand-100' => app()->getLocale() === $locale,
-               'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300' => app()->getLocale() !== $locale,
+               'text-muted hover:text-ink' => app()->getLocale() !== $locale,
            ])
            lang="{{ $locale }}" hreflang="{{ $locale }}" aria-label="{{ $label }}"
            @if (app()->getLocale() === $locale) aria-current="true" @endif>

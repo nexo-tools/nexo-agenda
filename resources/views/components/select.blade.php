@@ -5,7 +5,7 @@
     <select id="{{ $name }}" name="{{ $name }}"
             @error($name) aria-invalid="true" aria-describedby="{{ $name }}-error" @enderror
             {{ $attributes->class([
-                'w-full rounded-lg border-slate-300 bg-white text-ink shadow-sm focus:border-brand-500 focus:ring-brand-500 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200',
+                'w-full rounded-lg border-control bg-surface text-ink shadow-sm focus:border-brand-500 focus:ring-brand-500',
             ]) }}>
         @foreach ($options as $key => $option)
             <option value="{{ $key }}" @selected(old($name, $selected) == $key)>{{ $option }}</option>

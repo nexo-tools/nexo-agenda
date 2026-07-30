@@ -82,10 +82,39 @@
        border-line etc. (theme-aware: they resolve to the light/dark value via
        data-theme). */
     --color-bg: var(--nexo-bg);
+    --color-bg-subtle: var(--nexo-bg-subtle);
     --color-surface: var(--nexo-surface);
     --color-surface-raised: var(--nexo-surface-raised);
+    --color-surface-sunken: var(--nexo-surface-sunken);
     --color-ink: var(--nexo-text);
     --color-muted: var(--nexo-text-muted);
+    /* text-subtle is a LARGE-text token (3:1). Small copy uses text-muted. */
     --color-subtle: var(--nexo-text-subtle);
     --color-line: var(--nexo-border);
+    --color-line-strong: var(--nexo-border-strong);
+    /* border-control: the outline of an input or button, which must clear 3:1
+       against its background (WCAG 1.4.11) — border-line does not. */
+    --color-control: var(--nexo-border-control);
+
+    /* Roles. Every *-subtle / *-subtle-fg pair already flips with the theme, so
+       a chip or a banner written with them needs no dark: twin. */
+    --color-primary: var(--nexo-primary);
+    --color-primary-hover: var(--nexo-primary-hover);
+    --color-primary-fg: var(--nexo-primary-fg);
+    --color-primary-subtle: var(--nexo-primary-subtle);
+    --color-primary-subtle-fg: var(--nexo-primary-subtle-fg);
+    --color-ring: var(--nexo-ring);
+    --color-success: var(--nexo-success);
+    --color-success-fg: var(--nexo-success-fg);
+    --color-success-subtle: var(--nexo-success-subtle);
+    --color-success-subtle-fg: var(--nexo-success-subtle-fg);
+    --color-warning: var(--nexo-warning);
+    --color-warning-subtle: var(--nexo-warning-subtle);
+    --color-warning-subtle-fg: var(--nexo-warning-subtle-fg);
+    --color-danger: var(--nexo-danger);
+    --color-danger-fg: var(--nexo-danger-fg);
+    --color-danger-subtle: var(--nexo-danger-subtle);
+    --color-danger-subtle-fg: var(--nexo-danger-subtle-fg);
+    --color-info-subtle: var(--nexo-info-subtle);
+    --color-info-subtle-fg: var(--nexo-info-subtle-fg);
 }

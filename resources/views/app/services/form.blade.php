@@ -17,10 +17,10 @@
     <div x-show="mode === 'virtual'" x-cloak>
         <x-field :label="__('Link de videollamada (Meet, Jitsi, Zoom…)')" name="video_link"
                  type="url" :value="$service?->video_link" placeholder="https://meet.jit.si/mi-sala" />
-        <p class="mt-1 text-xs text-slate-500">{{ __('Se incluirá en la confirmación y los recordatorios del cliente.') }}</p>
+        <p class="mt-1 text-xs text-muted">{{ __('Se incluirá en la confirmación y los recordatorios del cliente.') }}</p>
     </div>
 
-    <details class="rounded-lg border border-slate-200 p-4 dark:border-slate-700" @if ($errors->hasAny(['buffer_minutes', 'min_notice_hours', 'cancellation_hours', 'max_advance_days'])) open @endif>
+    <details class="rounded-lg border border-line p-4" @if ($errors->hasAny(['buffer_minutes', 'min_notice_hours', 'cancellation_hours', 'max_advance_days'])) open @endif>
         <summary class="cursor-pointer text-sm font-medium">{{ __('Reglas de reserva') }}</summary>
         <div class="mt-4 grid grid-cols-2 gap-4">
             <x-field :label="__('Buffer entre turnos (min)')" name="buffer_minutes" type="number"
@@ -37,7 +37,7 @@
     <label class="flex items-center gap-2 text-sm">
         <input type="hidden" name="is_active" value="0">
         <input type="checkbox" name="is_active" value="1" @checked(old('is_active', $service?->is_active ?? true))
-               class="rounded border-slate-300 text-brand-600 focus:ring-brand-500">
+               class="rounded border-control text-brand-600 focus:ring-brand-500">
         {{ __('Servicio activo (visible para reservar)') }}
     </label>
 

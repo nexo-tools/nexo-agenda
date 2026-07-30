@@ -5,7 +5,7 @@
     <h1 class="mb-6 mt-2 text-2xl font-bold">{{ __('Nuevo turno') }}</h1>
 
     @if ($services->isEmpty() || $professionals->isEmpty())
-        <p class="rounded-2xl border border-dashed border-slate-300 p-6 text-sm text-slate-500 dark:border-slate-700">
+        <p class="rounded-2xl border border-dashed border-line-strong p-6 text-sm text-muted">
             {{ __('Necesitas al menos un servicio y un profesional activos para crear turnos.') }}
         </p>
     @else
@@ -27,7 +27,7 @@
             <x-field :label="__('Teléfono (opcional)')" name="client_phone" type="tel" />
             <x-field :label="__('Nota (opcional)')" name="note" />
 
-            <p class="text-xs text-slate-500">
+            <p class="text-xs text-muted">
                 {{ __('Los turnos manuales no siguen las reglas de anticipación: solo se valida que el horario esté libre.') }}
             </p>
 

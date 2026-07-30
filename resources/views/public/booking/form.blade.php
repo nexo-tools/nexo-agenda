@@ -3,16 +3,16 @@
        class="text-sm text-brand-700 hover:underline dark:text-brand-400">
         ← {{ __('Cambiar horario') }}
     </a>
-    <p class="mt-3 text-sm text-slate-500">{{ __('Paso 4 de 4') }}</p>
+    <p class="mt-3 text-sm text-muted">{{ __('Paso 4 de 4') }}</p>
     <h1 class="mb-4 text-xl font-bold">{{ __('Tus datos') }}</h1>
 
-    <div class="mb-5 rounded-2xl bg-brand-50 p-4 text-sm dark:bg-slate-800">
+    <div class="mb-5 rounded-2xl bg-bg-subtle p-4 text-sm">
         <p class="font-semibold">{{ $service->name }}</p>
-        <p class="capitalize text-slate-700 dark:text-slate-300">
+        <p class="capitalize text-ink">
             {{ $start->isoFormat('dddd D [de] MMMM') }} · {{ $start->format('H:i') }} · {{ $professional->name }}
         </p>
         @if ($service->price !== null)
-            <p class="text-slate-700 dark:text-slate-300">${{ number_format((float) $service->price, 0, ',', '.') }}</p>
+            <p class="text-ink">${{ number_format((float) $service->price, 0, ',', '.') }}</p>
         @endif
     </div>
 
@@ -26,7 +26,7 @@
         <x-field :label="__('Teléfono (opcional)')" name="client_phone" type="tel" autocomplete="tel" />
         <x-field :label="__('Nota para el negocio (opcional)')" name="note" />
 
-        <p class="text-xs text-slate-500">
+        <p class="text-xs text-muted">
             {{ __('Sin cuenta ni contraseña: te enviaremos un enlace para ver, reprogramar o cancelar tu turno.') }}
         </p>
 
