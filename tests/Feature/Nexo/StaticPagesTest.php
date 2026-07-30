@@ -100,3 +100,20 @@ it('names the instance operator on the legal pages when configured', function ()
     expect(str_contains($html, 'Example Operator'))->toBeTrue('The operator section did not render.');
     expect(str_contains($html, 'legal@example.test'))->toBeTrue('The contact did not render.');
 });
+
+it('shows what the product does, not just its name and two buttons', function () {
+    // The landing was a viewport-height centred hero: icon, app name as the H1,
+    // one sentence, two CTAs — and no evidence of the product for somebody
+    // deciding whether to open an account. The three steps are the real
+    // onboarding flow, so they cannot drift into marketing fiction.
+    $html = (string) $this->get(route('home'))->assertOk()->getContent();
+
+    expect($html)->toContain(__('Cómo funciona'))
+        ->toContain(__('Carga tus servicios'))
+        ->toContain(__('Comparte tu enlace'))
+        ->toContain(__('Recibe reservas'))
+        ->toContain(__('Lo que ya viene incluido'));
+
+    // The H1 states the promise; the bare app name as an H1 says nothing.
+    expect(preg_match('/<h1[^>]*>\s*'.preg_quote(config('app.name'), '/').'\s*<\/h1>/', $html))->toBe(0);
+});
