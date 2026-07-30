@@ -15,7 +15,7 @@ return [
     'operator' => [
         'h' => 'Quién opera esta instancia',
         'p' => 'Esta instancia la opera :operator.',
-        'contact' => 'Para cualquier consulta sobre tus datos podés escribir a :contact.',
+        'contact' => 'Para cualquier consulta sobre tus datos puedes escribir a :contact.',
     ],
 
     'privacy' => [
@@ -24,27 +24,27 @@ return [
         'sections' => [
             [
                 'h' => 'Dos relaciones distintas',
-                'p' => 'Acá conviven dos tipos de personas: el negocio, que abre una cuenta para recibir reservas, y quien reserva un turno en la página de ese negocio, sin crear ninguna cuenta. Quien opera esta instancia trata los datos de ambos para que el servicio funcione. El negocio, en cambio, es el responsable frente a su propio cliente: decide qué hace con esos datos después de la reserva. Si reservaste un turno y querés que tus datos se corrijan o se borren, podés pedírselo al negocio o a quien opera esta instancia; los dos pueden hacerlo.',
+                'p' => 'Aquí conviven dos tipos de personas: el negocio, que abre una cuenta para recibir reservas, y quien reserva un turno en la página de ese negocio, sin crear ninguna cuenta. Quien opera esta instancia trata los datos de ambos para que el servicio funcione. El negocio, en cambio, es el responsable frente a su propio cliente: decide qué hace con esos datos después de la reserva. Si reservaste un turno y quieres que tus datos se corrijan o se borren, puedes pedírselo al negocio o a quien opera esta instancia; los dos pueden hacerlo.',
             ],
             [
                 'h' => 'Qué guardamos de la cuenta del negocio',
-                'p' => 'Nombre, email y una versión cifrada (hash) de la contraseña. Del negocio guardamos además lo que publica en su página: nombre, rubro, ciudad, dirección, teléfono de WhatsApp, descripción, color, logo y zona horaria, junto con sus servicios y los nombres de las personas de su equipo. Si iniciás sesión con Nexo ID, guardamos también el identificador que ese servicio nos da para reconocerte.',
+                'p' => 'Nombre, email y una versión cifrada (hash) de la contraseña. Del negocio guardamos además lo que publica en su página: nombre, rubro, ciudad, dirección, teléfono de WhatsApp, descripción, color, logo y zona horaria, junto con sus servicios y los nombres de las personas de su equipo. Si inicias sesión con Nexo ID, guardamos también el identificador que ese servicio nos da para reconocerte.',
             ],
             [
                 'h' => 'Qué guardamos de quien reserva un turno',
-                'p' => 'El nombre que escribís al reservar, un email o un teléfono para poder confirmarte y avisarte, y la nota que dejes si querés. Con eso se arma el turno: servicio, profesional, día y hora. No creamos una cuenta ni te pedimos contraseña. Esos datos son visibles para el negocio donde reservaste —es quien necesita saber a quién atiende— y aparecen en su agenda, en su listado de clientes y en los archivos CSV que descargue.',
+                'p' => 'El nombre que escribes al reservar, un email o un teléfono para poder confirmarte y avisarte, y la nota que dejes si quieres. Con eso se arma el turno: servicio, profesional, día y hora. No creamos una cuenta ni te pedimos contraseña. Esos datos son visibles para el negocio donde reservaste —es quien necesita saber a quién atiende— y aparecen en su agenda, en su listado de clientes y en los archivos CSV que descargue.',
             ],
             [
                 'h' => 'El enlace para gestionar tu turno',
-                'p' => 'Al reservar te llega un enlace propio con el que podés ver, cancelar o reprogramar el turno sin tener cuenta. Ese enlace es la llave: en la base de datos guardamos solo su huella (hash), nunca el enlace en sí, así que aunque alguien accediera a la base no podría reconstruirlo. Quien tenga el enlace puede gestionar ese turno, por eso conviene no compartirlo.',
+                'p' => 'Al reservar te llega un enlace propio con el que puedes ver, cancelar o reprogramar el turno sin tener cuenta. Ese enlace es la llave: en la base de datos guardamos solo su huella (hash), nunca el enlace en sí, así que aunque alguien accediera a la base no podría reconstruirlo. Quien tenga el enlace puede gestionar ese turno, por eso conviene no compartirlo.',
             ],
             [
                 'h' => 'Lista de espera y recordatorios',
-                'p' => 'Si te anotás en la lista de espera de un día, guardamos tu nombre y tu email para avisarte si se libera un lugar. El recordatorio del turno (24 horas antes) sale del mismo dato de contacto que dejaste al reservar. Nada de esto se usa para mandarte publicidad.',
+                'p' => 'Si te anotas en la lista de espera de un día, guardamos tu nombre y tu email para avisarte si se libera un lugar. El recordatorio del turno (24 horas antes) sale del mismo dato de contacto que dejaste al reservar. Nada de esto se usa para mandarte publicidad.',
             ],
             [
                 'h' => 'Reseñas',
-                'p' => 'Si tu turno quedó marcado como asistido, podés dejar una puntuación y un comentario. Se publican en la página del negocio junto al nombre con el que reservaste, y el negocio puede ocultarlos.',
+                'p' => 'Si tu turno quedó marcado como asistido, puedes dejar una puntuación y un comentario. Se publican en la página del negocio junto al nombre con el que reservaste, y el negocio puede ocultarlos.',
             ],
             [
                 'h' => 'Métricas sin cookies',
@@ -68,7 +68,7 @@ return [
             ],
             [
                 'h' => 'Formulario de contacto',
-                'p' => 'Si nos escribís por el formulario de contacto guardamos el mensaje, el tipo de consulta, la página desde la que escribiste y tu email si lo dejás, para poder responderte.',
+                'p' => 'Si nos escribes por el formulario de contacto guardamos el mensaje, el tipo de consulta, la página desde la que escribiste y tu email si lo dejas, para poder responderte.',
             ],
             [
                 'h' => 'Cuánto tiempo',
@@ -76,7 +76,7 @@ return [
             ],
             [
                 'h' => 'Tus derechos',
-                'p' => 'Podés pedir acceso a tus datos, su corrección o su borrado. Si tenés una cuenta, escribí a quien opera esta instancia (el contacto está más abajo y en la página de ayuda): hoy el borrado de una cuenta se hace a pedido, no hay un botón para eso. Si reservaste un turno, podés cancelarlo desde tu enlace y pedirle al negocio que borre tus datos de su listado.',
+                'p' => 'Puedes pedir acceso a tus datos, su corrección o su borrado. Si tienes una cuenta, escribe a quien opera esta instancia (el contacto está más abajo y en la página de ayuda): hoy el borrado de una cuenta se hace a pedido, no hay un botón para eso. Si reservaste un turno, puedes cancelarlo desde tu enlace y pedirle al negocio que borre tus datos de su listado.',
             ],
             [
                 'h' => 'Otras instancias',
@@ -87,7 +87,7 @@ return [
 
     'terms' => [
         'title' => 'Términos de uso',
-        'intro' => 'Al usar esta instancia de Nexo Agenda aceptás lo que sigue. Es un servicio gratuito, ofrecido tal cual está.',
+        'intro' => 'Al usar esta instancia de Nexo Agenda aceptas lo que sigue. Es un servicio gratuito, ofrecido tal cual está.',
         'sections' => [
             [
                 'h' => 'Qué es el servicio',
@@ -95,7 +95,7 @@ return [
             ],
             [
                 'h' => 'La cuenta del negocio',
-                'p' => 'Necesitás una cuenta para publicar una página y recibir reservas. Sos responsable de lo que pase con tu cuenta y de mantener tu contraseña a salvo. Reservar un turno, en cambio, no requiere cuenta.',
+                'p' => 'Necesitas una cuenta para publicar una página y recibir reservas. Eres responsable de lo que pase con tu cuenta y de mantener tu contraseña a salvo. Reservar un turno, en cambio, no requiere cuenta.',
             ],
             [
                 'h' => 'El negocio responde por los datos de sus clientes',
@@ -119,7 +119,7 @@ return [
             ],
             [
                 'h' => 'Software libre',
-                'p' => 'Nexo Agenda se distribuye con licencia MIT: podés leer el código, modificarlo y alojar tu propia instancia. El software se entrega sin garantías, según indica esa licencia.',
+                'p' => 'Nexo Agenda se distribuye con licencia MIT: puedes leer el código, modificarlo y alojar tu propia instancia. El software se entrega sin garantías, según indica esa licencia.',
             ],
             [
                 'h' => 'Cambios',
