@@ -2,16 +2,20 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head', ['title' => __('Mostrador'), 'noindex' => true])
-        <meta http-equiv="refresh" content="60">
     </head>
-    <body class="min-h-screen bg-bg font-sans text-ink antialiased">
+    <body class="min-h-screen bg-bg font-sans text-ink antialiased" x-data="frontdeskRefresh(60)">
         <header class="flex items-center justify-between px-4 py-3 text-sm text-muted">
             <a href="{{ route('dashboard') }}" class="rounded-lg px-3 py-1.5 hover:bg-bg-subtle">← {{ __('Agenda') }}</a>
             <span class="font-semibold text-ink">{{ $business->name }}</span>
-            <span class="tabular-nums">{{ $now->format('H:i') }} · {{ __('se actualiza solo') }}</span>
+            <span class="flex items-center gap-2">
+                <span id="reloj" class="tabular-nums">{{ $now->format('H:i') }}</span>
+                <button type="button" class="nexo-btn nexo-btn--ghost nexo-btn--sm"
+                        x-on:click="paused = ! paused" :aria-pressed="paused"
+                        x-text="paused ? @js(__('Actualización pausada')) : @js(__('Se actualiza solo'))">{{ __('Se actualiza solo') }}</button>
+            </span>
         </header>
 
-        <main class="grid gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+        <main id="mostrador" class="grid gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
             @foreach ($professionals as $professional)
                 @php($items = $bookings->where('professional_id', $professional->id)->filter(fn ($b) => $b->status !== \App\Enums\BookingStatus::Cancelled))
                 @php($next = $items->first(fn ($b) => $b->status === \App\Enums\BookingStatus::Confirmed && $b->ends_at->gte($now)))

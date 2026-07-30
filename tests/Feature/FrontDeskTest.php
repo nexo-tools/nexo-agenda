@@ -53,7 +53,12 @@ it('shows only today with the next booking highlighted', function () {
         ->assertSee('Siguiente')
         ->assertSee('Próximo')
         ->assertDontSee('Otro Día')
-        ->assertSee('http-equiv="refresh"', false);
+        // The screen refreshes itself, but never with a meta refresh: that
+        // reloaded the whole page mid-tap and reset focus and scroll, with no
+        // way to stop it (WCAG 2.2.1/2.2.4). It swaps the list and can be paused.
+        ->assertDontSee('http-equiv="refresh"', false)
+        ->assertSee('frontdeskRefresh(60)', false)
+        ->assertSee('id="mostrador"', false);
 });
 
 it('hides cancelled bookings', function () {
