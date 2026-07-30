@@ -46,21 +46,30 @@ npm run build
 
 ## Internationalization
 
-Every user-facing string goes through `__()` with a **literal** Spanish source
-string (the base locale is `es`):
+Every user-facing string goes through `__()` with a **literal English** source
+string. English is the key language, so `lang/en.json` does not exist — an
+untranslated key already reads as English, which is also why
+`APP_FALLBACK_LOCALE=en`.
 
 ```php
-__('Reserva tu turno')            // ✅ detected by the generator
+__('Book your appointment')       // ✅ detected by the generator
 __($someVariable)                 // ❌ not detected — never do this
 ```
 
+An all-lowercase key with no spaces (`__('address')`) is read as a lang-file
+lookup, not as a literal, and is skipped. Field names for validation messages
+therefore live in `lang/{locale}/validation.php` under `attributes`, not in a
+`FormRequest::attributes()` method.
+
 After adding or changing a `__('…')` string:
 
-1. Add the matching entries to `scripts/translations/en.json` and
+1. Add the matching entries to `scripts/translations/es.json` and
    `scripts/translations/pt.json`.
-2. Run `npm run translations` to rebuild `lang/en.json` and `lang/pt.json`.
+2. Run `npm run translations` to rebuild `lang/es.json` and `lang/pt.json`.
 3. `node scripts/generate-translations.mjs --check` must pass (a guardian test
    also enforces this in CI).
+
+Spanish copy is neutral **tuteo** ("Crea tu cuenta"), never voseo.
 
 ## Commit & PR conventions
 
