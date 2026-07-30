@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot:title>{{ $client->client_name }}</x-slot:title>
 
-    <a href="{{ route('clients.index') }}" class="text-sm text-brand-700 hover:underline dark:text-brand-400">← {{ __('Clientes') }}</a>
+    <a href="{{ route('clients.index') }}" class="text-sm text-brand-700 hover:underline dark:text-brand-400">← {{ __('Clients') }}</a>
     <h1 class="mt-2 text-2xl font-bold">{{ $client->client_name }}</h1>
     <p class="text-sm text-muted">
         {{ $client->client_email ?? '' }}
@@ -12,7 +12,7 @@
         @endif
     </p>
 
-    <h2 class="mt-6 font-semibold">{{ __('Historial') }}</h2>
+    <h2 class="mt-6 font-semibold">{{ __('History') }}</h2>
     <ul class="mt-2 space-y-2">
         @foreach ($bookings as $booking)
             <li class="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-surface-raised px-4 py-3 text-sm shadow-sm">

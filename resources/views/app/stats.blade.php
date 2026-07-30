@@ -1,11 +1,11 @@
 <x-app-layout>
-    <x-slot:title>{{ __('Estadísticas') }}</x-slot:title>
+    <x-slot:title>{{ __('Statistics') }}</x-slot:title>
 
     <div class="flex flex-wrap items-center justify-between gap-3">
-        <h1 class="text-2xl font-bold">{{ __('Estadísticas') }}</h1>
+        <h1 class="text-2xl font-bold">{{ __('Statistics') }}</h1>
 
-        <nav class="flex rounded-lg bg-surface-sunken p-0.5 text-sm" aria-label="{{ __('Período') }}">
-            @foreach (['30d' => __('30 días'), 'month' => __('Este mes'), 'last_month' => __('Mes pasado')] as $key => $label)
+        <nav class="flex rounded-lg bg-surface-sunken p-0.5 text-sm" aria-label="{{ __('Period') }}">
+            @foreach (['30d' => __('30 days'), 'month' => __('This month'), 'last_month' => __('Last month')] as $key => $label)
                 <a href="{{ route('stats', ['period' => $key]) }}"
                    @class(['rounded-md px-3 py-1.5', 'bg-surface font-medium shadow-sm' => $period === $key])>
                     {{ $label }}
@@ -18,38 +18,38 @@
 
     <div class="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
         @foreach ([
-            [__('Turnos'), $stats['total'], null],
-            [__('Asistidos'), $stats['attended'], null],
-            [__('Inasistencias'), $stats['no_shows'], $stats['no_show_rate'].'%'],
-            [__('Ocupación'), $stats['occupancy'] !== null ? $stats['occupancy'].'%' : '—', null],
-            [__('Visitas a tu página'), $stats['visits'], null],
-            [__('Conversión visita → turno'), $stats['conversion'] !== null ? $stats['conversion'].'%' : '—', null],
-            [__('Cancelados'), $stats['cancelled'], null],
+            [__('Appointments'), $stats['total'], null],
+            [__('Attendances'), $stats['attended'], null],
+            [__('No-shows'), $stats['no_shows'], $stats['no_show_rate'].'%'],
+            [__('Occupancy'), $stats['occupancy'] !== null ? $stats['occupancy'].'%' : '—', null],
+            [__('Visits to your page'), $stats['visits'], null],
+            [__('Visit → booking conversion'), $stats['conversion'] !== null ? $stats['conversion'].'%' : '—', null],
+            [__('Cancellations'), $stats['cancelled'], null],
         ] as [$label, $value, $hint])
             <div class="rounded-2xl bg-surface-raised p-4 shadow-sm">
                 <p class="text-sm text-muted">{{ $label }}</p>
                 <p class="mt-1 text-3xl font-bold tabular-nums">{{ $value }}</p>
                 @if ($hint)
-                    <p class="text-xs text-muted">{{ $hint }} {{ __('de los turnos') }}</p>
+                    <p class="text-xs text-muted">{{ $hint }} {{ __('of appointments') }}</p>
                 @endif
             </div>
         @endforeach
     </div>
 
     @php($max = max(1, max($stats['per_day'])))
-    <section class="mt-6 rounded-2xl bg-surface-raised p-4 shadow-sm" aria-label="{{ __('Turnos por día') }}">
-        <h2 class="font-semibold">{{ __('Turnos por día') }}</h2>
+    <section class="mt-6 rounded-2xl bg-surface-raised p-4 shadow-sm" aria-label="{{ __('Appointments per day') }}">
+        <h2 class="font-semibold">{{ __('Appointments per day') }}</h2>
 
         <div class="mt-4 flex h-36 items-end gap-0.5" role="img"
-             aria-label="{{ __('Gráfico de barras: turnos por día, máximo :max', ['max' => $max]) }}">
+             aria-label="{{ __('Bar chart: appointments per day, maximum :max', ['max' => $max]) }}">
             @foreach ($stats['per_day'] as $date => $count)
                 {{-- tabindex, not only title: a title tooltip is hover-only, so on a
                      phone (where this dashboard is read) the per-day number was
                      unreachable without opening the table below. --}}
                 <div class="group relative flex h-full flex-1 flex-col justify-end focus:outline-none"
                      tabindex="0"
-                     aria-label="{{ \Carbon\CarbonImmutable::parse($date)->isoFormat('ddd D MMM') }}: {{ trans_choice(':count turno|:count turnos', $count) }}"
-                     title="{{ \Carbon\CarbonImmutable::parse($date)->isoFormat('ddd D MMM') }}: {{ trans_choice(':count turno|:count turnos', $count) }}">
+                     aria-label="{{ \Carbon\CarbonImmutable::parse($date)->isoFormat('ddd D MMM') }}: {{ trans_choice(':count appointment|:count appointments', $count) }}"
+                     title="{{ \Carbon\CarbonImmutable::parse($date)->isoFormat('ddd D MMM') }}: {{ trans_choice(':count appointment|:count appointments', $count) }}">
                     <span class="pointer-events-none absolute inset-x-0 -top-1 hidden justify-center text-xs font-semibold tabular-nums text-ink group-hover:flex group-focus:flex">{{ $count }}</span>
                     <div class="w-full rounded-t bg-brand-600 group-focus:ring-2 group-focus:ring-ring dark:bg-brand-400"
                          style="height: {{ $count === 0 ? '2px' : round($count * 100 / $max) .'%' }}; {{ $count === 0 ? 'opacity:.25' : '' }}"></div>
@@ -62,10 +62,10 @@
         </div>
 
         <details class="mt-3">
-            <summary class="cursor-pointer text-xs text-muted">{{ __('Ver como tabla') }}</summary>
+            <summary class="cursor-pointer text-xs text-muted">{{ __('View as table') }}</summary>
             <div class="mt-2 max-h-48 overflow-y-auto">
                 <table class="w-full text-left text-xs">
-                    <thead><tr><th class="py-1 pr-4 font-medium">{{ __('Fecha') }}</th><th class="py-1 font-medium">{{ __('Turnos') }}</th></tr></thead>
+                    <thead><tr><th class="py-1 pr-4 font-medium">{{ __('Date') }}</th><th class="py-1 font-medium">{{ __('Appointments') }}</th></tr></thead>
                     <tbody>
                         @foreach ($stats['per_day'] as $date => $count)
                             <tr><td class="py-0.5 pr-4">{{ $date }}</td><td class="py-0.5 tabular-nums">{{ $count }}</td></tr>
@@ -77,11 +77,11 @@
     </section>
 
     <div class="mt-6 grid gap-4 md:grid-cols-2">
-        @foreach ([[__('Servicios más reservados'), $stats['top_services']], [__('Profesionales más reservados'), $stats['top_professionals']]] as [$title, $items])
+        @foreach ([[__('Most booked services'), $stats['top_services']], [__('Most booked professionals'), $stats['top_professionals']]] as [$title, $items])
             <section class="rounded-2xl bg-surface-raised p-4 shadow-sm">
                 <h2 class="font-semibold">{{ $title }}</h2>
                 @if ($items->isEmpty())
-                    <p class="mt-2 text-sm text-muted">{{ __('Sin datos en este período.') }}</p>
+                    <p class="mt-2 text-sm text-muted">{{ __('No data in this period.') }}</p>
                 @else
                     <ul class="mt-2 space-y-2 text-sm">
                         @foreach ($items as $name => $count)

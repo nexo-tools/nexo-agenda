@@ -1,5 +1,5 @@
 @php($title = __('nexo.help.title'))
-@php($description = __('Preguntas frecuentes sobre reservas, cancelaciones y cómo registrar tu negocio.'))
+@php($description = __('Frequently asked questions about bookings, cancellations and how to register your business.'))
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -8,7 +8,7 @@
     </head>
     <body class="flex min-h-screen flex-col bg-bg font-sans text-ink antialiased">
         <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-surface focus:px-4 focus:py-2 focus:text-brand-700">
-            {{ __('Saltar al contenido') }}
+            {{ __('Skip to content') }}
         </a>
 
         <x-nexo-header brand="Nexo Agenda" mark="/ecosystem/nexoagenda.svg" />

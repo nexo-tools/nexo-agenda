@@ -37,7 +37,7 @@ class BookingManagementController extends Controller
 
         if (! $booking->clientCanManage()) {
             return redirect()->route('booking.manage', $token)
-                ->with('status', __('Este turno ya no puede cancelarse desde aquí. Contacta al negocio.'));
+                ->with('status', __('This appointment can no longer be cancelled here. Contact the business.'));
         }
 
         $booking->cancel();
@@ -48,7 +48,7 @@ class BookingManagementController extends Controller
 
         $this->waitlist->bookingCancelled($booking);
 
-        return redirect()->route('booking.manage', $token)->with('status', __('Tu turno fue cancelado.'));
+        return redirect()->route('booking.manage', $token)->with('status', __('Your appointment was cancelled.'));
     }
 
     public function reschedule(Request $request, string $token): View|RedirectResponse
@@ -57,7 +57,7 @@ class BookingManagementController extends Controller
 
         if (! $booking->clientCanManage()) {
             return redirect()->route('booking.manage', $token)
-                ->with('status', __('Este turno ya no puede reprogramarse desde aquí. Contacta al negocio.'));
+                ->with('status', __('This appointment can no longer be rescheduled here. Contact the business.'));
         }
 
         $business = $booking->business;
@@ -90,7 +90,7 @@ class BookingManagementController extends Controller
 
         if (! $booking->clientCanManage()) {
             return redirect()->route('booking.manage', $token)
-                ->with('status', __('Este turno ya no puede reprogramarse desde aquí. Contacta al negocio.'));
+                ->with('status', __('This appointment can no longer be rescheduled here. Contact the business.'));
         }
 
         $request->validate(['start' => ['required', 'date_format:Y-m-d H:i']]);
@@ -126,7 +126,7 @@ class BookingManagementController extends Controller
             Mail::to($booking->client_email)->send(new BookingRescheduled($booking));
         }
 
-        return redirect()->route('booking.manage', $token)->with('status', __('Tu turno fue reprogramado.'));
+        return redirect()->route('booking.manage', $token)->with('status', __('Your appointment was rescheduled.'));
     }
 
     private function findOrAbort(string $token): Booking

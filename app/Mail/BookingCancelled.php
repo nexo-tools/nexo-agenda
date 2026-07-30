@@ -14,7 +14,7 @@ class BookingCancelled extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('Tu turno en :business fue cancelado', ['business' => $this->booking->business->name]),
+            subject: __('Your appointment at :business was cancelled', ['business' => $this->booking->business->name]),
         );
     }
 

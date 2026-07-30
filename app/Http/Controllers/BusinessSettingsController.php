@@ -41,6 +41,6 @@ class BusinessSettingsController extends Controller
 
         $business->update($data);
 
-        return redirect()->route('settings.edit')->with('status', __('Ajustes guardados.'));
+        return redirect()->route('settings.edit')->with('status', __('Settings saved.'));
     }
 }

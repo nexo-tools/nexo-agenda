@@ -11,7 +11,7 @@
      so its mobile UI never turns violet. --}}
 <x-nexo-seo
     :title="isset($title) ? $title.' — '.config('app.name') : config('app.name')"
-    :description="$description ?? __('Agenda, servicios, profesionales y reservas online. Open source y self-hosted.')"
+    :description="$description ?? __('Schedule, services, professionals and online bookings. Open source and self-hosted.')"
     :image="$seoImage ?? '/og-image.png'"
     :noindex="$noindex ?? false"
     :jsonld="($jsonld ?? true) && ! ($noindex ?? false)"

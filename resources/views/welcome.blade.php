@@ -1,6 +1,6 @@
 {{-- The home used to inline its own head because it was the only page on
      x-nexo-seo; now every page goes through partials.head, so it does too. --}}
-@php($title = __('Reservas online para tu negocio'))
+@php($title = __('Online bookings for your business'))
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -11,9 +11,9 @@
         <x-nexo-header brand="Nexo Agenda" mark="/ecosystem/nexoagenda.svg">
             <x-slot:actions>
                 @auth
-                    <a href="{{ route('dashboard') }}" class="nexo-btn nexo-btn--ghost">{{ __('Ir a mi agenda') }}</a>
+                    <a href="{{ route('dashboard') }}" class="nexo-btn nexo-btn--ghost">{{ __('Go to my schedule') }}</a>
                 @else
-                    <a href="{{ route('login') }}" class="nexo-btn nexo-btn--ghost">{{ __('Entrar') }}</a>
+                    <a href="{{ route('login') }}" class="nexo-btn nexo-btn--ghost">{{ __('Log in') }}</a>
                 @endauth
             </x-slot:actions>
         </x-nexo-header>
@@ -22,28 +22,28 @@
              below are the real onboarding flow, not a marketing invention. --}}
         <main class="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
             <h1 class="max-w-2xl text-4xl font-bold tracking-tight">
-                {{ __('Reservas online para tu negocio, sin comisiones') }}
+                {{ __('Online booking for your business, no commissions') }}
             </h1>
             <p class="mt-4 max-w-xl text-lg text-muted">
-                {{ __('Tus clientes reservan solos desde una página con tus servicios, tu equipo y tus horarios. Código abierto: puedes alojarlo tú.') }}
+                {{ __('Your clients book on their own from a page with your services, your team and your hours. Open source: you can host it yourself.') }}
             </p>
             <div class="mt-8 flex flex-wrap gap-3">
-                <x-button :href="route('register')" size="inline">{{ __('Crear cuenta gratis') }}</x-button>
-                <x-button :href="route('directory')" size="inline" variant="outline">{{ __('Explorar negocios') }}</x-button>
+                <x-button :href="route('register')" size="inline">{{ __('Create a free account') }}</x-button>
+                <x-button :href="route('directory')" size="inline" variant="outline">{{ __('Explore businesses') }}</x-button>
             </div>
             @auth
                 <p class="mt-4">
-                    <a href="{{ route('dashboard') }}" class="text-sm text-brand-700 hover:underline dark:text-brand-400">{{ __('Ir a mi agenda') }}</a>
+                    <a href="{{ route('dashboard') }}" class="text-sm text-brand-700 hover:underline dark:text-brand-400">{{ __('Go to my schedule') }}</a>
                 </p>
             @endauth
 
             <section class="mt-14" aria-labelledby="como-funciona">
-                <h2 id="como-funciona" class="text-sm font-semibold uppercase tracking-wide text-muted">{{ __('Cómo funciona') }}</h2>
+                <h2 id="como-funciona" class="text-sm font-semibold uppercase tracking-wide text-muted">{{ __('How it works') }}</h2>
                 <ol class="mt-4 grid gap-4 sm:grid-cols-3">
                     @foreach ([
-                        [__('Carga tus servicios'), __('Duración, precio y los horarios de cada profesional.')],
-                        [__('Comparte tu enlace'), __('Tu página pública queda en :url', ['url' => url('/').'/tu-negocio'])],
-                        [__('Recibe reservas'), __('Confirmación y recordatorio por email; tú las ves en tu agenda.')],
+                        [__('Add your services'), __('Duration, price and each professional\'s hours.')],
+                        [__('Share your link'), __('Your public page lives at :url', ['url' => url('/').'/tu-negocio'])],
+                        [__('Get bookings'), __('Confirmation and reminder by email; you see them in your schedule.')],
                     ] as $index => [$stepTitle, $stepText])
                         <li class="rounded-2xl border border-line p-4">
                             <span class="text-sm font-semibold text-brand-700 dark:text-brand-400">{{ $index + 1 }}</span>
@@ -55,15 +55,15 @@
             </section>
 
             <section class="mt-12 rounded-2xl bg-surface p-6 shadow-sm" aria-labelledby="incluye">
-                <h2 id="incluye" class="font-semibold">{{ __('Lo que ya viene incluido') }}</h2>
+                <h2 id="incluye" class="font-semibold">{{ __('What\'s already included') }}</h2>
                 <ul class="mt-3 grid gap-2 text-sm text-muted sm:grid-cols-2">
                     @foreach ([
-                        __('Agenda por profesional, con día y semana'),
-                        __('Lista de espera cuando no quedan horarios'),
-                        __('Reseñas de quienes sí asistieron'),
-                        __('Modo mostrador para la recepción'),
-                        __('Estadísticas de visitas y ocupación'),
-                        __('Exportación de clientes y turnos a CSV'),
+                        __('Per-professional schedule, by day and by week'),
+                        __('Waitlist when no slots are left'),
+                        __('Reviews from people who actually showed up'),
+                        __('Counter mode for the front desk'),
+                        __('Visit and occupancy stats'),
+                        __('Client and booking export to CSV'),
                     ] as $feature)
                         <li class="flex items-start gap-2">
                             <x-icon name="check" class="mt-0.5 text-brand-700 dark:text-brand-400" />

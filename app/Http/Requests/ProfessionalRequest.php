@@ -31,7 +31,7 @@ class ProfessionalRequest extends FormRequest
 
             foreach ($blocks as $weekday => $ranges) {
                 if (! in_array((int) $weekday, range(1, 7), true)) {
-                    $validator->errors()->add('blocks', __('Día de la semana inválido.'));
+                    $validator->errors()->add('blocks', __('Invalid weekday.'));
 
                     continue;
                 }
@@ -51,7 +51,7 @@ class ProfessionalRequest extends FormRequest
                     if ($previous !== null && $range['start'] < $previous['end']) {
                         $validator->errors()->add(
                             "blocks.$weekday",
-                            __('Las franjas horarias de un mismo día no pueden superponerse.')
+                            __('Time ranges on the same day cannot overlap.')
                         );
 
                         break;
@@ -61,12 +61,5 @@ class ProfessionalRequest extends FormRequest
         });
     }
 
-    /** @return array<string, string> */
-    public function attributes(): array
-    {
-        return [
-            'blocks.*.*.start' => __('inicio'),
-            'blocks.*.*.end' => __('fin'),
-        ];
-    }
+    // Field names live in lang/{locale}/validation.php under 'attributes'.
 }

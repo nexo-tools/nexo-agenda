@@ -10,7 +10,7 @@ enum ServiceMode: string
     public function label(): string
     {
         return match ($this) {
-            self::InPerson => __('Presencial'),
+            self::InPerson => __('In person'),
             self::Virtual => __('Virtual'),
         };
     }

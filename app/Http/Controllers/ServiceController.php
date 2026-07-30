@@ -27,7 +27,7 @@ class ServiceController extends Controller
     {
         $request->user()->business->services()->create($request->validated());
 
-        return redirect()->route('services.index')->with('status', __('Servicio creado.'));
+        return redirect()->route('services.index')->with('status', __('Service created.'));
     }
 
     public function edit(Service $service): View
@@ -43,7 +43,7 @@ class ServiceController extends Controller
 
         $service->update($request->validated());
 
-        return redirect()->route('services.index')->with('status', __('Servicio actualizado.'));
+        return redirect()->route('services.index')->with('status', __('Service updated.'));
     }
 
     public function destroy(Service $service): RedirectResponse
@@ -52,6 +52,6 @@ class ServiceController extends Controller
 
         $service->delete();
 
-        return redirect()->route('services.index')->with('status', __('Servicio eliminado.'));
+        return redirect()->route('services.index')->with('status', __('Service deleted.'));
     }
 }

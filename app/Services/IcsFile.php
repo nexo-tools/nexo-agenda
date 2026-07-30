@@ -28,7 +28,7 @@ class IcsFile
             'DTSTART:'.$booking->starts_at->utc()->format('Ymd\THis\Z'),
             'DTEND:'.$booking->ends_at->utc()->format('Ymd\THis\Z'),
             'SUMMARY:'.$this->escape($service->name.' — '.$business->name),
-            'DESCRIPTION:'.$this->escape(__('Turno con :professional', ['professional' => $booking->professional->name])),
+            'DESCRIPTION:'.$this->escape(__('Appointment with :professional', ['professional' => $booking->professional->name])),
             'LOCATION:'.$this->escape($location),
             'STATUS:CONFIRMED',
             'END:VEVENT',

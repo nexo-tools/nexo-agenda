@@ -24,18 +24,5 @@ class BusinessSettingsRequest extends FormRequest
         ];
     }
 
-    /** @return array<string, string> */
-    public function attributes(): array
-    {
-        return [
-            'name' => __('nombre'),
-            'category' => __('rubro'),
-            'city' => __('ciudad'),
-            'address' => __('dirección'),
-            'whatsapp_phone' => __('WhatsApp'),
-            'description' => __('descripción'),
-            'brand_color' => __('color'),
-            'logo' => __('logo'),
-        ];
-    }
+    // Field names live in lang/{locale}/validation.php under 'attributes'.
 }

@@ -22,6 +22,6 @@ class PasswordResetLinkController extends Controller
         Password::sendResetLink($request->only('email'));
 
         // Always the same response: don't leak which emails exist.
-        return back()->with('status', __('Si el email existe, te enviamos un enlace para restablecer la contraseña.'));
+        return back()->with('status', __('If the email exists, we\'ve sent a link to reset the password.'));
     }
 }

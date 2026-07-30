@@ -8,7 +8,7 @@
     </head>
     <body class="flex min-h-screen flex-col bg-bg font-sans text-ink antialiased">
         <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-surface focus:px-4 focus:py-2 focus:text-brand-700">
-            {{ __('Saltar al contenido') }}
+            {{ __('Skip to content') }}
         </a>
 
         <x-nexo-header brand="Nexo Agenda" mark="/ecosystem/nexoagenda.svg" :home="route('home')" />
@@ -40,9 +40,9 @@
                 @endif
 
                 <p class="mt-8 border-t border-line pt-4 text-sm">
-                    <a href="{{ route('legal.privacy') }}" class="text-brand-700 underline dark:text-brand-400">{{ __('Privacidad') }}</a>
+                    <a href="{{ route('legal.privacy') }}" class="text-brand-700 underline dark:text-brand-400">{{ __('Privacy') }}</a>
                     ·
-                    <a href="{{ route('legal.terms') }}" class="text-brand-700 underline dark:text-brand-400">{{ __('Términos') }}</a>
+                    <a href="{{ route('legal.terms') }}" class="text-brand-700 underline dark:text-brand-400">{{ __('Terms') }}</a>
                     ·
                     <a href="{{ route('help') }}" class="text-brand-700 underline dark:text-brand-400">{{ __('nexo.help.title') }}</a>
                 </p>

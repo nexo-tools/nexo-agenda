@@ -14,7 +14,7 @@ class NewBookingReceived extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('Nueva reserva: :client — :service', [
+            subject: __('New booking: :client — :service', [
                 'client' => $this->booking->client_name,
                 'service' => $this->booking->service->name,
             ]),

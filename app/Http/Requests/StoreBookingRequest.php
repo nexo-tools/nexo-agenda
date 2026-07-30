@@ -19,14 +19,5 @@ class StoreBookingRequest extends FormRequest
         ];
     }
 
-    /** @return array<string, string> */
-    public function attributes(): array
-    {
-        return [
-            'client_name' => __('nombre'),
-            'client_email' => __('email'),
-            'client_phone' => __('teléfono'),
-            'note' => __('nota'),
-        ];
-    }
+    // Field names live in lang/{locale}/validation.php under 'attributes'.
 }

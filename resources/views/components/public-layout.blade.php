@@ -65,7 +65,7 @@
     </head>
     <body class="min-h-screen bg-bg font-sans text-ink antialiased">
         <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-surface focus:px-4 focus:py-2 focus:text-brand-700">
-            {{ __('Saltar al contenido') }}
+            {{ __('Skip to content') }}
         </a>
 
         <main id="contenido" class="mx-auto max-w-xl px-4 py-6">
@@ -78,11 +78,11 @@
                  business's, not Nexo's), so the legal links the standard puts in
                  nexo-footer have to be repeated here — and this is exactly where
                  they matter, since this is where a client leaves their data. --}}
-            <nav class="mb-3 flex flex-wrap justify-center gap-x-4 gap-y-1" aria-label="{{ __('Enlaces del sitio') }}">
+            <nav class="mb-3 flex flex-wrap justify-center gap-x-4 gap-y-1" aria-label="{{ __('Site links') }}">
                 <a href="{{ route('help') }}" class="hover:underline">{{ __('nexo.help.title') }}</a>
-                <a href="{{ route('contact') }}" class="hover:underline">{{ __('Contacto') }}</a>
-                <a href="{{ route('legal.privacy') }}" class="hover:underline">{{ __('Privacidad') }}</a>
-                <a href="{{ route('legal.terms') }}" class="hover:underline">{{ __('Términos') }}</a>
+                <a href="{{ route('contact') }}" class="hover:underline">{{ __('Contact') }}</a>
+                <a href="{{ route('legal.privacy') }}" class="hover:underline">{{ __('Privacy') }}</a>
+                <a href="{{ route('legal.terms') }}" class="hover:underline">{{ __('Terms') }}</a>
             </nav>
             @if (config('nexo.attribution.label'))
                 <a href="{{ config('nexo.attribution.url') ?: url('/') }}" class="hover:underline" rel="noopener">

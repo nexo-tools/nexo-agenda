@@ -18,13 +18,13 @@ class StatsController extends Controller
         $period = $request->string('period')->toString();
 
         [$from, $to, $label] = match ($period) {
-            'month' => [$today->startOfMonth(), $today, __('Este mes')],
+            'month' => [$today->startOfMonth(), $today, __('This month')],
             'last_month' => [
                 $today->subMonthNoOverflow()->startOfMonth(),
                 $today->subMonthNoOverflow()->endOfMonth()->startOfDay(),
-                __('Mes pasado'),
+                __('Last month'),
             ],
-            default => [$today->subDays(29), $today, __('Últimos 30 días')],
+            default => [$today->subDays(29), $today, __('Last 30 days')],
         };
 
         return view('app.stats', [

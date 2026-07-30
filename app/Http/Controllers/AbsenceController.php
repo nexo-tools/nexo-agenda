@@ -22,7 +22,7 @@ class AbsenceController extends Controller
 
         $professional->absences()->create($validated);
 
-        return back()->with('status', __('Ausencia registrada.'));
+        return back()->with('status', __('Absence added.'));
     }
 
     public function destroy(Absence $absence): RedirectResponse
@@ -31,6 +31,6 @@ class AbsenceController extends Controller
 
         $absence->delete();
 
-        return back()->with('status', __('Ausencia eliminada.'));
+        return back()->with('status', __('Absence deleted.'));
     }
 }

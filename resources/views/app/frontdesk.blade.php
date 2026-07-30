@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        @include('partials.head', ['title' => __('Mostrador'), 'noindex' => true])
+        @include('partials.head', ['title' => __('Front desk'), 'noindex' => true])
     </head>
     <body class="min-h-screen bg-bg font-sans text-ink antialiased" x-data="frontdeskRefresh(60)">
         <header class="flex items-center justify-between px-4 py-3 text-sm text-muted">
-            <a href="{{ route('dashboard') }}" class="rounded-lg px-3 py-1.5 hover:bg-bg-subtle">← {{ __('Agenda') }}</a>
+            <a href="{{ route('dashboard') }}" class="rounded-lg px-3 py-1.5 hover:bg-bg-subtle">← {{ __('Schedule') }}</a>
             <span class="font-semibold text-ink">{{ $business->name }}</span>
             <span class="flex items-center gap-2">
                 <span id="reloj" class="tabular-nums">{{ $now->format('H:i') }}</span>
                 <button type="button" class="nexo-btn nexo-btn--ghost nexo-btn--sm"
                         x-on:click="paused = ! paused" :aria-pressed="paused"
-                        x-text="paused ? @js(__('Actualización pausada')) : @js(__('Se actualiza solo'))">{{ __('Se actualiza solo') }}</button>
+                        x-text="paused ? @js(__('Auto-refresh paused')) : @js(__('Auto-refreshing'))">{{ __('Auto-refreshing') }}</button>
             </span>
         </header>
 
@@ -23,7 +23,7 @@
                     <h2 class="text-lg font-bold">{{ $professional->name }}</h2>
 
                     @if ($items->isEmpty())
-                        <p class="mt-3 text-muted">{{ __('Sin turnos hoy.') }}</p>
+                        <p class="mt-3 text-muted">{{ __('No appointments today.') }}</p>
                     @endif
 
                     <ul class="mt-3 space-y-3">
@@ -39,7 +39,7 @@
                                     @if ($booking->status !== \App\Enums\BookingStatus::Confirmed)
                                         <x-status-badge :status="$booking->status" size="md" />
                                     @elseif ($next && $booking->is($next))
-                                        <span class="rounded bg-primary px-2 py-1 text-xs font-bold text-primary-fg">{{ __('Próximo') }}</span>
+                                        <span class="rounded bg-primary px-2 py-1 text-xs font-bold text-primary-fg">{{ __('Next') }}</span>
                                     @endif
                                 </div>
                                 <p class="mt-1 text-lg">{{ $booking->client_name }}</p>
@@ -51,14 +51,14 @@
                                             @csrf @method('PATCH')
                                             <input type="hidden" name="status" value="attended">
                                             <button class="w-full rounded-lg bg-success px-3 py-2.5 text-sm font-bold text-success-fg hover:brightness-110">
-                                                <x-icon name="check" /> {{ __('Asistió') }}
+                                                <x-icon name="check" /> {{ __('Attended') }}
                                             </button>
                                         </form>
                                         <form method="POST" action="{{ route('bookings.status', $booking) }}" class="flex-1">
                                             @csrf @method('PATCH')
                                             <input type="hidden" name="status" value="no_show">
                                             <button class="w-full rounded-lg bg-danger px-3 py-2.5 text-sm font-bold text-danger-fg hover:brightness-110">
-                                                <x-icon name="x" /> {{ __('No vino') }}
+                                                <x-icon name="x" /> {{ __('Didn\'t show') }}
                                             </button>
                                         </form>
                                     </div>

@@ -33,7 +33,7 @@ class ReviewController extends Controller
             'client_name' => $booking->client_name,
         ]);
 
-        return redirect()->route('booking.manage', $token)->with('status', __('¡Gracias por tu reseña!'));
+        return redirect()->route('booking.manage', $token)->with('status', __('Thanks for your review!'));
     }
 
     public function index(Request $request): View
@@ -49,6 +49,6 @@ class ReviewController extends Controller
 
         $review->update(['is_hidden' => ! $review->is_hidden]);
 
-        return back()->with('status', $review->is_hidden ? __('Reseña ocultada.') : __('Reseña visible.'));
+        return back()->with('status', $review->is_hidden ? __('Review hidden.') : __('Review visible.'));
     }
 }

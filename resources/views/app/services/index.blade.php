@@ -1,14 +1,14 @@
 <x-app-layout>
-    <x-slot:title>{{ __('Servicios') }}</x-slot:title>
+    <x-slot:title>{{ __('Services') }}</x-slot:title>
 
     <div class="flex items-center justify-between gap-4">
-        <h1 class="text-2xl font-bold">{{ __('Servicios') }}</h1>
-        <x-button :href="route('services.create')" size="inline">{{ __('Nuevo servicio') }}</x-button>
+        <h1 class="text-2xl font-bold">{{ __('Services') }}</h1>
+        <x-button :href="route('services.create')" size="inline">{{ __('New service') }}</x-button>
     </div>
 
     @if ($services->isEmpty())
         <div class="mt-8 rounded-2xl border border-dashed border-line-strong p-8 text-center text-muted">
-            {{ __('Todavía no tienes servicios. Crea el primero para empezar a recibir reservas.') }}
+            {{ __('You don\'t have services yet. Create the first one to start receiving bookings.') }}
         </div>
     @else
         <ul class="mt-6 space-y-3">
@@ -19,7 +19,7 @@
                             <p class="font-semibold">
                                 {{ $service->name }}
                                 @unless ($service->is_active)
-                                    <span class="ml-1 rounded bg-bg-subtle px-2 py-0.5 text-xs text-muted">{{ __('Inactivo') }}</span>
+                                    <span class="ml-1 rounded bg-bg-subtle px-2 py-0.5 text-xs text-muted">{{ __('Inactive') }}</span>
                                 @endunless
                             </p>
                             <p class="text-sm text-muted">
@@ -33,14 +33,14 @@
                         <div class="flex items-center gap-2">
                             <a href="{{ route('services.edit', $service) }}"
                                class="nexo-btn nexo-btn--sm text-primary hover:bg-primary-subtle">
-                                {{ __('Editar') }}
+                                {{ __('Edit') }}
                             </a>
                             <form method="POST" action="{{ route('services.destroy', $service) }}"
-                                  x-data x-on:submit="if (! confirm(@js(__('¿Eliminar este servicio?')))) $event.preventDefault()">
+                                  x-data x-on:submit="if (! confirm(@js(__('Delete this service?')))) $event.preventDefault()">
                                 @csrf
                                 @method('DELETE')
                                 <button class="nexo-btn nexo-btn--sm text-danger hover:bg-danger-subtle">
-                                    {{ __('Eliminar') }}
+                                    {{ __('Delete') }}
                                 </button>
                             </form>
                         </div>

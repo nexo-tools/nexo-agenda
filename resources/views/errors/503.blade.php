@@ -1,2 +1,2 @@
-<x-error-layout :code="503" :title="__('En mantenimiento')"
-    :message="__('Estamos haciendo mejoras. Volvemos en unos minutos.')" />
+<x-error-layout :code="503" :title="__('Under maintenance')"
+    :message="__('We\'re making improvements. Back in a few minutes.')" />

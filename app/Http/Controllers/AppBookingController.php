@@ -80,7 +80,7 @@ class AppBookingController extends Controller
         });
 
         if ($booking === null) {
-            return back()->withInput()->withErrors(['time' => __('Ese horario se superpone con otro turno.')]);
+            return back()->withInput()->withErrors(['time' => __('That time overlaps another appointment.')]);
         }
 
         if ($booking->client_email !== null) {
@@ -90,7 +90,7 @@ class AppBookingController extends Controller
 
         return redirect()
             ->route('dashboard', ['date' => $start->toDateString()])
-            ->with('status', __('Turno creado.'));
+            ->with('status', __('Appointment created.'));
     }
 
     public function updateStatus(Request $request, Booking $booking): RedirectResponse
@@ -113,6 +113,6 @@ class AppBookingController extends Controller
             $booking->update(['status' => $validated['status']]);
         }
 
-        return back()->with('status', __('Turno actualizado.'));
+        return back()->with('status', __('Appointment updated.'));
     }
 }

@@ -1,12 +1,12 @@
-// Extracts every __('…') / trans_choice('…') Spanish source string from the
-// codebase and builds lang/en.json and lang/pt.json from the maps kept in
+// Extracts every __('…') / trans_choice('…') English source string from the
+// codebase and builds lang/es.json and lang/pt.json from the maps kept in
 // scripts/translations/. Fails loudly if a string has no translation.
 // Usage: node scripts/generate-translations.mjs [--check]
 import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const ROOTS = ['app', 'resources/views'];
-const LOCALES = ['en', 'pt'];
+const LOCALES = ['es', 'pt'];
 
 function phpFiles(dir) {
     return readdirSync(dir).flatMap((entry) => {
@@ -28,7 +28,7 @@ for (const root of ROOTS) {
     }
 }
 
-const sorted = [...keys].sort((a, b) => a.localeCompare(b, 'es'));
+const sorted = [...keys].sort((a, b) => a.localeCompare(b, 'en'));
 let failed = false;
 
 for (const locale of LOCALES) {

@@ -12,10 +12,10 @@ enum BookingStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Confirmed => __('Confirmado'),
-            self::Cancelled => __('Cancelado'),
-            self::Attended => __('Asistió'),
-            self::NoShow => __('No asistió'),
+            self::Confirmed => __('Confirmed'),
+            self::Cancelled => __('Cancelled'),
+            self::Attended => __('Attended'),
+            self::NoShow => __('No-show'),
         };
     }
 

@@ -16,7 +16,7 @@ class BookingReminder extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('Recordatorio: tu turno en :business', ['business' => $this->booking->business->name]),
+            subject: __('Reminder: your appointment at :business', ['business' => $this->booking->business->name]),
         );
     }
 

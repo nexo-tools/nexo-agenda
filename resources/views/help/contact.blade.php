@@ -1,8 +1,8 @@
-<x-public-layout :title="__('Contacto')">
+<x-public-layout :title="__('Contact')">
     <header class="mb-6">
-        <h1 class="text-2xl font-bold">{{ __('Escríbenos') }}</h1>
+        <h1 class="text-2xl font-bold">{{ __('Write to us') }}</h1>
         <p class="mt-1 text-sm text-muted">
-            {{ __('Reporta un problema, propón una idea o consúltanos lo que necesites.') }}
+            {{ __('Report a problem, suggest an idea, or ask us anything.') }}
         </p>
     </header>
 
@@ -12,10 +12,10 @@
 
     @php
         $labels = [
-            'bug' => __('Reportar un problema'),
-            'idea' => __('Proponer una idea'),
-            'negocio' => __('Consulta de negocio'),
-            'otro' => __('Otro'),
+            'bug' => __('Report a problem'),
+            'idea' => __('Suggest an idea'),
+            'negocio' => __('Business inquiry'),
+            'otro' => __('Other'),
         ];
     @endphp
 
@@ -23,12 +23,12 @@
         @csrf
         <input type="hidden" name="page_url" value="{{ url()->previous() }}">
 
-        <x-select :label="__('Tipo')" name="type"
+        <x-select :label="__('Type')" name="type"
                   :options="collect($types)->mapWithKeys(fn ($t) => [$t => $labels[$t]])"
                   :selected="old('type', 'bug')" />
 
         <div>
-            <label for="message" class="mb-1 block text-sm font-medium">{{ __('Mensaje') }}</label>
+            <label for="message" class="mb-1 block text-sm font-medium">{{ __('Message') }}</label>
             <textarea id="message" name="message" rows="5" required maxlength="2000"
                       @error('message') aria-invalid="true" aria-describedby="message-error" @enderror
                       class="w-full rounded-lg border-control bg-surface text-ink shadow-sm focus:border-brand-500 focus:ring-brand-500">{{ old('message') }}</textarea>
@@ -38,10 +38,10 @@
         </div>
 
         <div>
-            <x-field :label="__('Email (opcional)')" name="email" type="email" autocomplete="email" />
-            <p class="mt-1 text-xs text-muted">{{ __('Déjalo si quieres que te respondamos.') }}</p>
+            <x-field :label="__('Email (optional)')" name="email" type="email" autocomplete="email" />
+            <p class="mt-1 text-xs text-muted">{{ __('Leave it if you\'d like us to reply.') }}</p>
         </div>
 
-        <x-button>{{ __('Enviar') }}</x-button>
+        <x-button>{{ __('Send') }}</x-button>
     </form>
 </x-public-layout>

@@ -27,7 +27,7 @@ class NexoSsoController extends Controller
             // Provider unreachable: friendly failure, never a 500. (AC-DEGRADE-2)
             return redirect()
                 ->route('login')
-                ->withErrors(['nexo_sso' => __('El inicio de sesión con Nexo ID no está disponible por ahora. Inténtalo de nuevo más tarde.')]);
+                ->withErrors(['nexo_sso' => __('Sign-in with Nexo ID is temporarily unavailable. Please try again later.')]);
         }
 
         return redirect()->away($url);
@@ -82,7 +82,7 @@ class NexoSsoController extends Controller
 
             return redirect()
                 ->route('login')
-                ->withErrors(['nexo_sso' => __('Falló el inicio de sesión con Nexo ID. Inténtalo de nuevo.')]);
+                ->withErrors(['nexo_sso' => __('Sign-in with Nexo ID failed. Please try again.')]);
         }
 
         // CSRF check happens before any provider call. (AC-FLOW-2)
@@ -93,7 +93,7 @@ class NexoSsoController extends Controller
 
             return redirect()
                 ->route('login')
-                ->withErrors(['nexo_sso' => __('No se pudo validar la solicitud de inicio de sesión. Inténtalo de nuevo.')]);
+                ->withErrors(['nexo_sso' => __('The sign-in request could not be validated. Please try again.')]);
         }
 
         try {
@@ -107,7 +107,7 @@ class NexoSsoController extends Controller
 
             return redirect()
                 ->route('login')
-                ->withErrors(['nexo_sso' => __('Ya existe una cuenta con este correo. Verifica tu correo en Nexo ID primero.')]); // AC-LINK-2
+                ->withErrors(['nexo_sso' => __('An account with this email already exists. Verify your email on Nexo ID first.')]); // AC-LINK-2
         } catch (Throwable $e) {
             // Invalid token or provider down mid-flow: safe error, no session. (AC-FLOW-3, AC-DEGRADE-2)
             report($e);
@@ -118,7 +118,7 @@ class NexoSsoController extends Controller
 
             return redirect()
                 ->route('login')
-                ->withErrors(['nexo_sso' => __('Falló el inicio de sesión con Nexo ID. Inténtalo de nuevo.')]);
+                ->withErrors(['nexo_sso' => __('Sign-in with Nexo ID failed. Please try again.')]);
         }
 
         // Tool-owned session, independent of the provider's lifetime. (AC-SESS-1)

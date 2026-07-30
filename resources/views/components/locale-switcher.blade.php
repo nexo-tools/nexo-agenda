@@ -1,4 +1,4 @@
-<nav {{ $attributes->class(['flex items-center gap-1 text-xs']) }} aria-label="{{ __('Idioma') }}">
+<nav {{ $attributes->class(['flex items-center gap-1 text-xs']) }} aria-label="{{ __('Language') }}">
     @foreach (['es' => 'Español', 'en' => 'English', 'pt' => 'Português'] as $locale => $label)
         <a href="{{ request()->fullUrlWithQuery(['lang' => $locale]) }}"
            @class([

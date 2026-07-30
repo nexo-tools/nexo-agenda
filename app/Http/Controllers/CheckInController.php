@@ -30,7 +30,7 @@ class CheckInController extends Controller
 
         return redirect()
             ->route('dashboard', ['date' => $booking->starts_at->setTimezone($booking->business->timezone)->toDateString()])
-            ->with('status', __(':name marcado como Asistió.', ['name' => $booking->client_name]));
+            ->with('status', __(':name marked as Attended.', ['name' => $booking->client_name]));
     }
 
     private function findOrAbort(string $token): Booking

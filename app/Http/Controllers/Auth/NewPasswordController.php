@@ -43,6 +43,6 @@ class NewPasswordController extends Controller
             throw ValidationException::withMessages(['email' => [__($status)]]);
         }
 
-        return redirect()->route('login')->with('status', __('Contraseña restablecida. Ya puedes iniciar sesión.'));
+        return redirect()->route('login')->with('status', __('Password reset. You can sign in now.'));
     }
 }

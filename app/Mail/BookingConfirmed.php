@@ -19,7 +19,7 @@ class BookingConfirmed extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('Turno confirmado en :business', ['business' => $this->booking->business->name]),
+            subject: __('Appointment confirmed at :business', ['business' => $this->booking->business->name]),
         );
     }
 

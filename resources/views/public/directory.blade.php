@@ -1,48 +1,48 @@
 <x-public-layout
-    :title="$category ? __('nexo.categories.'.$category).' — '.__('Explorar') : __('Explorar negocios')"
+    :title="$category ? __('nexo.categories.'.$category).' — '.__('Explore') : __('Explore businesses')"
     :description="$category
-        ? __('Encuentra dónde reservar en :category', ['category' => __('nexo.categories.'.$category)])
-        : __('Encuentra dónde reservar tu próximo turno')">
+        ? __('Find where to book in :category', ['category' => __('nexo.categories.'.$category)])
+        : __('Find where to book your next appointment')">
     <header class="mb-5">
         <a href="{{ route('home') }}" class="flex items-center gap-2 text-sm font-semibold">
             <img src="/favicon.svg" alt="" width="24" height="24"> {{ config('app.name') }}
         </a>
         <h1 class="mt-3 text-2xl font-bold">
-            {{ $category ? __('nexo.categories.'.$category) : __('Explorar negocios') }}
+            {{ $category ? __('nexo.categories.'.$category) : __('Explore businesses') }}
         </h1>
-        <p class="text-sm text-muted">{{ __('Encuentra dónde reservar tu próximo turno') }}</p>
+        <p class="text-sm text-muted">{{ __('Find where to book your next appointment') }}</p>
     </header>
 
     <form method="GET" action="{{ route('directory') }}" x-data class="mb-6 space-y-2">
-        <label for="q" class="sr-only">{{ __('Buscar') }}</label>
-        <input id="q" type="search" name="q" value="{{ $search }}" placeholder="{{ __('Buscar por nombre…') }}"
+        <label for="q" class="sr-only">{{ __('Search') }}</label>
+        <input id="q" type="search" name="q" value="{{ $search }}" placeholder="{{ __('Search by name…') }}"
                class="w-full rounded-lg border-control bg-surface-raised text-sm shadow-sm focus:border-brand-500 focus:ring-brand-500">
 
         <div class="flex gap-2">
-            <label for="categoria" class="sr-only">{{ __('Rubro') }}</label>
+            <label for="categoria" class="sr-only">{{ __('Category') }}</label>
             <select id="categoria" name="categoria" x-on:change="$el.form.requestSubmit()"
                     class="flex-1 rounded-lg border-control bg-surface-raised text-sm shadow-sm focus:border-brand-500 focus:ring-brand-500">
-                <option value="">{{ __('Todos los rubros') }}</option>
+                <option value="">{{ __('All categories') }}</option>
                 @foreach (config('nexo.categories') as $option)
                     <option value="{{ $option }}" @selected($category === $option)>{{ __('nexo.categories.'.$option) }}</option>
                 @endforeach
             </select>
 
-            <label for="ciudad" class="sr-only">{{ __('Ciudad') }}</label>
+            <label for="ciudad" class="sr-only">{{ __('City') }}</label>
             <select id="ciudad" name="ciudad" x-on:change="$el.form.requestSubmit()"
                     class="flex-1 rounded-lg border-control bg-surface-raised text-sm shadow-sm focus:border-brand-500 focus:ring-brand-500">
-                <option value="">{{ __('Todas las ciudades') }}</option>
+                <option value="">{{ __('All cities') }}</option>
                 @foreach ($cities as $option)
                     <option value="{{ $option }}" @selected($city === $option)>{{ $option }}</option>
                 @endforeach
             </select>
         </div>
-        <noscript><x-button size="inline">{{ __('Filtrar') }}</x-button></noscript>
+        <noscript><x-button size="inline">{{ __('Filter') }}</x-button></noscript>
     </form>
 
     @if ($businesses->isEmpty())
         <p class="rounded-2xl border border-dashed border-line-strong p-8 text-center text-sm text-muted">
-            {{ __('No encontramos negocios con esos filtros.') }}
+            {{ __('We couldn\'t find businesses with those filters.') }}
         </p>
     @else
         <ul class="space-y-3">

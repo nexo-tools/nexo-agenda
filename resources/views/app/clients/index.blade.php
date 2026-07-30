@@ -1,29 +1,29 @@
 <x-app-layout>
-    <x-slot:title>{{ __('Clientes') }}</x-slot:title>
+    <x-slot:title>{{ __('Clients') }}</x-slot:title>
 
     <div class="flex flex-wrap items-center justify-between gap-3">
-        <h1 class="text-2xl font-bold">{{ __('Clientes') }}</h1>
+        <h1 class="text-2xl font-bold">{{ __('Clients') }}</h1>
         <div class="flex gap-2">
             <a href="{{ route('clients.export') }}"
                class="rounded-lg border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-primary-subtle">
-                <x-icon name="download" /> {{ __('Clientes CSV') }}
+                <x-icon name="download" /> {{ __('Clients CSV') }}
             </a>
             <a href="{{ route('bookings.export') }}"
                class="rounded-lg border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-primary-subtle">
-                <x-icon name="download" /> {{ __('Turnos CSV') }}
+                <x-icon name="download" /> {{ __('Appointments CSV') }}
             </a>
         </div>
     </div>
 
     <form method="GET" action="{{ route('clients.index') }}" class="mt-4 max-w-sm">
-        <label for="q" class="sr-only">{{ __('Buscar') }}</label>
-        <input id="q" type="search" name="q" value="{{ $search }}" placeholder="{{ __('Buscar por nombre, email o teléfono…') }}"
+        <label for="q" class="sr-only">{{ __('Search') }}</label>
+        <input id="q" type="search" name="q" value="{{ $search }}" placeholder="{{ __('Search by name, email or phone…') }}"
                class="w-full rounded-lg border-control bg-surface text-sm shadow-sm focus:border-brand-500 focus:ring-brand-500">
     </form>
 
     @if ($clients->isEmpty())
         <div class="mt-8 rounded-2xl border border-dashed border-line-strong p-8 text-center text-muted">
-            {{ $search ? __('Sin resultados para tu búsqueda.') : __('Tus clientes aparecerán aquí con su historial cuando tengas reservas.') }}
+            {{ $search ? __('No results for your search.') : __('Your clients will appear here with their history once you have bookings.') }}
         </div>
     @else
         <ul class="mt-6 space-y-2">
@@ -35,8 +35,8 @@
                             <p class="font-semibold">
                                 {{ $client->name }}
                                 @if ($client->no_shows >= 2)
-                                    <span class="ml-1 rounded bg-danger-subtle px-2 py-0.5 text-xs text-danger-subtle-fg" title="{{ __('No asistió :count veces', ['count' => $client->no_shows]) }}">
-                                        <x-icon name="alert" /> {{ trans_choice(':count inasistencia|:count inasistencias', $client->no_shows) }}
+                                    <span class="ml-1 rounded bg-danger-subtle px-2 py-0.5 text-xs text-danger-subtle-fg" title="{{ __('No-show :count times', ['count' => $client->no_shows]) }}">
+                                        <x-icon name="alert" /> {{ trans_choice(':count no-show|:count no-shows', $client->no_shows) }}
                                     </span>
                                 @endif
                             </p>
@@ -45,8 +45,8 @@
                             </p>
                         </div>
                         <p class="text-sm text-muted">
-                            {{ trans_choice(':count turno|:count turnos', $client->total) }}
-                            · {{ __(':count asistidos', ['count' => $client->attended]) }}
+                            {{ trans_choice(':count appointment|:count appointments', $client->total) }}
+                            · {{ __(':count attended', ['count' => $client->attended]) }}
                         </p>
                     </a>
                 </li>

@@ -27,6 +27,6 @@ class FeedController extends Controller
 
         $professional->regenerateFeedToken();
 
-        return back()->with('status', __('Enlace del calendario regenerado. El anterior dejó de funcionar.'));
+        return back()->with('status', __('Calendar link regenerated. The old one no longer works.'));
     }
 }

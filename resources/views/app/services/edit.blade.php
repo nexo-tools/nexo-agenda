@@ -1,7 +1,7 @@
 <x-app-layout>
-    <x-slot:title>{{ __('Editar servicio') }}</x-slot:title>
+    <x-slot:title>{{ __('Edit service') }}</x-slot:title>
 
-    <h1 class="mb-6 text-2xl font-bold">{{ __('Editar servicio') }}</h1>
+    <h1 class="mb-6 text-2xl font-bold">{{ __('Edit service') }}</h1>
 
     <form method="POST" action="{{ route('services.update', $service) }}" class="max-w-lg">
         @csrf

@@ -19,6 +19,6 @@ class FeedbackController extends Controller
         FeedbackReport::create($request->validated());
 
         return redirect()->route('contact')
-            ->with('status', __('¡Gracias! Recibimos tu mensaje.'));
+            ->with('status', __('Thanks! We got your message.'));
     }
 }

@@ -20,13 +20,13 @@
         @if ($booking->status === \App\Enums\BookingStatus::Confirmed)
             <form method="POST" action="{{ route('checkin.store', $token) }}" class="mt-6">
                 @csrf
-                <x-button><x-icon name="check" /> {{ __('Marcar como Asistió') }}</x-button>
+                <x-button><x-icon name="check" /> {{ __('Mark as Attended') }}</x-button>
             </form>
         @endif
 
         <a href="{{ route('dashboard', ['date' => $local->toDateString()]) }}"
            class="mt-4 inline-block text-sm text-brand-700 hover:underline dark:text-brand-400">
-            {{ __('Ir a la agenda') }}
+            {{ __('Go to schedule') }}
         </a>
     </div>
 </x-app-layout>

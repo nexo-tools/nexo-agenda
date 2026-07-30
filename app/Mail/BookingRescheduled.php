@@ -16,7 +16,7 @@ class BookingRescheduled extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('Tu turno en :business fue reprogramado', ['business' => $this->booking->business->name]),
+            subject: __('Your appointment at :business was rescheduled', ['business' => $this->booking->business->name]),
         );
     }
 

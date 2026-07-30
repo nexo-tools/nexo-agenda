@@ -18,7 +18,7 @@ class WaitlistSlotFreed extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('¡Se liberó un horario en :business!', ['business' => $this->booking->business->name]),
+            subject: __('A time slot just opened at :business!', ['business' => $this->booking->business->name]),
         );
     }
 

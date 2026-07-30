@@ -30,7 +30,7 @@ class ProfessionalController extends Controller
 
         return redirect()
             ->route('professionals.edit', $professional)
-            ->with('status', __('Profesional agregado. Ahora define sus horarios.'));
+            ->with('status', __('Professional added. Now set their schedule.'));
     }
 
     public function edit(Professional $professional): View
@@ -74,7 +74,7 @@ class ProfessionalController extends Controller
             }
         });
 
-        return redirect()->route('professionals.index')->with('status', __('Profesional actualizado.'));
+        return redirect()->route('professionals.index')->with('status', __('Professional updated.'));
     }
 
     public function destroy(Professional $professional): RedirectResponse
@@ -83,6 +83,6 @@ class ProfessionalController extends Controller
 
         $professional->delete();
 
-        return redirect()->route('professionals.index')->with('status', __('Profesional eliminado.'));
+        return redirect()->route('professionals.index')->with('status', __('Professional deleted.'));
     }
 }

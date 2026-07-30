@@ -18,7 +18,7 @@
             <h1 class="mt-4 text-2xl font-semibold">{{ $title }}</h1>
             <p class="mt-2 max-w-sm text-muted">{{ $message }}</p>
 
-            <x-button :href="url('/')" size="inline" class="mt-8">{{ __('Volver al inicio') }}</x-button>
+            <x-button :href="url('/')" size="inline" class="mt-8">{{ __('Back to home') }}</x-button>
         </main>
     </body>
 </html>

@@ -1,2 +1,2 @@
-<x-error-layout :code="429" :title="__('Demasiadas solicitudes')"
-    :message="__('Espera un momento e inténtalo de nuevo.')" />
+<x-error-layout :code="429" :title="__('Too many requests')"
+    :message="__('Please wait a moment and try again.')" />

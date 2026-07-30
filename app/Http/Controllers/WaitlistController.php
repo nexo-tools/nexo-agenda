@@ -34,7 +34,7 @@ class WaitlistController extends Controller
         $horizon = CarbonImmutable::now($business->timezone)->addDays($service->max_advance_days)->toDateString();
 
         if ($validated['date'] < $today || $validated['date'] > $horizon) {
-            return back()->withErrors(['date' => __('Esa fecha no está disponible para lista de espera.')]);
+            return back()->withErrors(['date' => __('That date is not available for the waitlist.')]);
         }
 
         $alreadyListed = $business->waitlistEntries()
@@ -56,6 +56,6 @@ class WaitlistController extends Controller
 
         return redirect()
             ->route('public.times', [$business, $service, 'professional' => $validated['professional'], 'date' => $validated['date']])
-            ->with('status', __('¡Listo! Te avisaremos por email si se libera un horario ese día.'));
+            ->with('status', __('Done! We\'ll email you if a time frees up that day.'));
     }
 }

@@ -19,13 +19,5 @@ class FeedbackRequest extends FormRequest
         ];
     }
 
-    /** @return array<string, string> */
-    public function attributes(): array
-    {
-        return [
-            'type' => __('tipo'),
-            'message' => __('mensaje'),
-            'email' => __('email'),
-        ];
-    }
+    // Field names live in lang/{locale}/validation.php under 'attributes'.
 }
