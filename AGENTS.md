@@ -116,6 +116,18 @@ General standards (branding, docs, quality, language) live in the `alvaro` repo'
   `es`). Variables inside `__($x)` are **not** detected by the generator. After
   adding strings, update `scripts/translations/{en,pt}.json` and run
   `npm run translations`; a guardian test + CI `--check` enforce sync.
+- **Views consume the semantic utilities only** — `bg-surface` / `bg-surface-raised`,
+  `text-ink` / `text-muted`, `border-line` / `border-control`, and the role pairs
+  (`bg-danger-subtle text-danger-subtle-fg`, …). Never a raw palette class or a
+  hand-written `dark:` twin: `NoRawPaletteInViewsTest` fails the build, and the
+  drift it prevents is what broke dark mode across the app. `text-subtle` is a
+  LARGE-text token (3:1) — small copy takes `text-muted`. New mappings go in the
+  `@theme` block of `resources/css/app.css`, never in a view.
+- **No inline `on*=` handlers** — the CSP has no `'unsafe-inline'`/`'unsafe-hashes'`
+  for scripts, so `onchange`/`onsubmit` are dead code in production (they fail
+  silently in dev, where there is no CSP header). Use Alpine; a test enforces it.
+- **Buttons go through `<x-button>`** (`:href` renders an anchor); row actions use
+  `.nexo-btn .nexo-btn--sm`. Focus rings and the 44px touch target live there.
 - **Never cache Eloquent models** — cache plain arrays of primitives (decision #17);
   cached models can unserialize incomplete and 500 the page. See
   `app/Services/PublicPageCache.php`.
@@ -182,6 +194,25 @@ duplicate it here; append new decisions there via `docs:` commits.
 ## Accumulated context
 
 <!-- Newest first, dated. Persist non-obvious context for the next session. -->
+
+- **2026-07-29** — **Ecosystem UX/UI audit applied (ux 2.1–2.11).** Two findings are
+  worth remembering because neither is visible while developing. (1) **The CSP kills
+  inline handlers**: every `onchange`/`onsubmit` in the views was dead in production —
+  date pickers that never submitted, and `confirm()` guards in front of five
+  destructive actions that never ran, so the delete just happened. Now Alpine, with a
+  test. (2) **The storefront accent** was three `!important` overrides, so the rest of
+  the brand scale stayed teal and the light accent was forced into dark mode;
+  `public-layout` now re-derives the whole `--color-brand-*` scale from one `--accent`
+  (plus a dark block), and filled surfaces read `--color-brand-fg` from
+  `accentTextColor()`. Also: the views moved off raw palette classes onto the semantic
+  utilities (see conventions), the front desk stopped using `<meta http-equiv=refresh>`
+  in favour of a pausable fetch swap (`resources/js/frontdesk.js`), Spanish copy is
+  **tuteo neutro** everywhere, and the shared chrome came from the corrected canonical
+  (menu keyboard contract, `--nexo-border-control`, dark `text-muted`/`text-subtle`,
+  footer legal links via `nexo.footer.privacy`/`.terms`, no `footer.powered_by`).
+  Still open: the taglines in `config/nexo-ecosystem.php` are voseo, but that block is
+  byte-identical across the six tools and `nexo-doctor` enforces it — it needs one
+  coordinated pass over the canonical and all six repos, not a local edit.
 
 - **2026-07-28** — **Legal pages + SEO on the public pages + three nexo-ui guardians.**
   New `/privacidad` and `/terminos` (`LegalController`, `legal/show`, content in
