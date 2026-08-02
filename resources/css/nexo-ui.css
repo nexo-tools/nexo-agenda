@@ -85,11 +85,14 @@
 
 /* ---- Footer ---------------------------------------------------------- */
 .nexo-footer {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem;
-  padding: 1.25rem 1rem; border-top: 1px solid var(--nexo-border);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.25rem;
+  padding: 0.5rem 1rem; border-top: 1px solid var(--nexo-border);
   background: var(--nexo-bg-subtle); color: var(--nexo-text-muted); font-size: 0.875rem;
 }
-.nexo-footer a { color: var(--nexo-text-muted); text-decoration: none; }
+/* Links are 44px touch targets (design.md: tap targets are not negotiable,
+   footers included) — the taller boxes replace the old row gap, and the
+   slimmer block padding keeps the footer at roughly the height it had. */
+.nexo-footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--nexo-text-muted); text-decoration: none; }
 .nexo-footer a:hover { color: var(--nexo-link); text-decoration: underline; }
 .nexo-footer__eco { display: inline-flex; align-items: center; gap: 0.4rem; }
 .nexo-footer__spacer { flex: 1; }
