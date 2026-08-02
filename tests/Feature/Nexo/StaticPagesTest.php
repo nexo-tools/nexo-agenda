@@ -104,15 +104,18 @@ it('names the instance operator on the legal pages when configured', function ()
 it('shows what the product does, not just its name and two buttons', function () {
     // The landing was a viewport-height centred hero: icon, app name as the H1,
     // one sentence, two CTAs — and no evidence of the product for somebody
-    // deciding whether to open an account. The three steps are the real
-    // onboarding flow, so they cannot drift into marketing fiction.
+    // deciding whether to open an account. The intent of this test has not
+    // changed; what counts as evidence has. The three written steps became
+    // three real captures of this app under «Cómo funciona», and the feature
+    // list became a spec sheet whose rows are limits the code enforces.
     $html = (string) $this->get(route('home'))->assertOk()->getContent();
 
     expect($html)->toContain(__('Cómo funciona'))
-        ->toContain(__('Carga tus servicios'))
-        ->toContain(__('Comparte tu enlace'))
-        ->toContain(__('Recibe reservas'))
-        ->toContain(__('Lo que ya viene incluido'));
+        ->toContain(__('Los datos'))
+        ->toContain('/landing/shot-1-light.webp')
+        ->toContain('/landing/shot-2-light.webp')
+        ->toContain('/landing/shot-3-light.webp')
+        ->toContain(__('Preguntas frecuentes'));
 
     // The H1 states the promise; the bare app name as an H1 says nothing.
     expect(preg_match('/<h1[^>]*>\s*'.preg_quote(config('app.name'), '/').'\s*<\/h1>/', $html))->toBe(0);

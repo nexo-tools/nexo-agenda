@@ -3,6 +3,7 @@
 /* Nexo brand tokens FIRST, then the shared chrome layer (header/footer/switchers). */
 @import './nexo-tokens.css';
 @import './nexo-ui.css';
+@import './landing.css';
 
 @plugin '@tailwindcss/forms';
 

@@ -1,0 +1,11 @@
+[
+    {
+        "date": "2026-08-01",
+        "macrostructure": "Workbench",
+        "theme": "custom",
+        "theme_axes": "paper light/dark via nexo tokens / display sans (Instrument Sans) / accent hue cool ~290° violet",
+        "vibe": "utilitario Nexo, violeta sobrio, es-first",
+        "enrichment": "none",
+        "brief": "Landing pública de Nexo Agenda migrada al sistema de familia (templates/nexo-ui/design.md): esqueleto hero → producto → datos → preguntas → cierre, h1 = tagline del registro, tres capturas reales claro/oscuro y móvil/escritorio —la página pública de reservas del negocio, la agenda semanal por profesional y las estadísticas—, spec sheet desde las reglas de validación y los servicios reales, y FAQ desde lang/*/help.php. La landing anterior ya era honesta (pasos reales, features reales) pero describía en vez de mostrar. Sobre design.md la regla de diversificación está invertida: las 6 tools comparten estructura, la variedad vive dentro de cada sección."
+    }
+]

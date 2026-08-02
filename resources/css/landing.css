@@ -1,0 +1,97 @@
+/* Hallmark · macrostructure: Workbench · theme: custom Nexo (design.md) · tone: utilitario · anchor hue: violeta 290 · nav: nexo-header · footer: nexo-footer */
+
+/* Only what the utility layer cannot say. No colour is declared here on
+   purpose: surfaces, text and borders come from bg-surface / text-ink /
+   text-muted / border-line in the view, so both themes flip from one token
+   instead of from a pair written by hand in two places. */
+
+/* --- The screenshots follow the theme AND the viewport --------------------
+   theme-init stamps data-theme on <html> before first paint; the media query
+   fallback covers that instant and JS-off browsers. Mobile figures below
+   48rem, desktop figures above — a 1280px capture is unreadable at 375px. */
+
+.landing-shot {
+    display: none;
+}
+
+@media (max-width: 47.9375rem) {
+    .landing-shot--mobile.landing-shot--light { display: block; }
+    [data-theme='dark'] .landing-shot--mobile.landing-shot--light { display: none; }
+    [data-theme='dark'] .landing-shot--mobile.landing-shot--dark { display: block; }
+}
+
+@media (max-width: 47.9375rem) and (prefers-color-scheme: dark) {
+    :root:not([data-theme]) .landing-shot--mobile.landing-shot--light { display: none; }
+    :root:not([data-theme]) .landing-shot--mobile.landing-shot--dark { display: block; }
+}
+
+@media (min-width: 48rem) {
+    .landing-shot--desktop.landing-shot--light { display: block; }
+    [data-theme='dark'] .landing-shot--desktop.landing-shot--light { display: none; }
+    [data-theme='dark'] .landing-shot--desktop.landing-shot--dark { display: block; }
+}
+
+@media (min-width: 48rem) and (prefers-color-scheme: dark) {
+    :root:not([data-theme]) .landing-shot--desktop.landing-shot--light { display: none; }
+    :root:not([data-theme]) .landing-shot--desktop.landing-shot--dark { display: block; }
+}
+
+/* --- Rhythm between sections ---------------------------------------------
+   Uneven on purpose. A page where every band is the same height reads as a
+   template: the hero opens with air, the proof breathes between figures, the
+   spec sheet sits tight against the questions it answers, and the closing CTA
+   gets a band of its own so nothing competes with it.
+
+   Phone values first — that is where most of the traffic reads this. */
+
+[data-landing-section] {
+    padding-block: 2.25rem;
+}
+
+[data-landing-section='hero'] {
+    padding-block: 2rem 2.75rem;
+}
+
+[data-landing-section='producto'] {
+    padding-block: 1rem 3rem;
+}
+
+[data-landing-section='datos'] {
+    padding-block: 2rem 1.25rem;
+}
+
+[data-landing-section='preguntas'] {
+    padding-block: 1.25rem 2rem;
+}
+
+[data-landing-section='cierre'] {
+    padding-block: 3rem 4rem;
+}
+
+@media (min-width: 48rem) {
+    [data-landing-section='hero'] {
+        padding-block: 4rem 5rem;
+    }
+
+    [data-landing-section='producto'] {
+        padding-block: 1.5rem 5rem;
+    }
+
+    [data-landing-section='datos'] {
+        padding-block: 3rem 2rem;
+    }
+
+    [data-landing-section='preguntas'] {
+        padding-block: 2rem 3.5rem;
+    }
+
+    [data-landing-section='cierre'] {
+        padding-block: 4.5rem 6rem;
+    }
+}
+
+/* Spanish words are long and the display sizes are large: let a claim break
+   rather than push the page sideways on a narrow phone (design.md). */
+[data-landing-section='hero'] h1 {
+    overflow-wrap: anywhere;
+}
