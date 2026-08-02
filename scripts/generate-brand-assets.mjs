@@ -17,7 +17,10 @@ import { readFileSync, writeFileSync, copyFileSync } from 'node:fs';
 const CONFIG = {
   mark: 'resources/brand/isotype.svg', // this tool's Nexo mark (copied from nexo-brand/marks)
   label: 'Nexo Agenda',                // wordmark shown on the OG card
-  tagline: 'Reservas online para tu negocio.',
+  // The registry's tagline, verbatim: one claim per tool across every
+  // surface, og-image included (STANDARD.md, "El claim canónico vive en el
+  // registro"). Keep it in sync with config/nexo-ecosystem.php.
+  tagline: 'Recibe reservas para tu negocio en minutos.',
   publicDir: 'public',
 };
 // Brand constants (do not edit — from the Nexo palette).
