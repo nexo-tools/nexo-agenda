@@ -45,7 +45,8 @@ export. Nexo Agenda answers each of those pain points directly:
 
 ## Screenshots
 
-Captured from the live instance.
+Captured from a local instance seeded with `DemoSeeder`, by
+`node ~/alvaro/scripts/nexo-shots.mjs .` — never from production.
 
 | Light | Dark |
 | --- | --- |
