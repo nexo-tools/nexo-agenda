@@ -37,6 +37,9 @@ const AUTH_ROUTES = ['login', 'register', 'password.request'];
 const FOCUSED_AUTH = false;
 const AUTH_CARD_MARKER = 'data-nexo-auth-card';
 
+/** Parameters for auth routes that take one, e.g. ['password.reset' => ['token' => 'x']]. */
+const ROUTE_PARAMETERS = [];
+
 /** The auth routes this tool actually registers, as name => rendered HTML. */
 function authPages(): array
 {
@@ -47,7 +50,9 @@ function authPages(): array
             continue;
         }
 
-        $response = test()->get(route($name));
+        // A screen reached by a signed link (reset-password/{token}) cannot be
+        // generated without one; the placeholder is enough to render the form.
+        $response = test()->get(route($name, ROUTE_PARAMETERS[$name] ?? []));
 
         // A tool can gate a screen behind a signed-in user (confirm-password) or
         // a signed-out one; a redirect is a legitimate answer and not this

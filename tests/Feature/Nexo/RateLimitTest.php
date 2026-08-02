@@ -68,12 +68,12 @@ it('keeps its limits configurable by the operator', function () {
     // legitimate spike is being mistaken for an attack.
     $provider = (string) file_get_contents(app_path('Providers/AppServiceProvider.php'));
 
-    foreach (NAMED_LIMITERS as $name) {
-        if (! str_contains($provider, "'{$name}'")) {
-            continue;
-        }
-    }
+    $undeclared = array_values(array_filter(
+        NAMED_LIMITERS,
+        fn (string $name): bool => ! str_contains($provider, "'{$name}'")
+    ));
 
+    expect($undeclared)->toBe([], 'Named limiters registered elsewhere than AppServiceProvider: '.implode(', ', $undeclared));
     expect(preg_match('/RateLimiter::for\(/', $provider))->toBe(1, 'No named limiter is declared in AppServiceProvider.');
     expect(preg_match('/Limit::perMinute\(\s*\(int\) config\(/', $provider))
         ->toBe(1, 'Named limiters must read their ceiling from config (env-tunable), not from a literal.');
