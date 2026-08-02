@@ -28,6 +28,7 @@ use App\Mail\BookingReminder;
 use App\Mail\BookingRescheduled;
 use App\Mail\NewBookingReceived;
 use App\Mail\NexoIdLinked;
+use App\Mail\OperatorAlert;
 use App\Mail\PasswordChanged;
 use App\Mail\WaitlistJoined;
 use App\Mail\WaitlistSlotFreed;
@@ -53,6 +54,9 @@ function nexoMails(): array
     $booking = fn () => Booking::factory()->create()->load(['business', 'service', 'professional']);
 
     return [
+        // The operator alert renders like any other mail: it is here because the
+        // one mail nobody declared was the one that shipped broken.
+        'operator-alert' => fn () => OperatorAlert::fromThrowable(new RuntimeException('something broke'), 'https://example.test/x'),
         'booking-confirmed' => fn () => new BookingConfirmed($booking(), 'raw-management-token'),
         'booking-cancelled' => fn () => new BookingCancelled($booking()),
         'booking-rescheduled' => fn () => new BookingRescheduled($booking()),
@@ -85,7 +89,8 @@ function nexoMails(): array
  */
 function nexoOperatorMails(): array
 {
-    return [];
+    // Goes to whoever runs the instance, not to a user.
+    return ['operator-alert'];
 }
 
 /** There is no factory for waitlist entries: they are created by the flow. */

@@ -26,6 +26,14 @@ use Throwable;
  * Queued like every other mail, with one difference that matters — if the queue
  * itself is what is broken, this mail never leaves. That is a known limit and
  * the reason the log line stays: this is a nudge, not a monitoring system.
+ *
+ * The exception text is `$summary`, NOT `$message`: Laravel injects its own
+ * `$message` (the Illuminate\Mail\Message being built) into every mail view, so
+ * a property with that name is silently overwritten and the view renders an
+ * object where a string should be. Caught by the review of 2026-08-02 — the
+ * mail failed at render time in all six tools, and no test saw it because the
+ * guardian faked the mailer and this class was the one mail nobody had declared
+ * in nexoMails().
  */
 class OperatorAlert extends Mailable implements ShouldQueue
 {
@@ -33,7 +41,7 @@ class OperatorAlert extends Mailable implements ShouldQueue
 
     public function __construct(
         public readonly string $exceptionClass,
-        public readonly string $message,
+        public readonly string $summary,
         public readonly string $file,
         public readonly int $line,
         public readonly ?string $url,
@@ -44,7 +52,7 @@ class OperatorAlert extends Mailable implements ShouldQueue
     {
         return new self(
             exceptionClass: $e::class,
-            message: $e->getMessage(),
+            summary: $e->getMessage(),
             file: $e->getFile(),
             line: $e->getLine(),
             url: $url,
@@ -57,7 +65,7 @@ class OperatorAlert extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '['.config('app.name').'] '.class_basename($this->exceptionClass).': '.mb_substr($this->message, 0, 80),
+            subject: '['.config('app.name').'] '.class_basename($this->exceptionClass).': '.mb_substr($this->summary, 0, 80),
         );
     }
 
