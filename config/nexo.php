@@ -35,6 +35,16 @@ return [
     // reason as the attribution above: a third party that clones the repo must
     // not publish the upstream author as the data controller. Left empty, the
     // legal pages simply point at the contact form instead of naming anyone.
+    // Mail al operador cuando algo revienta (nexo-ops). Off por default: una
+    // instancia recién clonada no debería empezar a mandar correo sin que su
+    // operador lo decida. Dedupe de 15 min por excepción, kill-switch por env.
+    'ops_mail' => env('NEXO_OPS_MAIL', false),
+
+    // A dónde van esos avisos. Esta tool no tenía la clave: su canal de contacto
+    // con el usuario es el formulario interno, pero el operador necesita una
+    // dirección propia para los errores.
+    'support_email' => env('NEXO_SUPPORT_EMAIL', 'hola@example.com'),
+
     'legal' => [
         'operator' => env('NEXO_LEGAL_OPERATOR'),
         'contact' => env('NEXO_LEGAL_CONTACT'),
