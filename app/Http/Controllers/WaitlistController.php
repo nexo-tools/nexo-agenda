@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WaitlistJoined;
 use App\Models\Business;
 use App\Models\Service;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class WaitlistController extends Controller
 {
@@ -45,13 +47,20 @@ class WaitlistController extends Controller
             ->exists();
 
         if (! $alreadyListed) {
-            $business->waitlistEntries()->create([
+            $entry = $business->waitlistEntries()->create([
                 'service_id' => $service->id,
                 'professional_id' => $professionalId,
                 'date' => $validated['date'],
                 'client_name' => $validated['client_name'],
                 'client_email' => $validated['client_email'],
             ]);
+
+            // The receipt. Joining used to produce a flash message and nothing
+            // else: the person closed the tab with no record it had happened,
+            // and the only mail they could ever get was one that may never come.
+            Mail::to($entry->client_email)
+                ->locale(app()->getLocale())
+                ->queue(new WaitlistJoined($entry->load(['business', 'service', 'professional'])));
         }
 
         return redirect()

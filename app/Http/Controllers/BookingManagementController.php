@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\BookingCancelled;
+use App\Mail\BookingChangedByClient;
 use App\Mail\BookingRescheduled;
 use App\Models\Booking;
 use App\Services\Availability;
@@ -47,6 +48,13 @@ class BookingManagementController extends Controller
                 ->locale($booking->locale ?: config('app.locale'))
                 ->queue(new BookingCancelled($booking->load(['business', 'service', 'professional'])));
         }
+
+        // The owner has to fill the hole in their day: until now the client's
+        // side of this flow was fully covered by mail and the owner found out
+        // by opening the dashboard.
+        Mail::to($booking->business->user->email)
+            ->locale(config('app.locale'))
+            ->queue(new BookingChangedByClient($booking, cancelled: true));
 
         $this->waitlist->bookingCancelled($booking);
 
@@ -129,6 +137,11 @@ class BookingManagementController extends Controller
                 ->locale($booking->locale ?: config('app.locale'))
                 ->queue(new BookingRescheduled($booking));
         }
+
+        // The owner's side of the same event: their day just changed.
+        Mail::to($booking->business->user->email)
+            ->locale(config('app.locale'))
+            ->queue(new BookingChangedByClient($booking, cancelled: false));
 
         return redirect()->route('booking.manage', $token)->with('status', __('Your appointment was rescheduled.'));
     }

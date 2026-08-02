@@ -10,4 +10,7 @@ return [
     // the Spanish preposition hardcoded inside every locale — an English reader
     // was getting "Monday 4 de August 2026".
     'datetime' => 'l j \\d\\e F Y, H:i',
+
+    // Same idea without the time, for a day-only line.
+    'date' => 'l j \\d\\e F Y',
 ];
