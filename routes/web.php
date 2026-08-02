@@ -52,7 +52,13 @@ Route::get('explorar/rubro/{category}', [DirectoryController::class, 'index'])->
 Route::get('sitemap.xml', [SitemapController::class, 'sitemap'])->name('sitemap');
 Route::get('robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
-Route::get('ayuda', HelpController::class)->name('help');
+// The help center answers at /help like the other five tools. The path used to
+// be Spanish, which the routes-snippet allowed and nobody else took: same route
+// name, different URL, so cross-tool links and the copied guardian both went to
+// the one place that had moved (audit 2026-08-02, decision U1). The old path
+// keeps working — it is in sitemaps, in inboxes and in people's history.
+Route::get('help', HelpController::class)->name('help');
+Route::redirect('ayuda', '/help', 301);
 
 // Legal pages. Not optional here: besides the business account, this tool stores
 // the name, email/phone and note of whoever books an appointment — third-party

@@ -3,17 +3,23 @@
 use App\Models\FeedbackReport;
 
 it('shows the help center with FAQ', function () {
-    $this->get('/ayuda')
+    $this->get('/help')
         ->assertOk()
         ->assertSee('Centro de ayuda')
         ->assertSee('¿Necesito una cuenta para reservar?');
 });
 
 it('translates the help center', function () {
-    $this->get('/ayuda?lang=en')
+    $this->get('/help?lang=en')
         ->assertOk()
         ->assertSee('Help center')
         ->assertSee('Do I need an account to book?');
+});
+
+it('redirects the old Spanish help path for good', function () {
+    // /ayuda lived in sitemaps, in inboxes and in browser histories before the
+    // ecosystem settled on one URL for the six tools (decision U1, 2026-08-02).
+    $this->get('/ayuda')->assertRedirect('/help')->assertStatus(301);
 });
 
 it('shows the contact form', function () {

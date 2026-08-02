@@ -18,7 +18,7 @@
                 <h1>{{ __('nexo.help.title') }}</h1>
                 <p>{{ __('nexo.help.intro') }}</p>
 
-                @foreach ((array) __('help.faqs') as $faq)
+                @foreach ($faqs as $faq)
                     <details class="nexo-help__item">
                         <summary>{{ $faq['q'] ?? '' }}</summary>
                         <div>{!! $faq['a'] ?? '' !!}</div>
@@ -29,7 +29,7 @@
                     <div>
                         <strong>{{ __('nexo.help.contact_title') }}</strong>
                         <p>
-                            <a class="nexo-btn nexo-btn--primary" href="{{ route('contact') }}">
+                            <a class="nexo-btn nexo-btn--primary" href="{{ $contactUrl }}">
                                 {{ __('nexo.help.contact_cta') }}
                             </a>
                         </p>
