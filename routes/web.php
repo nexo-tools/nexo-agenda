@@ -3,6 +3,7 @@
 use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\AppBookingController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -44,6 +45,17 @@ Route::middleware('guest')->group(function () {
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->middleware('throttle:5,1')->name('password.store');
+});
+
+// Email verification. Not middleware on the dashboard on purpose (see the
+// controller): what it buys is the way back into an account whose address had a
+// typo, which until 2026-08-02 was simply lost.
+Route::middleware('auth')->group(function () {
+    Route::get('verify-email', [EmailVerificationController::class, 'notice'])->name('verification.notice');
+    Route::get('verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+        ->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
+    Route::post('verify-email/send', [EmailVerificationController::class, 'send'])
+        ->middleware('throttle:6,1')->name('verification.send');
 });
 
 Route::get('explorar', [DirectoryController::class, 'index'])->name('directory');

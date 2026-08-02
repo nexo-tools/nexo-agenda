@@ -199,7 +199,7 @@ otherwise.
 Optionally seed reference data — **do not** run the demo seeder in production
 (it's disabled outside local, but don't invoke it).
 
-## 7. The reminder scheduler (cron)
+## 7. The scheduler (cron): reminders AND mail delivery
 
 Nexo Agenda sends the 24h reminder via `nexo:send-reminders`, dispatched by the
 Laravel scheduler (`routes/console.php`, hourly). On shared hosting, run the
@@ -210,6 +210,11 @@ hPanel → **Advanced → Cron Jobs** → add:
 ```
 * * * * * cd ~/nexo-agenda && php artisan schedule:run >> /dev/null 2>&1
 ```
+
+Since 2026-08-02 this cron carries a second job that matters as much: **every mail in this app is
+queued** (a dead SMTP must not break a booking), and the scheduler is what drains the queue —
+`queue:work --stop-when-empty` every minute. Without this entry the app looks perfectly healthy
+and not one confirmation, cancellation or reminder ever leaves the server.
 
 Laravel decides internally when the hourly command actually fires; the cron just
 ticks every minute.

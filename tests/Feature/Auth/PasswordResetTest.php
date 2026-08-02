@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Auth\Notifications\ResetPassword;
+use App\Notifications\ResetPasswordQueued;
 use Illuminate\Support\Facades\Notification;
 
 it('sends a reset link to existing users', function () {
@@ -11,7 +11,7 @@ it('sends a reset link to existing users', function () {
     $this->post('/forgot-password', ['email' => $user->email])
         ->assertSessionHas('status');
 
-    Notification::assertSentTo($user, ResetPassword::class);
+    Notification::assertSentTo($user, ResetPasswordQueued::class);
 });
 
 it('does not reveal whether an email exists', function () {
@@ -30,7 +30,7 @@ it('resets the password with a valid token', function () {
     $this->post('/forgot-password', ['email' => $user->email]);
 
     $token = null;
-    Notification::assertSentTo($user, ResetPassword::class, function ($notification) use (&$token) {
+    Notification::assertSentTo($user, ResetPasswordQueued::class, function ($notification) use (&$token) {
         $token = $notification->token;
 
         return true;
