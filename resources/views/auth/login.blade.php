@@ -11,18 +11,19 @@
         <x-field :label="__('Email')" name="email" type="email" required autocomplete="username" />
         <x-field :label="__('Password')" name="password" type="password" required autocomplete="current-password" />
 
-        <div class="flex items-center justify-between">
-            <label class="flex items-center gap-2 text-sm">
-                <input type="checkbox" name="remember" class="rounded border-control text-brand-600 focus:ring-brand-500">
-                {{ __('Remember me') }}
-            </label>
-            <a href="{{ route('password.request') }}" class="text-sm text-brand-700 hover:underline dark:text-brand-400">
-                {{ __('Forgot your password?') }}
-            </a>
-        </div>
+        <label class="flex items-center gap-2 text-sm">
+            <input type="checkbox" name="remember" class="rounded border-control text-brand-600 focus:ring-brand-500">
+            {{ __('Remember me') }}
+        </label>
 
         <x-button>{{ __('Sign in') }}</x-button>
     </form>
+
+    <p class="mt-4 text-center text-sm">
+        <a href="{{ route('password.request') }}" class="text-brand-700 hover:underline dark:text-brand-400">
+            {{ __('Forgot your password?') }}
+        </a>
+    </p>
 
     @if (config('nexo-sso.enabled'))
         <div class="my-4 flex items-center gap-3 text-xs uppercase text-muted">
@@ -35,14 +36,13 @@
             <p class="nexo-flash nexo-flash--danger mb-3" role="alert">{{ $message }}</p>
         @enderror
 
-        <a href="{{ route('nexo-sso.redirect') }}"
-           class="flex w-full items-center justify-center rounded-lg border border-control bg-surface px-4 py-2.5 text-sm font-medium text-ink hover:bg-bg-subtle">
+        <a href="{{ route('nexo-sso.redirect') }}" class="nexo-btn nexo-btn--ghost w-full">
             {{ __('Continue with Nexo ID') }}
         </a>
     @endif
 
     <p class="mt-4 text-center text-sm text-muted">
         {{ __('Don\'t have an account?') }}
-        <a href="{{ route('register') }}" class="font-medium text-brand-700 hover:underline dark:text-brand-400">{{ __('Sign up') }}</a>
+        <a href="{{ route('register') }}" class="font-medium text-brand-700 hover:underline dark:text-brand-400">{{ __('Create account') }}</a>
     </p>
 </x-guest-layout>

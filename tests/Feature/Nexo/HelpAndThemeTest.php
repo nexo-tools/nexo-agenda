@@ -84,6 +84,21 @@ it('links the help center from the shared footer', function () {
         ->toBeTrue('The shared footer does not link route(\'help\') — copy the canonical nexo-footer.');
 });
 
+it('links the help center from the shared header too', function () {
+    $html = $this->get(shellUrl())->assertOk()->getContent();
+
+    // Since 2026-08-02 the canonical nexo-header bakes the help link in as a
+    // plain text nav link: before, each tool placed it wherever (ghost button,
+    // nav link, or nowhere) and the drift was visible when crossing tools. The
+    // footer copy above stays — the header nav is hidden on mobile.
+    $start = strpos($html, '<header');
+    expect($start)->not->toBeFalse('The page renders no <header> — copy the canonical nexo-header.');
+
+    $end = strpos($html, '</header>', $start);
+    expect(str_contains(substr($html, $start, $end === false ? null : $end - $start), route('help')))
+        ->toBeTrue('The shared header does not link route(\'help\') — copy the canonical nexo-header (the help link is baked in).');
+});
+
 it('stamps the theme before paint and ships the tokens (light/dark ready)', function () {
     $html = $this->get(shellUrl())->assertOk()->getContent();
 

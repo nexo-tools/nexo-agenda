@@ -9,18 +9,16 @@
 // login page they actually use. Four different cards, four different headings,
 // one tool with no visible heading whatsoever.
 //
-// Copy into tests/Feature/Nexo/ and adjust the two constants:
+// Copy into tests/Feature/Nexo/ and adjust the constant:
 //
 //   AUTH_ROUTES  — the auth route NAMES this tool actually registers. Routes
 //                  that do not exist are skipped, not failed: nexoshort has no
 //                  password reset, nexotools no email verification.
-//   FOCUSED_AUTH — false for the majority pattern (full nexo-header + footer
-//                  around the card). true ONLY for nexoid, whose auth flow
-//                  deliberately drops the header and the app-switcher (you are
-//                  signing in TO the identity provider; the switcher would
-//                  invite you to leave). In that mode the header is not
-//                  required, but the canonical theme and locale controls are:
-//                  dropping the header must not cost a person their theme.
+//
+// Every tool wears the FULL chrome on auth — header and footer. nexoid used to
+// be a documented exception (focused auth: no header on the IdP), but crossing
+// from any tool's sign-in to nexoid's made the family look broken, so Alvaro
+// removed the exception on 2026-08-02: six tools, one chrome, no branches.
 //
 // The card marker is what tells "migrated" from "not yet": until the tool's
 // auth views render x-nexo-auth-card, the chrome assertions skip with a message
@@ -34,7 +32,6 @@ use Illuminate\Support\Facades\Route;
 
 // This tool has no email verification and no confirm-password screen.
 const AUTH_ROUTES = ['login', 'register', 'password.request'];
-const FOCUSED_AUTH = false;
 const AUTH_CARD_MARKER = 'data-nexo-auth-card';
 
 /** Parameters for auth routes that take one, e.g. ['password.reset' => ['token' => 'x']]. */
@@ -85,19 +82,6 @@ it('wraps the auth screens in the shared chrome', function () {
     foreach (authPages() as $name => $html) {
         if (! str_contains($html, AUTH_CARD_MARKER)) {
             test()->markTestSkipped("Auth not yet migrated to the canonical card ({$name}) — see STANDARD.md \"Auth y errores\".");
-        }
-
-        if (FOCUSED_AUTH) {
-            // Focused auth (nexoid): no header by design, but the person keeps
-            // the two controls that are theirs.
-            expect(str_contains($html, 'data-nexo-theme-toggle'))->toBeTrue(
-                "Route [{$name}] renders no x-nexo-theme-toggle. Focused auth may drop the header; it may not drop the theme control."
-            );
-            expect(str_contains($html, 'data-nexo-locale-switcher'))->toBeTrue(
-                "Route [{$name}] renders no x-nexo-locale-switcher. Focused auth may drop the header; it may not drop the language control."
-            );
-
-            continue;
         }
 
         expect(str_contains($html, 'nexo-header'))->toBeTrue("Route [{$name}] does not render x-nexo-header.");
