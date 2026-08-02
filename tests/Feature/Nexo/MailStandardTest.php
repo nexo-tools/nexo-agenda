@@ -257,6 +257,29 @@ it('never overrides the global sender', function () {
     }
 });
 
+it('writes its Spanish in the family register', function () {
+    if (nexoMails() === []) {
+        test()->markTestSkipped('No mail migrated to the family layout yet.');
+    }
+
+    // Tuteo neutro, sin voseo rioplatense (STANDARD.md "Contenido base",
+    // decidido 2026-07-29). El usuario cruza de una tool a otra en un clic y el
+    // registro no puede cambiar en el camino — y el correo, que se lee fuera
+    // del producto y días después, es donde más se nota.
+    // Solo formas con tilde en la última sílaba: aceptar [aá] haría que el check
+    // gritara también por el tuteo correcto ("olvidas", "copia y pega").
+    $voseo = '/\b(podés|tenés|querés|olvidás|encontrás|escribinos|decinos|pedila|restablecela|copiá|pegá|cambiá|confirmá|verificá|elegí|fuiste vos)\b/u';
+
+    $offenders = [];
+    foreach (nexoRenderAll('es') as $label => $parts) {
+        if (preg_match($voseo, strip_tags($parts['html']), $m)) {
+            $offenders[] = "{$label}: \"{$m[0]}\"";
+        }
+    }
+
+    expect($offenders)->toBe([], "Voseo in Spanish mail copy (the family register is tuteo neutro):\n".implode("\n", $offenders));
+});
+
 it('drains the mail queue from the scheduler', function () {
     if (nexoMails() === []) {
         test()->markTestSkipped('No mail migrated to the family layout yet.');
