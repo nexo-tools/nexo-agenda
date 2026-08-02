@@ -85,7 +85,9 @@ class AppBookingController extends Controller
 
         if ($booking->client_email !== null) {
             $booking->setRelations(['business' => $business, 'service' => $service, 'professional' => $professional]);
-            Mail::to($booking->client_email)->send(new BookingConfirmed($booking, $token['token']));
+            Mail::to($booking->client_email)
+                ->locale($booking->locale ?: config('app.locale'))
+                ->queue(new BookingConfirmed($booking, $token['token']));
         }
 
         return redirect()
@@ -105,7 +107,11 @@ class AppBookingController extends Controller
             $booking->cancel();
 
             if ($booking->client_email !== null) {
-                Mail::to($booking->client_email)->send(new BookingCancelled($booking->load(['business', 'service', 'professional'])));
+                // The client's language, not the owner's: this mail used to go
+                // out in whatever locale the person cancelling was browsing in.
+                Mail::to($booking->client_email)
+                    ->locale($booking->locale ?: config('app.locale'))
+                    ->queue(new BookingCancelled($booking->load(['business', 'service', 'professional'])));
             }
 
             app(WaitlistNotifier::class)->bookingCancelled($booking);

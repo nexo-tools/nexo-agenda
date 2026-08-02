@@ -22,7 +22,7 @@ use Illuminate\Support\Str;
  */
 #[Fillable([
     'professional_id', 'service_id', 'client_name', 'client_email', 'client_phone',
-    'note', 'starts_at', 'ends_at', 'status', 'management_token',
+    'locale', 'note', 'starts_at', 'ends_at', 'status', 'management_token',
 ])]
 class Booking extends Model
 {

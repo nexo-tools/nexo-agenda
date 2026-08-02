@@ -4,12 +4,17 @@ namespace App\Mail;
 
 use App\Models\Booking;
 use App\Models\WaitlistEntry;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
 
-class WaitlistSlotFreed extends Mailable
+class WaitlistSlotFreed extends Mailable implements ShouldQueue
 {
+    use Queueable, SerializesModels;
+
     public function __construct(
         public readonly WaitlistEntry $entry,
         public readonly Booking $booking,

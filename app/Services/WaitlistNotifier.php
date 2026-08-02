@@ -35,7 +35,12 @@ class WaitlistNotifier
             ->get();
 
         foreach ($entries as $entry) {
-            Mail::to($entry->client_email)->send(new WaitlistSlotFreed($entry, $booking));
+            // The waitlist entry has no locale of its own, and the person who
+            // cancelled is somebody else entirely: the instance language is the
+            // only honest default here.
+            Mail::to($entry->client_email)
+                ->locale(config('app.locale'))
+                ->queue(new WaitlistSlotFreed($entry, $booking));
             $entry->forceFill(['notified_at' => CarbonImmutable::now()])->save();
         }
     }

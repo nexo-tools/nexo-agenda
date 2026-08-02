@@ -29,7 +29,11 @@ class SendBookingReminders extends Command
             ->get();
 
         foreach ($bookings as $booking) {
-            Mail::to($booking->client_email)->send(new BookingReminder($booking));
+            // A scheduled command has no request: without the locale kept on
+            // the booking, every reminder went out in APP_LOCALE.
+            Mail::to($booking->client_email)
+                ->locale($booking->locale ?: config('app.locale'))
+                ->queue(new BookingReminder($booking));
             $booking->forceFill(['reminded_at' => $now])->save();
         }
 

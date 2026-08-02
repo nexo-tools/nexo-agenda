@@ -36,8 +36,8 @@ it('emails the client and the owner on a new public booking', function () {
     $response->assertSessionHasNoErrors();
     expect(Booking::count())->toBe(1);
 
-    Mail::assertSent(BookingConfirmed::class, fn ($mail) => $mail->hasTo('juan@example.com'));
-    Mail::assertSent(NewBookingReceived::class, fn ($mail) => $mail->hasTo($this->business->user->email));
+    Mail::assertQueued(BookingConfirmed::class, fn ($mail) => $mail->hasTo('juan@example.com'));
+    Mail::assertQueued(NewBookingReceived::class, fn ($mail) => $mail->hasTo($this->business->user->email));
 });
 
 it('emails the client when they cancel', function () {
@@ -53,7 +53,7 @@ it('emails the client when they cancel', function () {
 
     $this->post("/t/{$token}/cancelar");
 
-    Mail::assertSent(BookingCancelled::class, fn ($mail) => $mail->hasTo('juan@example.com'));
+    Mail::assertQueued(BookingCancelled::class, fn ($mail) => $mail->hasTo('juan@example.com'));
 });
 
 it('emails the client when they reschedule', function () {
@@ -69,7 +69,7 @@ it('emails the client when they reschedule', function () {
 
     $this->post("/t/{$token}/reprogramar", ['start' => '2026-07-27 11:00']);
 
-    Mail::assertSent(BookingRescheduled::class, fn ($mail) => $mail->hasTo('juan@example.com'));
+    Mail::assertQueued(BookingRescheduled::class, fn ($mail) => $mail->hasTo('juan@example.com'));
 });
 
 it('sends reminders once for bookings within 24 hours', function () {
@@ -91,13 +91,13 @@ it('sends reminders once for bookings within 24 hours', function () {
 
     $this->artisan('nexo:send-reminders')->assertSuccessful();
 
-    Mail::assertSent(BookingReminder::class, 1);
-    Mail::assertSent(BookingReminder::class, fn ($mail) => $mail->hasTo('pronto@example.com'));
+    Mail::assertQueued(BookingReminder::class, 1);
+    Mail::assertQueued(BookingReminder::class, fn ($mail) => $mail->hasTo('pronto@example.com'));
     expect($soon->refresh()->reminded_at)->not->toBeNull();
 
     // Second run must not resend.
     $this->artisan('nexo:send-reminders');
-    Mail::assertSent(BookingReminder::class, 1);
+    Mail::assertQueued(BookingReminder::class, 1);
 });
 
 it('generates a valid ics file', function () {

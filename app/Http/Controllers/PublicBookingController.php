@@ -129,6 +129,11 @@ class PublicBookingController extends Controller
                 'client_name' => $request->validated('client_name'),
                 'client_email' => $request->validated('client_email'),
                 'client_phone' => $request->validated('client_phone') ?: null,
+                // The language this person booked in. Everything sent later is
+                // triggered by somebody else (the owner cancels) or by nobody
+                // (the reminder runs from a command), so there is no request to
+                // read it from when it matters.
+                'locale' => app()->getLocale(),
                 'note' => $request->validated('note') ?: null,
                 'starts_at' => $start->utc(),
                 'ends_at' => $start->addMinutes($service->duration_minutes)->utc(),
@@ -143,8 +148,15 @@ class PublicBookingController extends Controller
         }
 
         $booking->setRelations(['business' => $business, 'service' => $service, 'professional' => $professional]);
-        Mail::to($booking->client_email)->send(new BookingConfirmed($booking, $token['token']));
-        Mail::to($business->user->email)->send(new NewBookingReceived($booking));
+        Mail::to($booking->client_email)
+            ->locale($booking->locale ?: config('app.locale'))
+            ->queue(new BookingConfirmed($booking, $token['token']));
+
+        // The owner reads their instance's language, not whatever the client
+        // happened to browse in: this used to arrive in the client's locale.
+        Mail::to($business->user->email)
+            ->locale(config('app.locale'))
+            ->queue(new NewBookingReceived($booking));
 
         return redirect()->route('booking.manage', $token['token']);
     }

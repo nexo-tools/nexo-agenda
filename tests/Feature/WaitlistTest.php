@@ -67,7 +67,7 @@ it('notifies matching entries when a booking is cancelled', function () {
 
     $this->post("/t/{$token}/cancelar");
 
-    Mail::assertSent(WaitlistSlotFreed::class, fn ($mail) => $mail->hasTo('espera@example.com'));
+    Mail::assertQueued(WaitlistSlotFreed::class, fn ($mail) => $mail->hasTo('espera@example.com'));
     expect(WaitlistEntry::first()->notified_at)->not->toBeNull();
 });
 
@@ -96,7 +96,7 @@ it('does not notify entries for other days services or professionals', function 
 
     $this->post("/t/{$token}/cancelar");
 
-    Mail::assertNotSent(WaitlistSlotFreed::class);
+    Mail::assertNotQueued(WaitlistSlotFreed::class);
 });
 
 it('notifies each entry only once', function () {
@@ -115,7 +115,7 @@ it('notifies each entry only once', function () {
         $this->post("/t/{$token}/cancelar");
     }
 
-    Mail::assertSent(WaitlistSlotFreed::class, 1);
+    Mail::assertQueued(WaitlistSlotFreed::class, 1);
 });
 
 it('notifies when the owner cancels from the dashboard', function () {
@@ -131,5 +131,5 @@ it('notifies when the owner cancels from the dashboard', function () {
     $this->actingAs($this->business->user)
         ->patch("/app/bookings/{$booking->id}/status", ['status' => 'cancelled']);
 
-    Mail::assertSent(WaitlistSlotFreed::class, fn ($mail) => $mail->hasTo('espera@example.com'));
+    Mail::assertQueued(WaitlistSlotFreed::class, fn ($mail) => $mail->hasTo('espera@example.com'));
 });

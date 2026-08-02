@@ -43,7 +43,9 @@ class BookingManagementController extends Controller
         $booking->cancel();
 
         if ($booking->client_email !== null) {
-            Mail::to($booking->client_email)->send(new BookingCancelled($booking->load(['business', 'service', 'professional'])));
+            Mail::to($booking->client_email)
+                ->locale($booking->locale ?: config('app.locale'))
+                ->queue(new BookingCancelled($booking->load(['business', 'service', 'professional'])));
         }
 
         $this->waitlist->bookingCancelled($booking);
@@ -123,7 +125,9 @@ class BookingManagementController extends Controller
         }
 
         if ($booking->client_email !== null) {
-            Mail::to($booking->client_email)->send(new BookingRescheduled($booking));
+            Mail::to($booking->client_email)
+                ->locale($booking->locale ?: config('app.locale'))
+                ->queue(new BookingRescheduled($booking));
         }
 
         return redirect()->route('booking.manage', $token)->with('status', __('Your appointment was rescheduled.'));
