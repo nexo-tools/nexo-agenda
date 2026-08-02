@@ -11,6 +11,7 @@ use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -70,6 +71,7 @@ class DemoSeeder extends Seeder
             ->create(['name' => $name]));
 
         $this->seedBookings($business, $services, $professionals);
+        $this->seedVisits($business);
 
         $this->command->info('Demo listo: demo@nexoagenda.test / password → /estudio-nexo');
     }
@@ -131,5 +133,41 @@ class DemoSeeder extends Seeder
                 ]);
             }
         }
+    }
+
+    /**
+     * Visits to the public page, one row per visitor-day (the table's unique
+     * key is the dedupe). Without them the stats screen divides bookings by the
+     * single visit the capture run itself made and reports a 600% booking rate
+     * — an honest calculation over dishonest data, and the landing photographs
+     * that screen.
+     *
+     * Hand-written rather than random: a booking page gets a handful of looks a
+     * day, more on the days people actually book.
+     */
+    private function seedVisits(Business $business): void
+    {
+        $perDay = [7, 11, 9, 14, 8, 6, 12, 19, 15, 10, 8, 13, 17, 21, 12, 9, 11, 16, 23, 14, 10, 8, 12, 18, 15, 11, 9, 14, 20, 16];
+
+        $today = CarbonImmutable::now($business->timezone)->startOfDay();
+
+        DB::table('page_visits')->where('business_id', $business->id)->delete();
+
+        $rows = [];
+        foreach ($perDay as $offset => $count) {
+            $day = $today->subDays(count($perDay) - 1 - $offset);
+
+            for ($i = 0; $i < $count; $i++) {
+                $rows[] = [
+                    'business_id' => $business->id,
+                    'date' => $day->toDateString(),
+                    'visitor_hash' => hash('sha256', 'demo-visit-'.$business->id.'-'.$i.'-'.$day->toDateString()),
+                    'created_at' => $day->addHours(9)->addMinutes(($i * 29) % 600),
+                    'updated_at' => $day->addHours(9)->addMinutes(($i * 29) % 600),
+                ];
+            }
+        }
+
+        DB::table('page_visits')->insert($rows);
     }
 }
