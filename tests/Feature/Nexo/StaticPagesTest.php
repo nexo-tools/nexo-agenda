@@ -14,10 +14,25 @@ use Illuminate\Support\Facades\Route;
 // short-link host only needs a minimal 404), drop it from $codes and record the
 // exception in the tool's AGENTS.md.
 //
+// v2 (2026-08-02) also asserts what the error page WEARS: the tool chrome and a
+// noindex. This tool served its errors as a bare document — favicon, app name,
+// message — so the one surface where a person needs the way out most was the
+// one without a header, a footer or a theme toggle.
+//
 // Pest note: toContain() is variadic — a second argument is another needle, not
 // a failure message — so human-readable messages go through toBeTrue()/toBeFalse().
 
 $codes = [403, 404, 419, 429, 500, 503];
+
+// Hosts whose error pages are deliberately chrome-less (the isolated short-link
+// host of nexoshort). This tool has none.
+const ISOLATED_ERROR_HOSTS = [];
+
+/** The URL whose 404 must carry the tool chrome. */
+function chromeErrorUrl(string $path): string
+{
+    return $path;
+}
 
 it('ships an error view for every code the standard requires', function () use ($codes) {
     $missing = array_values(array_filter(
@@ -49,13 +64,30 @@ it('serves a branded 404 instead of the framework default', function () {
     // production behaviour explicitly. Same as tests/Feature/ErrorPagesTest.
     config(['app.debug' => false]);
 
-    $html = $this->get('/this-path-does-not-exist-'.uniqid())
+    $url = chromeErrorUrl('/this-path-does-not-exist-'.uniqid());
+
+    $html = $this->get($url)
         ->assertNotFound()
         ->getContent();
 
     // The chrome renders, so the page belongs to the product.
     expect($html)->toContain('404');
     expect(str_contains($html, 'Whoops, looks like something went wrong'))->toBeFalse('Laravel default error page is still being served.');
+
+    $host = parse_url($url, PHP_URL_HOST) ?: parse_url((string) config('app.url'), PHP_URL_HOST);
+    if (in_array($host, ISOLATED_ERROR_HOSTS, true)) {
+        return;
+    }
+
+    // Chrome, not just branding: an error page that drops the header drops the
+    // theme toggle, the language switcher and the way back with it.
+    expect(str_contains($html, 'nexo-header'))->toBeTrue('The 404 does not render x-nexo-header — use the canonical error-layout.');
+    expect(str_contains($html, 'nexo-footer'))->toBeTrue('The 404 does not render x-nexo-footer — use the canonical error-layout.');
+
+    // And it stays out of the index. Asserting the rendered meta (not the
+    // include) also catches a head that quietly ignores the noindex flag.
+    expect(preg_match('/<meta[^>]+name=["\']robots["\'][^>]+noindex/i', $html))
+        ->toBe(1, 'The 404 is missing <meta name="robots" content="noindex">.');
 });
 
 it('serves the legal pages and links them from each other', function () {
