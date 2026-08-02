@@ -42,7 +42,7 @@
   background: var(--nexo-surface); border-bottom: 1px solid var(--nexo-border);
   color: var(--nexo-text);
 }
-.nexo-header__brand { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; font-weight: 700; }
+.nexo-header__brand { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; font-weight: 700; white-space: nowrap; }
 .nexo-header__brand img, .nexo-header__brand svg { width: 32px; height: 32px; display: block; }
 .nexo-header__nav { display: none; gap: 0.25rem; margin-inline-start: 0.5rem; }
 .nexo-header__spacer { flex: 1; }
