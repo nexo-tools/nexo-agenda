@@ -1,0 +1,92 @@
+{
+  "_comment": "Screenshot manifest for `node ~/alvaro/scripts/nexo-shots.mjs .`. Underscore-prefixed keys are comments (JSON has none) — the script ignores them.",
+  "_rules": "LOCAL instance only, seeded with DemoSeeder (design.md, Family): `docker compose up -d` then `artisan migrate:fresh --seed --seeder=DemoSeeder`. Never production — these figures are the landing's proof, and the proof cannot be somebody's real clients.",
+  "_cache": "Run `artisan cache:clear` after any `npm run build` and before capturing: the public business page is cached rendered for an hour, asset URLs included, so a cached copy keeps asking for the previous build's hashed CSS and the figure comes out unstyled.",
+  "_dates": "Bookings are seeded relative to now(), so these captures are not byte-deterministic across days — the agenda legitimately shows today. Known and accepted for this tool.",
+  "_brand": "The storefront renders in the BUSINESS's colour (teal, from the seeder), not Nexo violet: the public layout re-derives the whole scale from brand_color. That is the product working, not a drift.",
+  "baseUrl": "http://localhost:8101",
+  "login": {
+    "path": "/login?lang=es",
+    "email": "demo@nexoagenda.test",
+    "password": "password"
+  },
+  "shots": [
+    {
+      "_comment": "producto step 1 — the public booking page a client actually opens.",
+      "name": "pagina",
+      "path": "/estudio-nexo?lang=es",
+      "viewport": { "width": 1280, "height": 800 },
+      "themes": ["light", "dark"],
+      "out": "public/landing/shot-1",
+      "fullPage": false
+    },
+    {
+      "_comment": "producto step 1, on the phone — which is where a booking link is opened.",
+      "name": "pagina-mobile",
+      "path": "/estudio-nexo?lang=es",
+      "viewport": { "width": 390, "height": 844 },
+      "themes": ["light", "dark"],
+      "out": "public/landing/shot-1-mobile",
+      "fullPage": false
+    },
+    {
+      "_comment": "producto step 2 — the week view, one column per professional, with the seeded bookings in place.",
+      "name": "agenda",
+      "path": "/app?view=week&lang=es",
+      "viewport": { "width": 1280, "height": 800 },
+      "themes": ["light", "dark"],
+      "out": "public/landing/shot-2",
+      "fullPage": false,
+      "auth": true
+    },
+    {
+      "_comment": "producto step 2, on the phone.",
+      "name": "agenda-mobile",
+      "path": "/app?view=week&lang=es",
+      "viewport": { "width": 390, "height": 844 },
+      "themes": ["light", "dark"],
+      "out": "public/landing/shot-2-mobile",
+      "fullPage": false,
+      "auth": true
+    },
+    {
+      "_comment": "producto step 3 — the numbers: KPIs and bookings per day.",
+      "name": "stats",
+      "path": "/app/estadisticas?lang=es",
+      "viewport": { "width": 1280, "height": 800 },
+      "themes": ["light", "dark"],
+      "out": "public/landing/shot-3",
+      "fullPage": false,
+      "auth": true
+    },
+    {
+      "_comment": "producto step 3, on the phone.",
+      "name": "stats-mobile",
+      "path": "/app/estadisticas?lang=es",
+      "viewport": { "width": 390, "height": 844 },
+      "themes": ["light", "dark"],
+      "out": "public/landing/shot-3-mobile",
+      "fullPage": false,
+      "auth": true
+    },
+    {
+      "_comment": "Mobile-first: the gate's evidence is the landing at 375px, light and dark (STANDARD.md).",
+      "name": "landing-mobile",
+      "path": "/?lang=es",
+      "viewport": { "width": 375, "height": 812 },
+      "themes": ["light", "dark"],
+      "out": "public/landing/shot-mobile",
+      "fullPage": false
+    },
+    {
+      "_comment": "The README's home shot (public-readme requires docs/screenshots/home-{light,dark}.png): PNG, fullPage.",
+      "name": "home",
+      "path": "/?lang=es",
+      "viewport": { "width": 1280, "height": 800 },
+      "themes": ["light", "dark"],
+      "out": "docs/screenshots/home",
+      "fullPage": true,
+      "format": "png"
+    }
+  ]
+}
