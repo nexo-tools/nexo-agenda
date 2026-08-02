@@ -268,7 +268,7 @@ it('writes its Spanish in the family register', function () {
     // del producto y días después, es donde más se nota.
     // Solo formas con tilde en la última sílaba: aceptar [aá] haría que el check
     // gritara también por el tuteo correcto ("olvidas", "copia y pega").
-    $voseo = '/\b(podés|tenés|querés|olvidás|encontrás|escribinos|decinos|pedila|restablecela|copiá|pegá|cambiá|confirmá|verificá|elegí|fuiste vos)\b/u';
+    $voseo = '/\b(podés|tenés|querés|olvidás|encontrás|escribinos|decinos|pedila|restablecela|copiá|pegá|cambiá|confirmá|verificá|elegí|fuiste vos)\b/iu';
 
     $offenders = [];
     foreach (nexoRenderAll('es') as $label => $parts) {
