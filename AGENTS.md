@@ -194,7 +194,7 @@ duplicate it here; append new decisions there via `docs:` commits.
 ## Accumulated context
 
 <!-- Newest first, dated. Persist non-obvious context for the next session. -->
-
+- **2026-08-02** — **Ola de estandarización transversal.** Los siete mails pasaron a la plantilla de familia, **todos encolados** (antes eran síncronos dentro del request: un SMTP caído rompía una reserva) y con el locale pineado al despachar — `bookings.locale` guarda el idioma del cliente porque quien cancela suele ser otra persona y el recordatorio corre sin request. Tres mails nuevos: aviso al dueño cuando el cliente cancela o reprograma, y confirmación al anotarse en la lista de espera. El reset dejó de ser el default en inglés del framework y hay verificación de email (no bloquea el panel). `/ayuda` → `/help` con 301. El dedup de la lista de espera es ahora un unique con plan de datos. Guardianes nuevos: `MailStandardTest`, `DatabaseStandardTest`, `OperatorAlertTest`, `RateLimitTest`, `AuthChromeTest`. 239 → 273 tests.
 - **2026-07-29** — **Ecosystem UX/UI audit applied (ux 2.1–2.11).** Two findings are
   worth remembering because neither is visible while developing. (1) **The CSP kills
   inline handlers**: every `onchange`/`onsubmit` in the views was dead in production —
