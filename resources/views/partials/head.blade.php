@@ -24,4 +24,11 @@
 
 @include('partials.theme-init')
 
+{{-- @vite builds the woff2 files but never asks for them: the @font-face rules
+     only ship if Vite::fonts() emits them. Without this line the family face is
+     published to public/build/assets and nobody requests it, so every page falls
+     back to the system stack. It goes before @vite so the face is known when the
+     CSS lands. --}}
+{{ Vite::fonts() }}
+
 @vite(['resources/css/app.css', 'resources/js/app.js'])

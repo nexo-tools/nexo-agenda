@@ -57,8 +57,10 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    /* System fonts only — zero external requests (from --nexo-font-sans). */
-    --font-sans: var(--nexo-font-sans);
+    /* The family face (design.md, "Typography"), self-hosted via
+       laravel-vite-plugin/fonts — still zero external requests at runtime; the
+       Nexo system stack stays behind it as the fallback. */
+    --font-sans: 'Instrument Sans', var(--nexo-font-sans);
     --font-mono: var(--nexo-font-mono);
 
     /* Brand scale → Nexo violet tokens (see nexo-tokens.css / docs/BRAND.md).
