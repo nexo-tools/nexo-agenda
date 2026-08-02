@@ -51,10 +51,13 @@ class DemoSeeder extends Seeder
             'brand_color' => '#0d9488',
         ]);
 
+        // Prices in whole pesos (the column is decimal:2 and the storefront
+        // prints them as-is): plausible CABA salon prices, not placeholders
+        // with three extra zeros.
         $services = collect([
-            ['name' => 'Corte clásico', 'duration_minutes' => 30, 'price' => 800000],
-            ['name' => 'Corte + barba', 'duration_minutes' => 45, 'price' => 1100000],
-            ['name' => 'Color', 'duration_minutes' => 90, 'price' => 2500000],
+            ['name' => 'Corte clásico', 'duration_minutes' => 30, 'price' => 18000],
+            ['name' => 'Corte + barba', 'duration_minutes' => 45, 'price' => 26000],
+            ['name' => 'Color', 'duration_minutes' => 90, 'price' => 75000],
         ])->map(fn (array $attributes) => $business->services()->create([
             ...$attributes,
             'mode' => 'in_person',
@@ -124,10 +127,17 @@ class DemoSeeder extends Seeder
             ]);
 
             if ($status === BookingStatus::Attended) {
+                // One voice per reviewer: two identical reviews side by side is
+                // the one thing that gives a seeded storefront away.
+                $reviews = [
+                    'Carla Núñez' => ['rating' => 5, 'comment' => 'Excelente atención, muy recomendable.'],
+                    'Diego Torres' => ['rating' => 4, 'comment' => 'Puntuales y prolijos. El corte quedó igual al que pedí.'],
+                ];
+
                 $business->reviews()->create([
                     'booking_id' => $booking->id,
-                    'rating' => 5,
-                    'comment' => 'Excelente atención, muy recomendable.',
+                    'rating' => $reviews[$client]['rating'] ?? 5,
+                    'comment' => $reviews[$client]['comment'] ?? 'Muy buena experiencia.',
                     'client_name' => $client,
                     'is_hidden' => false,
                 ]);
