@@ -32,7 +32,7 @@ return [
             ],
             [
                 'h' => 'Qué guardamos de quien reserva un turno',
-                'p' => 'El nombre que escribes al reservar, un email o un teléfono para poder confirmarte y avisarte, y la nota que dejes si quieres. Con eso se arma el turno: servicio, profesional, día y hora. No creamos una cuenta ni te pedimos contraseña. Esos datos son visibles para el negocio donde reservaste —es quien necesita saber a quién atiende— y aparecen en su agenda, en su listado de clientes y en los archivos CSV que descargue.',
+                'p' => 'El nombre que escribes al reservar, un email o un teléfono para poder confirmarte y avisarte, la nota que dejes si quieres, y el idioma en el que reservaste —para escribirte en ese idioma y no en otro—. Con eso se arma el turno: servicio, profesional, día y hora. No creamos una cuenta ni te pedimos contraseña. Esos datos son visibles para el negocio donde reservaste —es quien necesita saber a quién atiende— y aparecen en su agenda, en su listado de clientes y en los archivos CSV que descargue.',
             ],
             [
                 'h' => 'El enlace para gestionar tu turno',

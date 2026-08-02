@@ -7,7 +7,7 @@
 
     Then a mail view is:
 
-        <x-nexo-mail::layout :title="__("Your ticket")" :preheader="...">
+        <x-nexo-mail::layout :title="__(…)" :preheader="...">
             ...body...
         </x-nexo-mail::layout>
 

@@ -5,7 +5,7 @@
     templates/nexo-mail/README.md): clients that block images and proxies that
     rewrite hrefs both eat buttons, and the person still has to get in.
 
-        <x-nexo-mail::button :url="$url">{{ __("View my ticket") }}</x-nexo-mail::button>
+        <x-nexo-mail::button :url="$url">{{ __(…) }}</x-nexo-mail::button>
 --}}
 @props(['url'])
 

@@ -5,8 +5,8 @@
     and fixed rather than percentage-based.
 
         <x-nexo-mail::panel :rows="[
-            __("Event") => $event->title,
-            __("When") => $event->starts_at->translatedFormat(__("app.datetime")),
+            __(…) => $event->title,
+            __(…) => $event->starts_at,
         ]" />
 --}}
 @props(['rows' => []])

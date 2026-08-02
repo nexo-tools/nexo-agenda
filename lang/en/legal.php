@@ -25,7 +25,7 @@ return [
             ],
             [
                 'h' => 'What we store about the person booking',
-                'p' => 'The name you type when booking, an email or a phone number so we can confirm the appointment and reach you, and the note you leave if you want to. That is what makes up the booking: service, professional, day and time. We do not create an account and never ask you for a password. Those details are visible to the business you booked with — it is the one that needs to know who is coming — and appear in its calendar, its client list and the CSV files it downloads.',
+                'p' => 'The name you type when booking, an email or a phone number so we can confirm the appointment and reach you, the note you leave if you want to, and the language you booked in — so we write to you in that one and not another. That is what makes up the booking: service, professional, day and time. We do not create an account and never ask you for a password. Those details are visible to the business you booked with — it is the one that needs to know who is coming — and appear in its calendar, its client list and the CSV files it downloads.',
             ],
             [
                 'h' => 'The link to manage your appointment',

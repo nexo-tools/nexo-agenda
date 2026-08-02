@@ -7,6 +7,7 @@ use App\Models\Professional;
 use App\Models\Service;
 use App\Models\WaitlistEntry;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Testing\TestResponse;
 
@@ -132,4 +133,25 @@ it('notifies when the owner cancels from the dashboard', function () {
         ->patch("/app/bookings/{$booking->id}/status", ['status' => 'cancelled']);
 
     Mail::assertQueued(WaitlistSlotFreed::class, fn ($mail) => $mail->hasTo('espera@example.com'));
+});
+
+it('refuses a duplicate waitlist entry at the database level, not just in code', function () {
+    // The application check ran before this constraint existed, and it held
+    // right up until two requests arrived at once — a double tap on a phone.
+    $business = Business::factory()->create();
+    $service = Service::factory()->for($business)->create();
+    $professional = Professional::factory()->for($business)->create();
+
+    $row = [
+        'service_id' => $service->id,
+        'professional_id' => $professional->id,
+        'date' => '2026-08-10',
+        'client_name' => 'Ana',
+        'client_email' => 'ana@example.com',
+    ];
+
+    $business->waitlistEntries()->create($row);
+
+    expect(fn () => $business->waitlistEntries()->create($row))
+        ->toThrow(QueryException::class);
 });

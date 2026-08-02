@@ -25,7 +25,7 @@ return [
             ],
             [
                 'h' => 'O que guardamos de quem agenda um horário',
-                'p' => 'O nome que você escreve ao agendar, um e-mail ou telefone para confirmarmos e avisarmos você, e a observação que quiser deixar. É com isso que o horário é montado: serviço, profissional, dia e hora. Não criamos conta nem pedimos senha. Esses dados ficam visíveis para o negócio onde você agendou — é ele que precisa saber quem vai atender — e aparecem na agenda dele, na sua lista de clientes e nos arquivos CSV que ele baixar.',
+                'p' => 'O nome que você escreve ao agendar, um e-mail ou telefone para confirmarmos e avisarmos você, a observação que quiser deixar, e o idioma em que você agendou — para escrevermos nesse idioma e não em outro. É com isso que o horário é montado: serviço, profissional, dia e hora. Não criamos conta nem pedimos senha. Esses dados ficam visíveis para o negócio onde você agendou — é ele que precisa saber quem vai atender — e aparecem na agenda dele, na sua lista de clientes e nos arquivos CSV que ele baixar.',
             ],
             [
                 'h' => 'O link para gerenciar seu horário',
