@@ -47,6 +47,12 @@
 .nexo-header__nav { display: none; gap: 0.25rem; margin-inline-start: 0.5rem; }
 .nexo-header__spacer { flex: 1; }
 .nexo-header__actions { display: flex; align-items: center; gap: 0.25rem; }
+/* The landing's auth ghost yields the phone header to the brand: at 375px the
+   header cannot hold wordmark + switchers + a text button (the wordmark alone
+   is ~94-115px on one line), and the hero repeats the same action a thumb's
+   reach below. From sm up there is room and it returns. */
+.nexo-header__auth { display: none; }
+@media (min-width: 640px) { .nexo-header__auth { display: inline-flex; } }
 @media (min-width: 768px) { .nexo-header__nav { display: flex; } }
 
 /* ---- Dropdown menus (app-switcher, locale, account) ------------------ */
