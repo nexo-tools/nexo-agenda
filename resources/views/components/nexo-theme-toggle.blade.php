@@ -3,6 +3,7 @@
 <button
     type="button"
     class="nexo-btn nexo-btn--ghost nexo-btn--icon"
+    data-nexo-theme-toggle
     x-data="nexoTheme"
     @click="toggle()"
     :aria-label="dark ? @js(__('nexo.theme.light')) : @js(__('nexo.theme.dark'))"

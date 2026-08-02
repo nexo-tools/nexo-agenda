@@ -1,5 +1,5 @@
 <x-guest-layout :title="__('Create your account')">
-    <h1 class="mb-1 text-xl font-bold">{{ __('Create your account') }}</h1>
+    <h1 class="mb-1 text-xl font-semibold">{{ __('Create your account') }}</h1>
     <p class="mb-6 text-sm text-muted">{{ __('Your business taking bookings in minutes.') }}</p>
 
     <form method="POST" action="{{ route('register') }}" class="space-y-4">

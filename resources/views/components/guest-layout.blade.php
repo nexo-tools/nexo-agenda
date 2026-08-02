@@ -23,9 +23,9 @@
         <x-nexo-header brand="Nexo Agenda" mark="/ecosystem/nexoagenda.svg" :home="route('home')" />
 
         <main id="contenido" class="flex flex-1 flex-col items-center justify-center px-4 py-10">
-            <div class="w-full max-w-md rounded-2xl bg-surface p-6 shadow-sm sm:p-8">
+            <x-nexo-auth-card>
                 {{ $slot }}
-            </div>
+            </x-nexo-auth-card>
         </main>
 
         <x-nexo-footer />

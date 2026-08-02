@@ -1,5 +1,5 @@
 <x-guest-layout :title="__('New password')">
-    <h1 class="mb-6 text-xl font-bold">{{ __('New password') }}</h1>
+    <h1 class="mb-6 text-xl font-semibold">{{ __('New password') }}</h1>
 
     <form method="POST" action="{{ route('password.store') }}" class="space-y-4">
         @csrf
