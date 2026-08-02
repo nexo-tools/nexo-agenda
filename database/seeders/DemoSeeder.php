@@ -83,12 +83,25 @@ class DemoSeeder extends Seeder
         $tz = $business->timezone;
         $today = CarbonImmutable::now($tz)->startOfDay();
 
+        // The professional and the service come from the round-robin below, so
+        // the ORDER of this list is what assigns them: even index → Ana, odd →
+        // Luis. The last four entries were appended rather than inserted for
+        // exactly that reason — inserting would have reassigned every booking
+        // that came before them.
+        //
+        // Today's rows exist because the dashboard opens on the day view: with
+        // nothing at offset 0 the first screen an owner (or a screenshot) sees
+        // is an empty agenda, which is the one thing the landing must not show.
         $plan = [
             [1, '10:00', BookingStatus::Confirmed, 'Sofía Ramírez'],
             [1, '11:30', BookingStatus::Confirmed, 'Martín Díaz'],
             [-2, '15:00', BookingStatus::Attended, 'Carla Núñez'],
             [-5, '16:30', BookingStatus::Attended, 'Diego Torres'],
             [-3, '12:00', BookingStatus::NoShow, 'Paula Vega'],
+            [0, '11:30', BookingStatus::Confirmed, 'Lucía Ferrer'],   // Luis
+            [0, '10:00', BookingStatus::Confirmed, 'Tomás Aguirre'],  // Ana
+            [2, '14:00', BookingStatus::Confirmed, 'Valeria Sosa'],   // Luis
+            [0, '15:30', BookingStatus::Confirmed, 'Nicolás Peña'],   // Ana
         ];
 
         foreach ($plan as $index => [$dayOffset, $time, $status, $client]) {

@@ -16,7 +16,7 @@ it('seeds a populated demo business', function () {
     expect($business)->not->toBeNull();
     expect($business->services()->count())->toBe(3);
     expect($business->professionals()->count())->toBe(2);
-    expect($business->bookings()->count())->toBe(5);
+    expect($business->bookings()->count())->toBe(9);
     expect(Review::count())->toBe(2);
 });
 
@@ -26,5 +26,5 @@ it('is idempotent when run twice', function () {
 
     expect(User::where('email', 'demo@nexoagenda.test')->count())->toBe(1);
     expect(Business::where('slug', 'estudio-nexo')->count())->toBe(1);
-    expect(Booking::count())->toBe(5);
+    expect(Booking::count())->toBe(9);
 });
